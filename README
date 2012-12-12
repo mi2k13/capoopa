@@ -1,0 +1,37 @@
+﻿=========
+ CAPOOPA
+=========
+
+Capoopa est une application mobile de défis entre amis.
+Page Github du projet : https://github.com/maellep/capoopa
+
+  Auteurs :
+    Anne Delort
+    Arnaud Desfontaines
+    Antoine François
+    Maxime Ippolito
+    Nicolas Kniebihler
+    Maëlle Parez
+
+  Copyright © 2012
+
+
+---------
+ Détails
+---------
+
+Ce projet est réalisé dans le cadre d'une unité programmation web à l'IMAC.
+
+Grâce à cette application, vous pouvez lancer des défis à vos amis ou à la communauté capoopa.
+Réalisez des défis grâce à des preuves vidéo, et gagnez en prestige au sein de la communauté !
+
+
+--------------
+ Arborescence
+--------------
+
+app :
+  Contient l'application smartphone.
+
+api :
+  Contient l'API (gestion de la base de données).
