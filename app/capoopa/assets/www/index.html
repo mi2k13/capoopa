@@ -4,11 +4,12 @@
   <title>Capoopa</title> 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <meta http-equiv="Content-Type" content="text/ html; charset=UTF-8" />
 
-  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-  <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-  <meta http-equiv="Access-Control-Allow-Origin" content="*"> 
+  <link rel="stylesheet" href="css/main.css" />
+  <script src="lib/jquery-1.8.2.min.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  
 
 </head> 
 <body>
@@ -17,45 +18,92 @@
 
 <div data-role="page">
 
-  <div data-role="header">
-    <h1>Challenge List</h1>
+  <div class="top-bar">
+    <h1>Mes défis</h1>
   </div><!-- /header -->
 
-  <div data-role="content"> 
 
-    <ul data-role="listview" id="challenges"></ul>
+  <div class="content"> 
+    <h2 class="toggle toggle-top">En cours</h2>
+    <ul class="list toggleContent" id="challenges">
+      <li class="open-right">
+        <a href="">
+          <h3 class="ui-li-heading">bla bli</h3>
+          <p class="ui-li-desc">chat</p>
+        </a>
+      </li>  
+      <li class="open-right">
+        <a href="">
+          <h3 class="ui-li-heading">blasf ert bli</h3>
+          <p class="ui-li-desc">carotte</p>
+        </a>
+      </li>      
+    </ul>
+    
+    <h2 class="toggle toggle-top">Terminés</h2>
+    <ul class="list toggleContent" id="challenges">
+      <li class="open-right">
+        <a href="">
+          <h3 class="ui-li-heading">bla bli</h3>
+          <p class="ui-li-desc">chat</p>
+        </a>
+      </li>  
+      <li class="open-right">
+        <a href="">
+          <h3 class="ui-li-heading">blasf ert bli</h3>
+          <p class="ui-li-desc">carotte</p>
+        </a>
+      </li>      
+    </ul>
+
+    <h2 class="toggle toggle-top">Proposés</h2>
+    <ul class="list toggleContent" id="challenges">
+      <li class="open-right">
+        <a href="">
+          <h3 class="ui-li-heading">bla bli</h3>
+          <p class="ui-li-desc">chat</p>
+        </a>
+      </li>  
+      <li class="open-right">
+        <a href="">
+          <h3 class="ui-li-heading">blasf ert bli</h3>
+          <p class="ui-li-desc">carotte</p>
+        </a>
+      </li>      
+    </ul>
+       
+    </div>
 
   </div><!-- /content -->
-  
-  <div data-role="footer" data-position="fixed" data-iconpos="top">    
-    <div data-role="navbar">
-      <ul>
-        <li>
-          <a class="ui-btn" href="#">
-            <span class="ui-btn-text">Mes défis</span>
-            <img src="img/menu/see.png" alt=""/>
-          </a>
-        </li>
-        <li>
-          <a class="ui-btn" href="#">
-            <span class="ui-btn-text">Consulter</span>
-            <img src="img/menu/see.png" alt=""/>
-          </a>
-        </li>
-        <li>
-          <a class="ui-btn" href="#">
-            <span class="ui-btn-text">Noter</span>
-            <img src="img/menu/see.png" alt=""/>
-          </a>
-        </li>
-        <li>
-          <a class="ui-btn" href="#">
-            <span class="ui-btn-text">Proposer</span>
-            <img src="img/menu/see.png" alt=""/>
-          </a>
-        </li>
-      </ul>
-    </div><!-- /navbar -->
+
+
+  <div class="footer">    
+    <ul class="navbar">
+      <li>
+        <a class="ui-btn" href="#">
+          <img src="img/menu/see.png" alt=""/>
+          <span class="ui-btn-text">Mes défis</span>
+        </a>
+      </li>
+      <li>
+        <a class="ui-btn" href="#">
+          <img src="img/menu/see.png" alt=""/>
+          <span class="ui-btn-text">Consulter</span>
+        </a>
+      </li>
+      <li>
+        <a class="ui-btn" href="#">
+          <img src="img/menu/see.png" alt=""/>
+          <span class="ui-btn-text">Noter</span>
+        </a>
+      </li>
+      <li>
+        <a class="ui-btn" href="#">
+          <img src="img/menu/see.png" alt=""/>
+          <span class="ui-btn-text">Proposer</span>
+        </a>
+      </li>
+    </ul>
   </div><!-- /footer -->
   
 </div><!-- /page -->

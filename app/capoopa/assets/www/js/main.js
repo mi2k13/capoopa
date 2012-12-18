@@ -1,11 +1,28 @@
 $(document).ready(function(){
-    $.getJSON("js/storage/challenges.json", function(data){
-          $.each(data, function(key, item) {
-            d = document.createElement('li');
-            $(d).attr('class','ui-li ui-li-static ui-btn-up-c').appendTo('#challenges');
-            $("<img/>").addClass('ul-li-thumb').attr('src', 'img/category/' + item.category + '.png').appendTo(d);
-            $("<h3/>").addClass('ui-li-heading').text(item.title).appendTo(d);
-            $("<p/>").addClass('ui-li-desc').text(item.category).appendTo(d);
-          });
-        });
-  });
+    /*$.getJSON("js/storage/challenges.json", function(data){
+      $.each(data, function(key, item) {
+        liItem = document.createElement('li');
+        $(liItem).appendTo('#challenges');
+        link = document.createElement('a');
+        $(link).attr('href', '#').appendTo(liItem);
+        $("<img/>").addClass('thumb').attr('src', 'img/category/' + item.category + '.png').appendTo(link);
+        $("<h3/>").addClass('ui-li-heading').text(item.title).appendTo(link);
+        $("<p/>").addClass('ui-li-desc').text(item.category).appendTo(link);
+      });
+    });*/
+
+    $('.toggle').click(function() {
+      if ($(this).hasClass('toggle-top')) {
+        $(this).removeClass('toggle-top');
+        $(this).addClass('toggle-bottom');
+      }
+      else if ($(this).addClass('toggle-bottom')) {
+        $(this).removeClass('toggle-bottom');
+        $(this).addClass('toggle-top');
+      }
+
+      $(this).next('.toggleContent').slideToggle('slow', function() {
+        // Animation complete.
+      });
+    });
+});
