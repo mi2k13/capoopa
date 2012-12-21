@@ -7,7 +7,10 @@ $(document).ready(function(){
       processData: 'false',
       type: "GET",
       success: function(data, textStatus, jqXHR) {
-        listChallenges(data.objects, '#current-challenges');
+        /*var source   = $("#challenges-tpl").html();
+        var template = Handlebars.compile(source);
+        $("#content-placeholder").html(template(data.objects[0]));*/
+        loadTemplate('challenges', data.objects)
       }
     });
 
@@ -29,14 +32,17 @@ function toggleMenu() {
     });
 }
 
-function listChallenges(data, list) {
-  $.each(data, function(key, item) {
-    liItem = document.createElement('li');
-    $(liItem).addClass('open-right').appendTo(list);
-    link = document.createElement('a');
-    $(link).attr('href', '#').appendTo(liItem);
-    $("<img/>").addClass('thumb').attr('src', 'img/category/' + item.category + '.png').appendTo(link);
-    $("<h3/>").addClass('ui-li-heading').text(item.title).appendTo(link);
-    $("<p/>").addClass('ui-li-desc').text(item.category).appendTo(link);
-  });
-}
+function loadTemplate(templateName, templateInput) {
+    var source;
+    var template;
+    var path = 'tpl/' + templateName + '.html';
+    $.ajax({
+        url: path,
+        cache: true,
+        success: function (data) {
+            source = data;
+            template = Handlebars.compile(source);
+            $('#' + templateName).html(template({tpl: templateInput}));
+        }
+    });
+};

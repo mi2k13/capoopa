@@ -16,38 +16,30 @@
 
 
 
-<div data-role="page">
+  <div data-role="page">
 
-  <div class="top-bar">
-    <h1>Mes défis</h1>
-  </div><!-- /header -->
-
-
-  <div class="content"> 
-    <h2 class="toggle toggle-top">En cours</h2>
-    <ul class="list toggleContent" id="current-challenges"></ul>
-    
-    <h2 class="toggle toggle-top">Terminés</h2>
-  <ul class="list toggleContent" id="finished-challenges"></ul>
-
-    <h2 class="toggle toggle-top">Proposés</h2>
-    <ul class="list toggleContent" id="submitted-challenges"></ul>
-       
+    <div class="top-bar">
+      <h1>Consulter</h1>
     </div>
 
-  </div><!-- /content -->
+    <div class="content">
+      <h2 class="toggle toggle-top">Défis</h2>
+      <div id="challenges"></div> <!-- hbtemplate -->
+    </div>
+
+  </div>
 
 
   <div class="footer">    
     <ul class="navbar">
       <li>
-        <a class="ui-btn" href="login.html">
+        <a class="ui-btn" href="myChallenges.html">
           <img src="img/menu/see.png" alt=""/>
           <span class="ui-btn-text">Mes défis</span>
         </a>
       </li>
       <li>
-        <a class="ui-btn" href="#">
+        <a class="ui-btn" href="index.html">
           <img src="img/menu/see.png" alt=""/>
           <span class="ui-btn-text">Consulter</span>
         </a>
@@ -65,12 +57,12 @@
         </a>
       </li>
     </ul>
-  </div><!-- /footer -->
+  </div>
   
-</div><!-- /page -->
+</div>
 
 
-<script src="js/storage/memory-store.js"></script>
+<script src="js/handlebars.js"></script>
 <script src="js/main.js"></script>
 
 </body>

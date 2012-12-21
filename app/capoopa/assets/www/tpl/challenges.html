@@ -1,0 +1,17 @@
+<ul class="list toggleContent">
+  {{#each tpl}}
+  <li class="open-right">
+    {{#if category}}
+    <img src="img/category/{{category}}.png" alt="" class="thumb" />
+    {{else}}
+    <img src="img/category/default.png" alt="" class="thumb" />
+    {{/if}}
+    <h3 class="ui-li-heading">{{ title }}</h3>
+    {{#if category}}
+    <p class="ui-li-desc">{{ category }}</p>
+    {{else}}
+    <p class="ui-li-desc">divers</p>
+    {{/if}}
+  </li>
+  {{/each}}
+</ul>

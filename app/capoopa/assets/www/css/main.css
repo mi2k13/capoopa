@@ -179,6 +179,7 @@ input, .button {
 .content ul.list li .thumb {
   float: left;
   margin-right: 10px;
+  max-width: 50px;
 }
 
 
