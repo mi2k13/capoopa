@@ -6,7 +6,7 @@ from tastypie.authorization import Authorization
 from django.contrib.auth.models import User
 from tastypie import fields
 
-class UserResource(ModelResource):
+class UserSimple(ModelResource):
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
