@@ -14,21 +14,21 @@ class UserSimple(ModelResource):
 		
 
 class ChallengeResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user')
+#    user = fields.ForeignKey(UserResource, 'user')
     class Meta:
         queryset = Challenge.objects.all()
         resource_name = 'challenge'
 
 		
 class UserResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user')
+#    user = fields.ForeignKey(UserResource, 'user')
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
 
 		
 class AnswerResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user')
+#    user = fields.ForeignKey(UserResource, 'user')
     class Meta:
         queryset = Answer.objects.all()
         resource_name = 'answer'
