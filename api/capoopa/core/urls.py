@@ -1,10 +1,14 @@
 from django.conf.urls import patterns, include, url
-from core.api import ChallengeResource, UserResource, AnswerResource
+from core.api import ChallengeResource, UserResource, AnswerResource, UserSimple
 from core import views
 
 challenge_resource = ChallengeResource()
 user_resource = UserResource()
 answer_resource = AnswerResource()
+
+v1_api = Api(api_name='v1')
+v1_api.register(UserSimple())
+v1_api.register(EntryResource())
 
 
 urlpatterns = patterns('',
