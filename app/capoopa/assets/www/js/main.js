@@ -1,21 +1,11 @@
 $(document).ready(function(){
-  $.ajax({
-      url: 'http://localhost:8000/api/challenge/',
-      contentType: 'application/json',
-      dataType: 'jsonp',
-      cache: 'false',
-      processData: 'false',
-      type: "GET",
-      success: function(data, textStatus, jqXHR) {
-        /*var source   = $("#challenges-tpl").html();
-        var template = Handlebars.compile(source);
-        $("#content-placeholder").html(template(data.objects[0]));*/
-        loadTemplate('challenges', data.objects)
-      }
+    loadData('http://localhost:8000/api/challenge/', 'challenges');
+    toggleMenu();
+
+    $('.list li').click(function() {
+      loadData('http://localhost:8000/api/challenge/1', 'challenge-detail');
     });
 
-
-    toggleMenu();
 });
 
 function toggleMenu() {
@@ -29,6 +19,20 @@ function toggleMenu() {
         $(this).addClass('toggle-top');
       }
       $(this).next('.toggleContent').slideToggle('slow');
+    });
+}
+
+function loadData(path, template) {
+  $.ajax({
+      url: path,
+      contentType: 'application/json',
+      dataType: 'jsonp',
+      cache: 'false',
+      processData: 'false',
+      type: "GET",
+      success: function(data, textStatus, jqXHR) {
+        loadTemplate(template, data.objects)
+      }
     });
 }
 
