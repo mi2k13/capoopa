@@ -1,7 +1,6 @@
-<ul class="list toggleContent">
+<ul class="list">
   {{#each tpl}}
-  <li class="open-right">
-    <a href="">
+  <li class="open-right" data-item="{{ id }}">
       {{#if category}}
       <img src="img/category/{{category}}.png" alt="" class="thumb" />
       {{else}}
@@ -13,7 +12,9 @@
       {{else}}
       <p class="ui-li-desc">divers</p>
       {{/if}}
-    </a>
   </li>
   {{/each}}
 </ul>
+
+
+<script src="js/utils.js"></script>

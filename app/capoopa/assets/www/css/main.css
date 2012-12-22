@@ -32,6 +32,13 @@ a {
 .toggle-top { background-image: url(img/top-arrow.png); }
 .toggle-bottom { background-image: url(img/bottom-arrow.png); }
 
+.inner-slide { 
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
 .open-right { background: url(img/right-arrow.png) no-repeat right center}
 
 .button {
@@ -146,6 +153,7 @@ input, .button {
 .content {
   margin-top: 50px;
   margin-bottom: 60px;
+  position: relative;
 }
 
 .content ul.list {

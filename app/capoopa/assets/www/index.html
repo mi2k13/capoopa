@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="css/main.css" />
   <script src="lib/jquery-1.8.2.min.js"></script>
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-  
+  <script src="lib/handlebars.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+  <script src="js/main.js"></script>  
 
 </head> 
 <body>
@@ -24,7 +26,7 @@
 
     <div class="content">
       <h2 class="toggle toggle-top">Défis</h2>
-      <div id="challenges"></div> <!-- hbtemplate -->
+      <div id="challenges" class="toggle-content"></div> <!-- hbtemplate -->
       <div id="challenge-detail"></div> <!-- hbtemplate -->
     </div>
 
@@ -61,10 +63,6 @@
   </div>
   
 </div>
-
-
-<script src="lib/handlebars.js"></script>
-<script src="js/main.js"></script>
 
 </body>
 </html>

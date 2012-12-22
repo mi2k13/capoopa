@@ -1,12 +1,8 @@
 $(document).ready(function(){
-    loadData('http://localhost:8000/api/challenge/', 'challenges');
+    loadData('challenge/', 'challenges', true);
     toggleMenu();
-
-    $('.list li').click(function() {
-      loadData('http://localhost:8000/api/challenge/1', 'challenge-detail');
-    });
-
 });
+
 
 function toggleMenu() {
   $('.toggle').click(function() {
@@ -18,20 +14,24 @@ function toggleMenu() {
         $(this).removeClass('toggle-bottom');
         $(this).addClass('toggle-top');
       }
-      $(this).next('.toggleContent').slideToggle('slow');
+      $(this).next('.toggle-content').slideToggle('slow');
     });
 }
 
-function loadData(path, template) {
+function showItem(id) {
+  loadData('challenge/' + id, 'challenge-detail', false);
+}
+
+function loadData(path, template, isList) {
   $.ajax({
-      url: path,
+      url: 'http://ssh.alwaysdata.com:11390/api/' + path,
       contentType: 'application/json',
       dataType: 'jsonp',
       cache: 'false',
       processData: 'false',
       type: "GET",
       success: function(data, textStatus, jqXHR) {
-        loadTemplate(template, data.objects)
+        (isList) ? loadTemplate(template, data.objects) : loadTemplate(template, data);
       }
     });
 }
