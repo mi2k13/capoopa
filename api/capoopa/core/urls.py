@@ -1,21 +1,16 @@
 from django.conf.urls import patterns, include, url
-from core.api import ChallengeResource, UserResource, AnswerResource, UserSimple
+from tastypie.api import Api
+from core.api import UserResource, ChallengeResource, AnswerResource
 from core import views
 
-challenge_resource = ChallengeResource()
-user_resource = UserResource()
-answer_resource = AnswerResource()
-
-v1_api = Api(api_name='v1')
-v1_api.register(UserSimple())
-v1_api.register(EntryResource())
-
+core_api = Api(api_name='core')
+core_api.register(UserResource())
+core_api.register(ChallengeResource())
+core_api.register(AnswerResource())
 
 urlpatterns = patterns('',
     # Examples:
-	url(r'^api/', include(challenge_resource.urls)),
-	url(r'^api/', include(user_resource.urls)),
-	url(r'^api/', include(answer_resource.urls)),	
+	url(r'^api/', include(core_api.urls)),
 
     # Uncomment the admin/doc line below to enable admin documentation:
 	# url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
