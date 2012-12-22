@@ -1,7 +1,6 @@
 $(document).ready(function(){
     $('.inner-slide').hide();
     loadData('challenge/', 'challenges', true);
-    toggleMenu();
 });
 
 
