@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $('.inner-slide').hide();
     loadData('challenge/', 'challenges', true);
     toggleMenu();
 });
@@ -20,6 +21,13 @@ function toggleMenu() {
 
 function showItem(id) {
   loadData('challenge/' + id, 'challenge-detail', false);
+  $('.slide').hide("slide", { direction: "left" }, 1000);
+  $('.inner-slide').show("slide", { direction: "right" }, 1000);
+}
+
+function hideItem() {
+  $('.inner-slide').hide("slide", { direction: "right" }, 1000);
+  $('.slide').show("slide", { direction: "left" }, 1000);
 }
 
 function loadData(path, template, isList) {
@@ -42,7 +50,7 @@ function loadTemplate(templateName, templateInput) {
     var path = 'tpl/' + templateName + '.html';
     $.ajax({
         url: path,
-        cache: true,
+        cache: false,
         success: function (data) {
             source = data;
             template = Handlebars.compile(source);

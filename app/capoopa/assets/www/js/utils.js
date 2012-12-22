@@ -1,5 +1,9 @@
 $(document).ready(function(){
-    $('li').click(function(){
-      showItem($(this).data("item"));
-    })
+  toggleMenu();
+  $('li').click( function(){
+    showItem($(this).data("item"));
+  })
+  $('.back').click( function(){
+    hideItem();
+  });
 });

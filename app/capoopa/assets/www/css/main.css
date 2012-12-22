@@ -4,7 +4,7 @@ body {
   padding: 0;
   color: #333;
   font-family: 'Arial', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 h1, h2, h3, h4 {
@@ -29,17 +29,23 @@ a {
   background-position: right center;
   cursor: pointer;
 }
+
 .toggle-top { background-image: url(img/top-arrow.png); }
 .toggle-bottom { background-image: url(img/bottom-arrow.png); }
 
-.inner-slide { 
+.inner, .inner-slide { 
   position: absolute;
-  top: 0;
+  top: -20px;
   right: 0;
   width: 100%;
 }
 
+.open-right, .open-left {
+  min-width: 30px;
+  min-height: 30px;
+}
 .open-right { background: url(img/right-arrow.png) no-repeat right center}
+.open-left { background: url(img/left-arrow.png) no-repeat right center}
 
 .button {
   background-color: #ccc;
@@ -154,6 +160,10 @@ input, .button {
   margin-top: 50px;
   margin-bottom: 60px;
   position: relative;
+}
+
+.inner-content {
+  padding: 10px;
 }
 
 .content ul.list {
