@@ -5,6 +5,8 @@ body {
   color: #333;
   font-family: 'Arial', sans-serif;
   font-size: 18px;
+  width: 640px;
+  border: 1px solid orange;
 }
 
 h1, h2, h3, h4 {
@@ -19,10 +21,17 @@ h2 {
   border-bottom: 1px solid #f45f47;
 }
 
+h3 {
+  font-size: 26px;
+  margin-bottom: 0;
+}
+
 a {
   text-decoration: none;
   color: #111;
 }
+
+.justify { text-align: justify; }
 
 .toggle {
   background-repeat: no-repeat;
@@ -47,6 +56,19 @@ a {
 .open-right { background: url(img/right-arrow.png) no-repeat right center}
 .open-left { background: url(img/left-arrow.png) no-repeat right center}
 
+
+.pull-right {
+  float: right;
+  margin-left: 20px;
+}
+.pull-left  {
+  float: left; 
+  margin-right: 20px;
+}
+.unoverflow { overflow: hidden; }
+.clear { clear: both; }
+
+
 .button {
   background-color: #ccc;
   color: #333;
@@ -57,6 +79,33 @@ a {
   text-align: center;
   text-transform: lowercase;
 }
+
+.progress {
+  background-color: #ddd;
+  width: 100%;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.progress .bar {
+  background-color: #D7533E;
+  height: 20px;
+  margin: 10px 0;
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+.progress, .progress .bar {
+  height: 15px;
+}
+
+.highlight {
+  background-color: #eee;
+}
+
 
 .text-though {
   position: relative;
@@ -76,6 +125,22 @@ a {
 
 .text-though:after { right: 0; }
 .text-though:before { left: 0; }
+
+.third {
+  width: 31%;
+  margin: 1%;
+  float: left;
+}
+
+
+
+/* colors */
+.red  { color: #D7533E; }
+.blue { color: #308097; }
+.dark-grey { color: #111; }
+.light-grey { color: #999; }
+
+
 
 /* login */
 
@@ -198,6 +263,17 @@ input, .button {
   float: left;
   margin-right: 10px;
   max-width: 50px;
+}
+
+
+.content .stats .number {
+  font-size: 56px;
+  text-align: center;
+}
+
+.content .stats .number .desc {
+  font-size: 22px;
+  display: block;
 }
 
 
