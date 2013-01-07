@@ -35,7 +35,6 @@ function loadData(path, template, isList) {
 }
 
 function loadTemplate(templateName, templateInput) {
-  console.log(templateInput);
   var source;
   var template;
   var path = 'tpl/' + templateName + '.html';

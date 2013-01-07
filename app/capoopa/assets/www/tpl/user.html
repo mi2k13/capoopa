@@ -1,3 +1,4 @@
+{{#tpl}}
 <div class="top-bar">
   <h1>{{ nickname }}</h1>
 </div>
@@ -5,10 +6,21 @@
 <div class="content">
 
   <h2>Profil</h2>
-  <div class="inner-content">
-    <img src="http://www.akelataka.com/graphics/meeko.gif" alt="" class="pull-right" / >
+  <div class="inner-content profile">
+    <div class="pull-right avatar">
+      {{#if avatar}}
+      <img src="img/user/{{ avatar }}" alt="" / >
+      {{else}}
+      <img src="img/user/default.jpg" alt="" / >
+      {{/if}}
+
+    </div>
     <div class="unoverflow justify">
-      Another research area I focus on is characterization of motor performance in Parkinson’s disease.  Linear dynamical systems have been shown to be effective models of manual pursuit tracking, and system parameters such as damping ratio and natural frequency potential biomarkers.
+    {{#if description}}
+      {{ description }}
+    {{else}}
+      Aucune description n'a été fournie. Vous pouvez aller dans vos paramètres pour dire que vous gérez la fougère en slip de bain, par exemple.
+    {{/if}}
     </div>
   </div>
 
@@ -16,15 +28,27 @@
   <div class="inner-content">
     <div class="stats">
       <div class="third number">
-        <span class="red">537</span>
+        <span class="red">
+        {{#if nbSuccess}}
+          {{ nbSuccess }}
+        {{else}}
+          537
+        {{/if}}
+        </span>
         <span class="desc light-grey">réussis</span>
       </div>
       <div class="third number">
-        <span class="blue">121</span>
+        <span class="blue">
+        {{#if nbFail}}
+          {{ nbFail }}
+        {{else}}
+          126
+        {{/if}}
+        </span>
         <span class="desc light-grey">ratés</span>
       </div>
       <div class="third number">
-        <span class="dark-grey">658</span>
+        <span class="dark-grey">{{sum nbSuccess nbFail}}</span>
         <span class="desc light-grey">relevés</span>
       </div>
     </div>
@@ -38,3 +62,4 @@
   </div>
 
 </div>
+{{/tpl}}
