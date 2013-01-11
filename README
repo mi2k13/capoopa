@@ -30,8 +30,18 @@ Réalisez des défis grâce à des preuves vidéo, et gagnez en prestige au sein
  Arborescence
 --------------
 
-app :
-  Contient l'application smartphone.
+| app :	Contient l'application smartphone.
+	| capoopa
+		| assets
+			| www :	contenu de l'application
+		| cordova
+		| gen
+		| libs
+		| res
+		| src
 
-api :
-  Contient l'API (gestion de la base de données).
+| api :	Contient l'API (gestion de la base de données).
+	| capoopa
+		| capoopa :		paramètres de l'api
+		| core :		application django
+		
