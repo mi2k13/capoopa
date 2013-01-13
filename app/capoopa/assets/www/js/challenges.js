@@ -1,8 +1,5 @@
 $(document).ready(function(){
   $('.inner-slide').hide();
-  toggleMenu();
-  /*type = $('.page').data('type');
-  loadData(type + '/', type + 's', true);*/
 });
 
 function showItem(id, type) {

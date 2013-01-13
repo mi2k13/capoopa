@@ -131,6 +131,33 @@ a {
 }
 
 
+/* actions */
+.actions {
+  float: right;
+  margin-top: 10px;
+  margin-right: 50px;
+}
+
+.actions span {
+  padding: 5px 20px;
+  margin: 0 10px;
+  background-color: #f9f9f9;
+  border-style: solid;
+  border-width: 1px 1px 2px 1px;
+  cursor: pointer;
+}
+
+.actions .validate {
+  color: #35B45B;
+  border-color:#35B45B;
+  background: url(img/validate.png) no-repeat center;
+}
+.actions .refuse {
+  color: #F45F47;
+  border-color: #F45F47;
+  background: url(img/refuse.png) no-repeat center;
+}
+
 
 /* colors */
 .red  { color: #D7533E; }

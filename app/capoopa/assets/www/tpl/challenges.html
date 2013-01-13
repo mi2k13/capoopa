@@ -2,6 +2,11 @@
 <ul class="list toggle-content">
   {{#each tpl}}
   <li class="open-right" data-item="{{ id }}">
+
+      <div class="actions">
+        <span class="validate"></span>
+        <span class="refuse"></span>
+      </div>
       {{#if category}}
       <img src="img/category/{{category}}.png" alt="" class="thumb" />
       {{else}}
@@ -18,4 +23,11 @@
 </ul>
 
 
-<script src="js/challenge-tpl.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    toggleMenu();
+    $('li').click( function(){
+      showItem($(this).data('item'), 'challenge');
+    })
+  });
+</script>

@@ -14,7 +14,7 @@ class UserResource(ModelResource):
 
 
 class ChallengeResource(ModelResource):
-	author = fields.ForeignKey(UserResource, 'user')
+	#author = fields.ForeignKey(UserResource, 'user')
 	class Meta:
 		queryset = Challenge.objects.all()
 		resource_name = 'challenge'
