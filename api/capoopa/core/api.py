@@ -23,7 +23,7 @@ class UserResource(ModelResource):
 	#Choices are: answer, challenge, date_joined, email, first_name, groups, id, is_active, is_staff, is_superuser, last_login, last_name, password, user_permissions, username
 	def prepend_urls(self):
 		return [
-			url(r"^(?P<resource_name>%s)/(?P<username>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
+			url(r"^(?P<resource_name>%s)/(?P<id>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
 		]
 
 
@@ -41,7 +41,7 @@ class ChallengeResource(ModelResource):
 	#choices are : answer, author, description, id, title
 	def prepend_urls(self):
 		return [
-			url(r"^(?P<resource_name>%s)/(?P<title>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
+			url(r"^(?P<resource_name>%s)/(?P<id>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
 		]
 
 
