@@ -40,6 +40,14 @@ class UserResource(ModelResource):
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
 
+	def dehydrate(self, bundle):
+
+		bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
+		# tentative pour Serialiser (transformer en JSON) l'objet
+		#Serializer.serialize(self, bundle, format='application/json', options={})
+		#Serializer.to_json(self, bundle, options=None)
+		return bundle
+	
 	#choices are : answer, author, description, id, title
 	def prepend_urls(self):
 		return [
@@ -71,19 +79,13 @@ class AnswerResource(ModelResource):
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
 
-	#Choices are : challengeID, id, status, userID
-	# def prepend_urls(self):
-		# return [
-			# url(r"^(?P<resource_name>%s)/(?P<id>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
-		# ]
-
 		allowed_methods = ['get','post']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
 
 	#Choices are : challengeID, id, status, userID
-	# def prepend_urls(self):
+	 #def prepend_urls(self):
 		# return [
-			# url(r"^(?P<resource_name>%s)/(?P<id>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
-		# ]
+		#	 url(r"^(?P<resource_name>%s)/(?P<userID>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
+		 #]
 
