@@ -131,6 +131,33 @@ a {
 }
 
 
+/* actions */
+.actions {
+  float: right;
+  margin-top: 10px;
+  margin-right: 50px;
+}
+
+.actions span {
+  padding: 5px 20px;
+  margin: 0 10px;
+  background-color: #f9f9f9;
+  border-style: solid;
+  border-width: 1px 1px 2px 1px;
+  cursor: pointer;
+}
+
+.actions .validate {
+  color: #35B45B;
+  border-color:#35B45B;
+  background: url(img/validate.png) no-repeat center;
+}
+.actions .refuse {
+  color: #F45F47;
+  border-color: #F45F47;
+  background: url(img/refuse.png) no-repeat center;
+}
+
 
 /* colors */
 .red  { color: #D7533E; }
@@ -217,11 +244,63 @@ input, .button {
 }
 
 
+/* sub-bar */
+
+.sub-bar {
+  position: fixed;
+  top: 45px;
+  background-color: #dbdbdb;
+  width: 100%;
+  margin: 0; padding: 0;
+}
+
+.sub-bar .navbar {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 98%;
+}
+
+.sub-bar .navbar li { 
+  float: left;
+  width: 25%;
+  padding: 7px 0;
+  text-align: center;
+}
+
+.sub-bar .navbar .ui-btn {
+  width: 100%;
+  display: block;
+  padding: 5px 0;
+  border-style: solid;
+  border-width: 1px 1px 1px 0;
+  border-color: #bbb;
+  color: #999;
+  text-transform: lowercase;
+}
+.sub-bar .navbar .ui-btn:first-child {
+  border-width: 1px;
+
+}
+
+.sub-bar .navbar .ui-btn:hover, .sub-bar .navbar .ui-btn.selected {
+  background-color: #ccc;
+  color: #666;
+}
+.sub-bar .navbar .ui-btn.selected {
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
 
 /* content */
 
 .content {
-  margin-top: 50px;
+  margin-top: 90px;
   margin-bottom: 60px;
   position: relative;
 }
@@ -290,48 +369,4 @@ input, .button {
 .content .stats .number .desc {
   font-size: 22px;
   display: block;
-}
-
-
-
-
-/* footer */
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  background-color: #333;
-  width: 100%;
-  margin: 0; padding: 0;
-}
-
-.footer .navbar {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.footer .navbar li { 
-  float: left;
-  width: 24.9%;
-}
-
-.footer .navbar .ui-btn {
-  width: 100%;
-  border-right: 1px solid #eee;
-  text-align: center;
-  background-color: #333;
-  display: block;
-  color: #eee;
-}
-
-.footer .navbar .ui-btn:last-child { border: none; }
-
-.footer .navbar .ui-btn img { 
-  display: block;
-  margin: 5px auto 2px auto;
-}
-
-.footer .navbar .ui-btn:hover {
-  background-color: #666;
 }

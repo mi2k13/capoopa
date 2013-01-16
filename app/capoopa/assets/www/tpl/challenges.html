@@ -2,6 +2,11 @@
 <ul class="list toggle-content">
   {{#each tpl}}
   <li class="open-right" data-item="{{ id }}">
+
+      <div class="actions">
+        <span class="validate add-challenge"></span>
+        <span class="refuse"></span>
+      </div>
       {{#if category}}
       <img src="img/category/{{category}}.png" alt="" class="thumb" />
       {{else}}
@@ -18,4 +23,37 @@
 </ul>
 
 
-<script src="js/challenge-tpl.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    toggleMenu();
+    $('li').click( function(){
+      showItem($(this).data('item'), 'challenge');
+    });
+    $('li .add-challenge').click( function(){
+      var itemId = $(this).parents('li').data('item');
+      console.log(itemId);
+
+      var data = new Array();
+      data["userID"] = 1;
+      data["challengeID"] = itemId;
+      data["status"] = 'pending';
+
+      console.log(data);
+
+      $.ajax({
+        type: "POST",
+        url: 'http://localhost:8000/api/core/answer/',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function() {
+          console.log("envoyé!");
+        },
+        error: function() {
+          console.log("pas envoyé...");
+        },
+        dataType: 'json'
+      });
+    });
+
+  });
+</script>

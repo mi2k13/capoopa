@@ -22,7 +22,8 @@ function toggleMenu() {
 
 function loadData(path, template, isList) {
   $.ajax({
-    url: 'http://ssh.alwaysdata.com:11390/api/' + path,
+    url: 'http://localhost:8000/api/core/' + path,
+    //url: 'http://ssh.alwaysdata.com:11390/api/' + path,
     contentType: 'application/json',
     dataType: 'jsonp',
     cache: false,

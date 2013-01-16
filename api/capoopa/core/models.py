@@ -1,10 +1,19 @@
 from django.db import models
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 
 # Create your models here. django.hote
+class User(models.Model):
+	#ID = models.CharField(max_length=4)
+	email = models.CharField(max_length=30)
+	#descriptif = models.TextField()
+	avatar = models.CharField(max_length=200)
+	#nbSuccess = models.IntegerField(max_length=200) 
+	#nbFail = models.IntegerField(max_length=200) 
+	#nbRate = models.IntegerField(max_length=200) 
+	#nbAbuse = models.IntegerField(max_length=200) 
 	
 class Challenge(models.Model):
-	title = models.CharField(max_length=200)
+	title = models.CharField(max_length=20)
 	description = models.TextField()
 	author = models.ForeignKey(User)
 	#beginning = models.IntegerField(max_length=200)
@@ -17,6 +26,9 @@ class Challenge(models.Model):
 class Answer(models.Model):
 	userID = models.ForeignKey(User)
 	challengeID = models.ForeignKey(Challenge)
-	status = models.CharField(max_length=200)
+	status = models.CharField(max_length=10)
 	#media = models.IntegerField(max_length=200)
 	#nbAbuse = models.IntegerField(max_length=200) 
+	
+
+
