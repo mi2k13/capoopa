@@ -55,7 +55,7 @@ class UserResource(ModelResource):
 		]	
 
 class ChallengeResource(ModelResource):
-	author = fields.OneToOneField(UserResource, attribute='author' , related_name='author', full=True)
+	author = fields.ManyToManyField(UserResource, attribute='author' , related_name='author', full=True)
 	#users = fields.ForeignKey(UserResource, attribute='users', full=True, null=True)
 	class Meta:
 		queryset = Challenge.objects.all()
@@ -73,8 +73,8 @@ class ChallengeResource(ModelResource):
 	
 
 class AnswerResource(ModelResource):
-	userID = fields.OneToOneField(UserResource, attribute='userID' , related_name='userID', full=True)
-	challengeID = fields.OneToOneField(ChallengeResource, attribute='challengeID' , related_name='challengeID', full=True)
+	userID = fields.ManyToManyField(UserResource, attribute='userID' , related_name='userID', full=True)
+	challengeID = fields.ManyToManyField(ChallengeResource, attribute='challengeID' , related_name='challengeID', full=True)
 	class Meta:
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
