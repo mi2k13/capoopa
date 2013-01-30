@@ -5,6 +5,7 @@ from core.models import Challenge
 from core.models import Answer
 from core.models import User
 from tastypie.authorization import DjangoAuthorization
+#from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
 from tastypie import fields
 
@@ -39,6 +40,8 @@ class UserResource(ModelResource):
 		allowed_methods = ['get','post']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
+		#authentication = BasicAuthentication()
+		always_return_data = True
 
 	def dehydrate(self, bundle):
 
@@ -65,6 +68,8 @@ class ChallengeResource(ModelResource):
 		allowed_methods = ['get','post']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
+		#authentication = BasicAuthentication()
+		always_return_data = True
 		#fields=['author','description','title']
 
 	#choices are : answer, author, description, id, title
@@ -84,6 +89,8 @@ class AnswerResource(ModelResource):
 		allowed_methods = ['get','post']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
+		#authentication = BasicAuthentication()
+		always_return_data = True
 
 	#Choices are : challengeID, id, status, userID
 	 #def prepend_urls(self):
