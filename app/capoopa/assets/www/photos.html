@@ -21,7 +21,6 @@
         destinationType=navigator.camera.DestinationType;
     }
 
-	
 	function uploadPhoto(imageURI) {
             var options = new FileUploadOptions();
             options.fileKey="file";
@@ -34,8 +33,8 @@
 
             options.params = params;
 
-            var ft = new FileTransfer();
-            ft.upload(imageURI, "http://some.server.com/upload.php", win, fail, options);
+           // var ft = new FileTransfer();
+           // ft.upload(imageURI, "http://some.server.com/upload.php", win, fail, options);
 			
 			$.post('http://path/to/ajaxUpload', {data:imageData}, 
                  function(data){alert('success');});
@@ -114,7 +113,14 @@
                                         sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
                                         );
 	}
-		
+	
+	function sendPhoto() {
+      alert("Envoie photo");
+	  
+	  $.post('http://localhost:8000/api/core/photo/', {data:imageData}, 
+                 function(data){alert('success');});
+    }
+	
     // Called if something bad happens.
     // 
     function onFail(message) {
@@ -127,6 +133,6 @@
       <h3>Recuperation d'une image dans la galerie.</h3>
     <button onclick="capturePhoto();">Capture Photo</button> <br>
      <button onclick="dlPhoto();">DL Photo</button> <br>
-
+	<button onclick="sendPhoto();">Envoie Photo</button> <br>
   </body>
 </html>
