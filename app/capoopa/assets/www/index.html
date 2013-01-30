@@ -1,66 +1,54 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Capoopa</title> 
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <meta http-equiv="Content-Type" content="text/ html; charset=UTF-8" />
 
-    <title>Transfert image</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <script src="lib/jquery-1.8.2.min.js"></script>
+  <script src="lib/handlebars.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+  <script src="js/challenges.js"></script>
+  <script src="js/main.js"></script>
 
-    <script type="text/javascript" charset="utf-8" src="cordova-2.3.0.js"></script>
-    <script type="text/javascript" charset="utf-8">
-
-	//Pour les tests, j ai du mettre la fonction upload dans la page index pour pouvoir tester plus rapidement, apres on la mettra au bon endroit.
-
-        // Wait for PhoneGap to load
-        //
-        document.addEventListener("deviceready", onDeviceReady, false);
-
-        // PhoneGap is ready
-        //
-        function onDeviceReady() {
-
-            // Retrieve image file location from specified source
-            navigator.camera.getPicture(uploadPhoto,
-                                        function(message) { alert('get picture failed'); },
-                                        { quality: 50, 
-                                        destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
-                                        );
-
-        }
-
-        function uploadPhoto(imageURI) {
-            var options = new FileUploadOptions();
-            options.fileKey="file";
-            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-            options.mimeType="image/jpeg";
-
-            var params = new Object();
-            params.value1 = "test";
-            params.value2 = "param";
-
-            options.params = params;
-
-            var ft = new FileTransfer();
-            ft.upload(imageURI, "http://some.server.com/upload.php", win, fail, options);
-			
-			$.post('http://path/to/ajaxUpload', {data:imageData}, 
-                 function(data){alert('success');});
-			 
-        }
-
-        function win(r) {
-            console.log("Code = " + r.responseCode);
-            console.log("Response = " + r.response);
-            console.log("Sent = " + r.bytesSent);
-        }
-
-        function fail(error) {
-            alert("An error has occurred: Code = " = error.code);
-        }
-
-        </script>
-</head>
+</head> 
 <body>
-    <h3>Recuperation d'une image dans la galerie.</h3>
-      
+
+  <div class="page" data-type="challenge">
+
+    <div class="top-bar">
+      <h1>Challenges</h1>
+    </div>
+
+    <div class="content">
+      <div id="challenges" class="slide inner"></div> <!-- hbtemplate -->
+      <div id="challenge-detail" class="inner-slide"></div> <!-- hbtemplate -->
+    </div>
+
+  </div>
+
+
+  <div class="sub-bar">    
+    <ul class="navbar">
+      <li>
+        <a class="ui-btn" href="my-challenges.html">Mes défis</a>
+      </li>
+      <li>
+        <a class="ui-btn selected" href="index.html">Consulter</a>
+      </li>
+      <li>
+        <a class="ui-btn" href="#">Noter</a>
+      </li>
+      <li>
+        <a class="ui-btn" href="#">Proposer</a>
+      </li>
+    </ul>
+  </div>
+  
+</div>
+
 </body>
 </html>

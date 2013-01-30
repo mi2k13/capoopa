@@ -33,16 +33,19 @@
       var itemId = $(this).parents('li').data('item');
       console.log(itemId);
 
-     /* var data = JSON.stringify({
-        "email": "vieille@pute.fr",
-        "avatar": "monavatardelamort.jpg"
+
+      
+      var data = JSON.stringify({
+        "userID":  1,
+        "challengeID": {'id': 42},
+        "status": "yeah"
       });
 
       console.log(data);
 
       $.ajax({
         type: "POST",
-        url: 'http://localhost:8000/api/core/user/',
+        url: 'http://localhost:8000/api/core/answer/',
         contentType: 'application/json',
         data: data,
         success: function() {
@@ -52,9 +55,9 @@
           console.log("pas envoyé...");
         },
         dataType: 'json'
-      });*/
+      });
       
-      var data = JSON.stringify({
+      /*var data = JSON.stringify({
         "userID":  1,
         "challengeID": 42,
         "status": "yeah"
@@ -74,7 +77,8 @@
           console.log("pas envoyé...");
         },
         dataType: 'json'
-      });
+
+      });*/
 
     });
 
