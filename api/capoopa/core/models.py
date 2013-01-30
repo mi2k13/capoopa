@@ -29,6 +29,8 @@ class Answer(models.Model):
 	status = models.CharField(max_length=10)
 	#media = models.IntegerField(max_length=200)
 	#nbAbuse = models.IntegerField(max_length=200)
+
 	
 
+	
 

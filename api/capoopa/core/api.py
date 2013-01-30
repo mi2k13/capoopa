@@ -33,7 +33,8 @@ from tastypie.serializers import Serializer
 #url /core/challenge/<title> : displays all informations about this challenge
 
 class UserResource(ModelResource):
-	
+	#answers = fields.ManyToManyField('AnswerResource', attribute='answers' , related_name='answers', full=True, null=True)
+
 	class Meta:
 		queryset = User.objects.all()
 		resource_name = 'user'
@@ -43,6 +44,7 @@ class UserResource(ModelResource):
 		#authentication = BasicAuthentication()
 		always_return_data = True
 
+	
 	def dehydrate(self, bundle):
 
 		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
@@ -53,11 +55,7 @@ class UserResource(ModelResource):
 		#Serializer.to_json(self, bundle, options=None)
 		return bundle
 	
-	#choices are : answer, author, description, id, title
-	def prepend_urls(self):
-		return [
-			url(r"^(?P<resource_name>%s)/(?P<id>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
-		]	
+
 
 class ChallengeResource(ModelResource):
 	author = fields.ManyToManyField(UserResource, attribute='author' , related_name='author', full=True)
@@ -72,11 +70,6 @@ class ChallengeResource(ModelResource):
 		always_return_data = True
 		#fields=['author','description','title']
 
-	#choices are : answer, author, description, id, title
-	def prepend_urls(self):
-		return [
-			url(r"^(?P<resource_name>%s)/(?P<id>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
-		]
 	
 
 class AnswerResource(ModelResource):
@@ -91,10 +84,3 @@ class AnswerResource(ModelResource):
 		authorization= Authorization()
 		#authentication = BasicAuthentication()
 		always_return_data = True
-
-	#Choices are : challengeID, id, status, userID
-	 #def prepend_urls(self):
-		# return [
-		#	 url(r"^(?P<resource_name>%s)/(?P<userID>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
-		 #]
-
