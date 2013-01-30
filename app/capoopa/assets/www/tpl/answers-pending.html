@@ -1,0 +1,17 @@
+<h2 class="toggle toggle-top">Pending</h2>
+<ul class="list toggle-content">
+  {{#each tpl}}
+  <li data-item="{{ id }}">
+      <img src="img/status/{{status}}.png" alt="" class="thumb" />
+      <h3 class="ui-li-heading">{{ id }}</h3>
+      <p class="ui-li-desc">{{ status }}</p>
+  </li>
+  {{/each}}
+</ul>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    toggleMenu();
+  });
+</script>

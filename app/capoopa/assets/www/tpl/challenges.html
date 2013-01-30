@@ -26,25 +26,26 @@
 <script type="text/javascript">
   $(document).ready(function(){
     toggleMenu();
-    $('li').click( function(){
+    /*$('li').click( function(){
       showItem($(this).data('item'), 'challenge');
-    });
+    });*/
     $('li .add-challenge').click( function(){
       var itemId = $(this).parents('li').data('item');
       console.log(itemId);
 
-      var data = new Array();
-      data["userID"] = 1;
-      data["challengeID"] = itemId;
-      data["status"] = 'pending';
+      var data = JSON.stringify({
+        "userID":  1,
+        "challengeID": 42,
+        "status": "yeah"
+      });
 
       console.log(data);
 
       $.ajax({
         type: "POST",
-        url: 'http://localhost:8000/api/core/answer/',
+        url: 'http://localhost:8000/api/core/user/1/',
         contentType: 'application/json',
-        data: JSON.stringify(data),
+        data: data,
         success: function() {
           console.log("envoyé!");
         },
