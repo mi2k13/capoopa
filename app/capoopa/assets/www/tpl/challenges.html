@@ -34,6 +34,27 @@
       console.log(itemId);
 
       var data = JSON.stringify({
+        "email": "vieille@pute.fr",
+        "avatar": "monavatardelamort.jpg"
+      });
+
+      console.log(data);
+
+      $.ajax({
+        type: "POST",
+        url: 'http://localhost:8000/api/core/user/',
+        contentType: 'application/json',
+        data: data,
+        success: function() {
+          console.log("envoyé!");
+        },
+        error: function() {
+          console.log("pas envoyé...");
+        },
+        dataType: 'jsonp'
+      });
+      /*
+      var data = JSON.stringify({
         "userID":  1,
         "challengeID": 42,
         "status": "yeah"
@@ -53,7 +74,8 @@
           console.log("pas envoyé...");
         },
         dataType: 'jsonp'
-      });
+      });*/
+
     });
 
   });
