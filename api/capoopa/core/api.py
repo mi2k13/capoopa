@@ -99,11 +99,11 @@ class AnswerResource(ModelResource):
 		#data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
 		
 		#image = data.get('image', '')
-		if bundle.data['image']:
-			filename = "%s%s" % (bundle.obj.answerID, time.time())  
-			fh = file("image","wb" ) #timestamp + id
+		if "image" in bundle.data:
+			filename = "%s%s" % (bundle.obj.pk, time.time())  
+			fh = file(filename,"wb" ) #timestamp + id
 
-			fh = open(image, "wb")
+			fh = open(filename, "wb")
 			fh.write(bundle.data['image'].decode('base64'))
 			fh.close()
 

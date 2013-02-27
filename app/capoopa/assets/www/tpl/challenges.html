@@ -35,21 +35,59 @@
 
 
       
-      var data = JSON.stringify({
+     /* var data = JSON.stringify({
         "userID":  1,
-        "challengeID": {'id': 42},
+        "challengeID": {
+          'id': 2,
+          'title': 'Chocapic',
+          'description': 'joij  iojo'
+        },
         "status": "yeah"
       });
 
       console.log(data);
 
-      postData('answer', data);
+      $.ajax({
+        type: "POST",
+        url: 'http://localhost:8000/api/core/user/',
+        contentType: 'application/json',
+        data: data,
+        success: function() {
+          console.log("envoyé!");
+        },
+        error: function() {
+          console.log("pas envoyé...");
+        },
+        dataType: 'json'
+      });*/
+
+      //postData('answer', data);
       
-      /*var data = JSON.stringify({
+/*      var data = JSON.stringify({
         "userID":  1,
-        "challengeID": 42,
-        "status": "yeah"
+        "challengeID": 3,
+        "status": "id simple"
+      });*/
+      
+/*      var data = JSON.stringify({
+        "userID":  1,
+        "email":  "ann@e.fr",
+        "avatar": "lapin", // => crée un user au lieu d'utiliser celui qui existe
+        "challengeID": {
+          'id': 2,
+          'title': 'Chocapic',
+          'description': 'joij  iojo'
+        },
+        "status": "all object"
+      });*/
+            
+      var data = JSON.stringify({
+        "userID":  "/api/core/user/1/",
+        "challengeID": "/api/core/challenge/2/",
+        "status": "answer uri"
       });
+      
+
 
       console.log(data);
 
@@ -61,12 +99,15 @@
         success: function() {
           console.log("envoyé!");
         },
-        error: function() {
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(jqXHR, textStatus, errorThrown);
           console.log("pas envoyé...");
         },
         dataType: 'json'
 
-      });*/
+      }).done(function( msg ) {
+  console.log( msg );
+});;
 
     });
 

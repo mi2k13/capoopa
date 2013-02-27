@@ -21,7 +21,7 @@ function toggleMenu() {
 }
 
 function postData(path, data) {
-$.ajax({
+  $.ajax({
     type: "POST",
     url: 'http://localhost:8000/api/core/user/',
     contentType: 'application/json',
