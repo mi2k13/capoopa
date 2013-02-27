@@ -7,6 +7,7 @@ class User(models.Model):
 	email = models.CharField(max_length=30)
 	#descriptif = models.TextField()
 	avatar = models.CharField(max_length=200)
+	#password = models.CharField(max_length=30)
 	#nbSuccess = models.IntegerField(max_length=200) 
 	#nbFail = models.IntegerField(max_length=200) 
 	#nbRate = models.IntegerField(max_length=200) 
@@ -24,9 +25,10 @@ class Challenge(models.Model):
 	#type = models.CharField(max_length=200)
 	
 class Answer(models.Model):
-	userID = models.ManyToManyField(User)
-	challengeID = models.ManyToManyField(Challenge)
+	userID = models.OneToOneField(User)
+	challengeID = models.OneToOneField(Challenge)
 	status = models.CharField(max_length=10)
+	image = models.CharField(max_length=20000)
 	#media = models.IntegerField(max_length=200)
 	#nbAbuse = models.IntegerField(max_length=200)
 

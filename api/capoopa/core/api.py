@@ -10,6 +10,7 @@ from tastypie.authorization import Authorization
 from tastypie import fields
 
 from tastypie.serializers import Serializer
+import time
 
 
 #url /core/user : displays all users
@@ -70,11 +71,12 @@ class ChallengeResource(ModelResource):
 		always_return_data = True
 		#fields=['author','description','title']
 
+
 	
 
 class AnswerResource(ModelResource):
-	userID = fields.ManyToManyField(UserResource, attribute='userID' , related_name='userID', full=True)
-	challengeID = fields.ManyToManyField(ChallengeResource, attribute='challengeID' , related_name='challengeID', full=True)
+	userID = fields.OneToOneField(UserResource, attribute='userID' , related_name='userID', full=True)
+	challengeID = fields.OneToOneField(ChallengeResource, attribute='challengeID' , related_name='challengeID', full=True)
 	class Meta:
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
@@ -84,3 +86,58 @@ class AnswerResource(ModelResource):
 		authorization= Authorization()
 		#authentication = BasicAuthentication()
 		always_return_data = True
+
+	def hydrate(self, bundle):
+		print 'la'
+		#self.method_check(request, allowed=['post'])
+
+		# Verifier qu'il y a un champ image dans bundle
+		# Faire l'upload
+		
+
+		# A deserialiser : bundle.obj.image
+		#data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+		
+		#image = data.get('image', '')
+		if bundle.data['image']:
+			filename = "%s%s" % (bundle.obj.answerID, time.time())  
+			fh = file("image","wb" ) #timestamp + id
+
+			fh = open(image, "wb")
+			fh.write(bundle.data['image'].decode('base64'))
+			fh.close()
+
+			# Changer le bundle.obj.image en mettant a la place l'URL de l'image uploadee
+			bundle.obj.image = filename
+
+		else:
+			print 'pas de donnees dans image '
+
+		return bundle
+
+
+'''class ChallengeAccpetResource(ModelResource):
+	class Meta:
+		queryset = Challenge.objects.all()
+		resource_name = 'answer'
+
+		allowed_methods = ['get','post']
+		authorization= Authorization()
+
+	def override_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/createChallenge%s$" %
+                (self._meta.resource_name, trailing_slash()),
+                self.wrap_view('createChallenge'), name="api_createChallenge"),
+        ]
+
+	def createChallenge(self, request, **kwargs):
+		self.method_check(request, allowed=['post'])
+		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'json'))
+		title_ = data.get('title', '')
+		description_ = data.get('description', '')
+		author_t = data.get('author', '')
+
+		Challenge.objects.title = title_t
+		Challenge.objects.description = description_t
+		Challenge.objects.author = author_t'''
