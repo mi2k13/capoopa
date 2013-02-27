@@ -40,12 +40,74 @@ a {
 .toggle-top { background-image: url(img/top-arrow.png); }
 .toggle-bottom { background-image: url(img/bottom-arrow.png); }
 
-.inner, .inner-slide { 
+
+.slide-container {
+  width: 200%;
+  height: 200px;
+}
+.slider-inside {
+  width: 50%;
+  float: left;
+}
+
+/*.inner, .inner-slide { 
   position: absolute;
   top: -20px;
   right: 0;
   width: 100%;
+}*/
+
+.slide-left {
+  -webkit-animation: slide-left 1.5s ease;
+    -moz-animation: slide-left 1.5s ease;
+      animation: slide-left 1.5s ease;
+  -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+      -o-animation-fill-mode: forwards;
 }
+
+@-webkit-keyframes slide-left {
+  0% {    left: 0; }
+  100% {  left: -100%; }
+}
+
+@-moz-keyframes slide-left {
+  0% {    left: 0; }
+  100% {  left: -100%; }
+}
+
+
+@keyframes slide-left {
+  0% {    left: 0; }
+  100% {  left: -100%; }
+}
+
+.slide-right {
+  -webkit-animation: slide-right 1s ease;
+    -moz-animation: slide-right 1s ease;
+      animation: slide-right 1s ease;
+  -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+      -o-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes slide-right {
+  0% {    left: -100%; }
+  100% {  left: 0; }
+}
+
+@-moz-keyframes slide-right {
+  0% {    left: -100%; }
+  100% {  left: 0; }
+}
+
+
+@keyframes slide-right {
+  0% {    left: -100%; }
+  100% {  left: 0; }
+}
+
+
 
 .open-right, .open-left {
   min-width: 30px;
@@ -65,7 +127,14 @@ a {
 }
 .unoverflow { overflow: hidden; }
 .clear { clear: both; }
+.breath-bottom { margin-bottom: 50px; }
 
+
+.error {
+  margin: 10px 0;
+  color: #fff;
+  text-shadow: 2px 1px 2px #666;
+}
 
 .button {
   background-color: #ccc;
@@ -76,6 +145,7 @@ a {
   display: block;
   text-align: center;
   text-transform: lowercase;
+  cursor: pointer;
 }
 
 .progress {
@@ -135,7 +205,7 @@ a {
 .actions {
   float: right;
   margin-top: 10px;
-  margin-right: 50px;
+  margin-right: 10px;
 }
 
 .actions span {

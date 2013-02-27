@@ -20,6 +20,22 @@ function toggleMenu() {
     });
 }
 
+function postData(path, data) {
+$.ajax({
+    type: "POST",
+    url: 'http://localhost:8000/api/core/user/',
+    contentType: 'application/json',
+    data: data,
+    success: function() {
+      console.log("envoyé!");
+    },
+    error: function() {
+      console.log("pas envoyé...");
+    },
+    dataType: 'json'
+  });
+}
+
 // type : 0=none ; 1=objects ; 2=answers
 function loadData(path, template, type) {
   $.ajax({

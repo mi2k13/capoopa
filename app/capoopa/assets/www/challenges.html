@@ -9,24 +9,19 @@
   <link rel="stylesheet" href="css/main.css" />
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
+
 </head> 
 <body>
 
-  <div class="page" data-type="answer">
+  <div class="page" data-type="challenge">
 
     <div class="top-bar">
       <h1>Challenges</h1>
     </div>
 
-    <div class="content slide-container">
-      <div class="slider-inside">
-        <div id="answers-pending" class="slide"></div> <!-- hbtemplate -->
-        <div id="answers-over" class="slide"></div> <!-- hbtemplate -->
-        <div id="answer-detail"></div> <!-- hbtemplate -->
-      </div>
-      <div class="slider-inside">
-        <div id="challenge-detail" class="inner-slide"></div>
-      </div>
+    <div class="content">
+      <div id="challenges" class="slide inner"></div> <!-- hbtemplate -->
+      <div id="challenge-detail" class="inner-slide"></div> <!-- hbtemplate -->
     </div>
 
   </div>
@@ -35,10 +30,10 @@
   <div class="sub-bar">    
     <ul class="navbar">
       <li>
-        <a class="ui-btn selected" href="my-challenges.html">Mes défis</a>
+        <a class="ui-btn" href="my-challenges.html">Mes défis</a>
       </li>
       <li>
-        <a class="ui-btn" href="challenges.html">Consulter</a>
+        <a class="ui-btn selected" href="challenges.html">Consulter</a>
       </li>
       <li>
         <a class="ui-btn" href="#">Noter</a>
@@ -54,9 +49,8 @@
 </body>
 </html>
 
-
 <script src="lib/jquery-1.8.2.min.js"></script>
 <script src="lib/handlebars.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-<script src="js/main.js"></script>
 <script src="js/challenges.js"></script>
+<script src="js/main.js"></script>

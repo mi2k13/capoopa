@@ -48,7 +48,7 @@
         <span class="desc light-grey">ratés</span>
       </div>
       <div class="third number">
-        <span class="dark-grey">{{sum nbSuccess nbFail}}</span>
+        <span class="dark-grey">{{sss nbSuccess nbFail}}</span>
         <span class="desc light-grey">relevés</span>
       </div>
     </div>
@@ -63,3 +63,18 @@
 
 </div>
 {{/tpl}}
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  Handlebars.registerHelper('sss', function(nb1, nb2) {
+    var sum = parseInt(nb1, 10) + parseInt(nb2, 10);
+    if (!isNaN(sum))
+      return sum;
+    else
+      return '???';
+  });
+  });
+
+
+</script>

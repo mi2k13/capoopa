@@ -1,7 +1,7 @@
 <h2 class="toggle toggle-top">Défis</h2>
 <ul class="list toggle-content">
   {{#each tpl}}
-  <li class="open-right" data-item="{{ id }}">
+  <li data-item="{{ id }}">
 
       <div class="actions">
         <span class="validate add-challenge"></span>
@@ -43,19 +43,7 @@
 
       console.log(data);
 
-      $.ajax({
-        type: "POST",
-        url: 'http://localhost:8000/api/core/answer/',
-        contentType: 'application/json',
-        data: data,
-        success: function() {
-          console.log("envoyé!");
-        },
-        error: function() {
-          console.log("pas envoyé...");
-        },
-        dataType: 'json'
-      });
+      postData('answer', data);
       
       /*var data = JSON.stringify({
         "userID":  1,

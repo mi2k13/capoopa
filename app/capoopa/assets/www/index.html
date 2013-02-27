@@ -7,48 +7,45 @@
   <meta http-equiv="Content-Type" content="text/ html; charset=UTF-8" />
 
   <link rel="stylesheet" href="css/main.css" />
-  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-  <script src="lib/jquery-1.8.2.min.js"></script>
-  <script src="lib/handlebars.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-  <script src="js/challenges.js"></script>
-  <script src="js/main.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Lato|Sarina' rel='stylesheet' type='text/css'>
+  
 
 </head> 
-<body>
-
-  <div class="page" data-type="challenge">
-
-    <div class="top-bar">
-      <h1>Challenges</h1>
-    </div>
-
-    <div class="content">
-      <div id="challenges" class="slide inner"></div> <!-- hbtemplate -->
-      <div id="challenge-detail" class="inner-slide"></div> <!-- hbtemplate -->
-    </div>
-
-  </div>
+<body class="login-page">
 
 
-  <div class="sub-bar">    
-    <ul class="navbar">
-      <li>
-        <a class="ui-btn" href="my-challenges.html">Mes défis</a>
-      </li>
-      <li>
-        <a class="ui-btn selected" href="index.html">Consulter</a>
-      </li>
-      <li>
-        <a class="ui-btn" href="#">Noter</a>
-      </li>
-      <li>
-        <a class="ui-btn" href="#">Proposer</a>
-      </li>
-    </ul>
-  </div>
+
+<div data-role="page">
+
+  <div class="content"> 
+
+    <div class="logo">capoopa</div>
+ 
+    <form method="post" action="" id="signin">
+      <label for="email">Email :</label>
+      <input type="text" name="email" placeholder="email" />
+      
+      <label for="password">Password :</label>
+      <input type="password" name="password" placeholder="password"/>
+
+      <input type="submit" value="Connexion" class="button" />
+      <div class="error"></div>
+    </form>
+
+    <p class="text-though">ou</p>
+
+    <a href="signup.html" class="button">Inscription</a>
+
+    <div class="breath-bottom"></div>
+
+  </div><!-- /content -->
   
-</div>
+</div><!-- /page -->
+
 
 </body>
 </html>
+
+
+  <script src="lib/jquery-1.8.2.min.js"></script>
+  <script src="js/user.js"></script>
