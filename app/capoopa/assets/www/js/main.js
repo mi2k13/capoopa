@@ -21,9 +21,11 @@ function toggleMenu() {
 }
 
 function postData(path, data) {
+  var fullPath = 'http://localhost:8000/api/core/' + path;
+  
   $.ajax({
     type: "POST",
-    url: 'http://localhost:8000/api/core/user/',
+    url: fullPath,
     contentType: 'application/json',
     data: data,
     success: function() {

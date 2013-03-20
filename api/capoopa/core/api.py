@@ -11,6 +11,7 @@ from tastypie import fields
 
 from tastypie.serializers import Serializer
 import time
+import base64
 
 
 #url /core/user : displays all users
@@ -101,9 +102,9 @@ class AnswerResource(ModelResource):
 		#image = data.get('image', '')
 		if "image" in bundle.data:
 			filename = "%s%s" % (bundle.obj.pk, time.time())  
-			fh = file(filename,"wb" ) #timestamp + id
+			fh = file(filename + ".jpg","wb" ) #timestamp + id
 
-			fh = open(filename, "wb")
+			fh = open(filename + ".jpg", "wb")
 			fh.write(bundle.data['image'].decode('base64'))
 			fh.close()
 

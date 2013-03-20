@@ -3,7 +3,7 @@
   {{#each tpl}}
   <li data-item="{{ id }}" class="open-right">
       <img src="img/status/{{status}}.png" alt="" class="thumb" />
-      <h3 class="ui-li-heading">{{titre id}}</h3>
+      <h3 class="ui-li-heading">{{id}}</h3>
       <p class="ui-li-desc">{{ status }}</p>
   </li>
   {{/each}}
@@ -16,5 +16,7 @@
     $('.open-right').click( function(){
       showItem($(this).data("item"), 'challenge');
     });
+
+    getData('user/');
   });
 </script>
