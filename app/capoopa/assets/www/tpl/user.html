@@ -1,14 +1,4 @@
 {{#tpl}}
-<div class="top-bar">
-  <div class="app-name">
-    Capoopa
-    <div class="right">
-      <a href="challenges.html"><img src="img/profile.png" class="icon"/></a>
-      <a href="user.html"><img src="img/profile.png" class="icon"/></a>
-    </div>
-  </div>
-</div>
-
 <div class="content">
 
   <h2>Profil {{ nickname }}</h2>
@@ -35,8 +25,8 @@
     <div class="stats">
       <div class="third number">
         <span class="red">
-        {{#if nbSuccess}}
-          {{ nbSuccess }}
+        {{#if nbCompleted}}
+          {{ nbCompleted }}
         {{else}}
           537
         {{/if}}
@@ -45,8 +35,8 @@
       </div>
       <div class="third number">
         <span class="blue">
-        {{#if nbFail}}
-          {{ nbFail }}
+        {{#if nbFailed}}
+          {{ nbFailed }}
         {{else}}
           126
         {{/if}}
@@ -54,7 +44,7 @@
         <span class="desc light-grey">ratés</span>
       </div>
       <div class="third number">
-        <span class="dark-grey">{{sss nbSuccess nbFail}}</span>
+        <span class="dark-grey">{{nbAnswers nbCompleted nbFailed}}</span>
         <span class="desc light-grey">relevés</span>
       </div>
     </div>
@@ -69,18 +59,3 @@
 
 </div>
 {{/tpl}}
-
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    Handlebars.registerHelper('sss', function(nb1, nb2) {
-      var sum = parseInt(nb1, 10) + parseInt(nb2, 10);
-      if (!isNaN(sum))
-        return sum;
-      else
-        return '???';
-    });
-  });
-
-
-</script>

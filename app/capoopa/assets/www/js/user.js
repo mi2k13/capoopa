@@ -29,14 +29,15 @@ $(document).ready(function() {
 
     var data = JSON.stringify({
       "email": email,
-      "avatar": password
+      "avatar": password,
+
     });
 
     console.log(data);
 
-    //postData('user/', data);
+    postData('user/', data);
 
-    $.ajax({
+    /*$.ajax({
       type: "POST",
       url: 'http://localhost:8000/api/core/user/',
       contentType: 'application/json',
@@ -48,18 +49,17 @@ $(document).ready(function() {
         console.log("pas envoyé...");
       },
       dataType: 'json'
-    });
+    });*/
 
     return false;
   });
 
-    Handlebars.registerHelper('sss', function(nb1, nb2) {
+  Handlebars.registerHelper('nbAnswers', function(nb1, nb2) {
     var sum = parseInt(nb1, 10) + parseInt(nb2, 10);
     if (!isNaN(sum))
       return sum;
     else
       return '???';
   });
-
 
 });
