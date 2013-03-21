@@ -8,11 +8,11 @@ $(document).ready(function(){
 
     if (title && description){
       $('.error').text('');
-      
+
       var data = JSON.stringify({
         "title": title,
         "description": description,
-        "author": '1'
+        "author": '/api/core/user/1/'
       });
 
       postData('challenge/', data);

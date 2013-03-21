@@ -59,7 +59,7 @@ class UserResource(ModelResource):
 
 
 class ChallengeResource(ModelResource):
-	author = fields.ManyToManyField(UserResource, attribute='author' , related_name='author', full=True)
+	author = fields.OneToOneField(UserResource, attribute='author' , related_name='author', full=True)
 	#users = fields.ForeignKey(UserResource, attribute='users', full=True, null=True)
 	class Meta:
 		queryset = Challenge.objects.all()

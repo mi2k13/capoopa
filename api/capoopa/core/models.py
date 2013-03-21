@@ -6,7 +6,7 @@ class User(models.Model):
 	#ID = models.CharField(max_length=4)
 	email = models.CharField(max_length=30)
 	#descriptif = models.TextField()
-	avatar = models.CharField(max_length=200)
+	avatar = models.CharField(max_length=200, blank=True)
 	#password = models.CharField(max_length=30)
 	#nbSuccess = models.IntegerField(max_length=200) 
 	#nbFail = models.IntegerField(max_length=200) 
@@ -16,7 +16,7 @@ class User(models.Model):
 class Challenge(models.Model):
 	title = models.CharField(max_length=20)
 	description = models.TextField()
-	author = models.ManyToManyField(User)
+	author = models.ForeignKey(User)
 	#beginning = models.IntegerField(max_length=200)
 	#end = models.IntegerField(max_length=200)
 	#category = models.CharField(max_length=200) # cree un dico de differentes valus pour les enums
