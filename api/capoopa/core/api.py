@@ -11,8 +11,6 @@ from tastypie import fields
 
 from tastypie.serializers import Serializer
 import time
-import base64
-
 
 #url /core/user : displays all users
 #url /core/user/<username> : displays all informations about this user
@@ -51,8 +49,8 @@ class UserResource(ModelResource):
 
 		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
 		serializers = Serializer(formats=['xml', 'json'])
-		bundle.data['answers'] = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] 
-		#serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
+		bundle.data['answers'] = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
+		bundle.data['challenge'] = [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)]
 		# tentative pour Serialiser (transformer en JSON) l'objet
 		#Serializer.serialize(self, bundle, format='application/json', options={})
 		#Serializer.to_json(self, bundle, options=None)
@@ -61,7 +59,7 @@ class UserResource(ModelResource):
 
 
 class ChallengeResource(ModelResource):
-	author = fields.ManyToManyField(UserResource, attribute='author' , related_name='author', full=True)
+	author = fields.ForeignKey(UserResource, attribute='author' , related_name='author', full=True)
 	#users = fields.ForeignKey(UserResource, attribute='users', full=True, null=True)
 	class Meta:
 		queryset = Challenge.objects.all()
@@ -77,8 +75,8 @@ class ChallengeResource(ModelResource):
 	
 
 class AnswerResource(ModelResource):
-	userID = fields.OneToOneField(UserResource, attribute='userID' , related_name='userID', full=True)
-	challengeID = fields.OneToOneField(ChallengeResource, attribute='challengeID' , related_name='challengeID', full=True)
+	userID = fields.ForeignKey(UserResource, attribute='userID' , related_name='userID', full=True)
+	challengeID = fields.ForeignKey(ChallengeResource, attribute='challengeID' , related_name='challengeID', full=True)
 	class Meta:
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
@@ -103,9 +101,9 @@ class AnswerResource(ModelResource):
 		#image = data.get('image', '')
 		if "image" in bundle.data:
 			filename = "%s%s" % (bundle.obj.pk, time.time())  
-			fh = file(filename + ".jpg","wb" ) #timestamp + id
+			fh = file(filename,"wb" ) #timestamp + id
 
-			fh = open(filename + ".jpg", "wb")
+			fh = open(filename, "wb")
 			fh.write(bundle.data['image'].decode('base64'))
 			fh.close()
 
