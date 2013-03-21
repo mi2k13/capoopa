@@ -1,22 +1,18 @@
-<h2 class="toggle toggle-top">Pending</h2>
+<h2 class="toggle toggle-top">Pending <span class="info">( {{size}} )</span></h2>
 <ul class="list toggle-content">
   {{#each tpl}}
-  <li data-item="{{ id }}" class="open-right">
+  <li data-item="{{ id }}" data-challenge="{{ challengeID_id }}" class="open-right">
       <img src="img/status/{{status}}.png" alt="" class="thumb" />
-      <h3 class="ui-li-heading">{{id}}</h3>
+      <h3 class="ui-li-heading">{{ challengeID_id }}</h3>
       <p class="ui-li-desc">{{ status }}</p>
   </li>
   {{/each}}
 </ul>
 
-
 <script type="text/javascript">
   $(document).ready(function(){
-    toggleMenu();
     $('.open-right').click( function(){
-      showItem($(this).data("item"), 'challenge');
+       showItem($(this).data("challenge"), 'challenge');
     });
-
-    getData('user/');
   });
 </script>

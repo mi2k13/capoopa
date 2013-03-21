@@ -3,13 +3,11 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
-  font-family: 'Arial', sans-serif;
   font-size: 18px;
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Lato', 'Arial', sans-serif;
-}
+div, p, textarea, label { font-family: 'Arial', sans-serif; }
+h1, h2, h3, h4 { font-family: 'Lato', 'Arial', sans-serif; }
 
 h2 { 
   color: #f45f47;
@@ -17,6 +15,11 @@ h2 {
   margin: 20px 0 0 0;
   font-size: 32px;
   border-bottom: 1px solid #f45f47;
+}
+
+h2 .info {
+  font-size: 22px;
+  margin-left: 20px;
 }
 
 h3 {
@@ -29,14 +32,19 @@ a {
   color: #111;
 }
 
+.app-name {
+  font-family: "Sarina";
+  font-weight: normal;
+}
+
 .justify { text-align: justify; }
+
 
 .toggle {
   background-repeat: no-repeat;
   background-position: right center;
   cursor: pointer;
 }
-
 .toggle-top { background-image: url(img/top-arrow.png); }
 .toggle-bottom { background-image: url(img/bottom-arrow.png); }
 
@@ -49,13 +57,6 @@ a {
   width: 50%;
   float: left;
 }
-
-/*.inner, .inner-slide { 
-  position: absolute;
-  top: -20px;
-  right: 0;
-  width: 100%;
-}*/
 
 .slide-left {
   -webkit-animation: slide-left 1.5s ease;
@@ -129,12 +130,6 @@ a {
 .clear { clear: both; }
 .breath-bottom { margin-bottom: 50px; }
 
-
-.error {
-  margin: 10px 0;
-  color: #fff;
-  text-shadow: 2px 1px 2px #666;
-}
 
 .button {
   background-color: #ccc;
@@ -240,7 +235,6 @@ a {
 /* login */
 
 .logo { 
-  font-family: "Sarina";
   color: #fff;
   font-size: 62px;
   text-align: center;
@@ -269,18 +263,22 @@ a {
   border-bottom: 5px solid #bbb;
 }
 
-.login-page label { display: none; }
+.login-page .error {
+  margin: 10px 0;
+  color: #fff;
+  text-shadow: 2px 1px 2px #666;
+}
+
 
 /* form */
 
-input, .button {
+input, textarea, .button {
   border: none;
   padding: 10px;
   width: 100%;
   outline: 0;
   box-sizing: border-box;
 }
-
 
 ::-webkit-input-placeholder {
     color:    #333;
@@ -292,6 +290,15 @@ input, .button {
     color:    #333;
 }
 
+label { display: none; }
+
+input[type=text], input[type=password], textarea {
+  background-color: #eee;
+  border: none;
+  color: #333;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
 
 /* top bar */
 
@@ -305,7 +312,7 @@ input, .button {
   z-index: 999;
 }
 
-.top-bar h1 {
+.top-bar p {
   margin: 5px;
   font-size: 28px;
   text-align: center;
@@ -362,7 +369,6 @@ input, .button {
   -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
-
 
 
 

@@ -18,15 +18,21 @@
       <p class="app-name">Capoopa</p>
     </div>
 
-    <div class="content slide-container">
-      <div class="slider-inside">
-        <div id="answers-pending" class="slide"></div> <!-- hbtemplate -->
-        <div id="answers-over" class="slide"></div> <!-- hbtemplate -->
-        <div id="answer-detail"></div> <!-- hbtemplate -->
+    <div class="content">
+
+      <div class="inner-content">
+        <form type="post" action="" id="propose-challenge">
+          <label for="title">Titre :</label>
+          <input type="text" name="title" placeholder="Titre" />
+
+          <label for="title">Description :</label>
+          <textarea name="description" placeholder="Description"></textarea>
+
+          <input type="submit" value="Envoyer" class="button" />
+          <div class="error"></div>
+        </form>
       </div>
-      <div class="slider-inside">
-        <div id="challenge-detail" class="inner-slide"></div>
-      </div>
+
     </div>
 
   </div>
@@ -35,7 +41,7 @@
   <div class="sub-bar">    
     <ul class="navbar">
       <li>
-        <a class="ui-btn selected" href="my-challenges.html">Mes défis</a>
+        <a class="ui-btn" href="my-challenges.html">Mes défis</a>
       </li>
       <li>
         <a class="ui-btn" href="challenges.html">Consulter</a>
@@ -44,7 +50,7 @@
         <a class="ui-btn" href="rate.html">Noter</a>
       </li>
       <li>
-        <a class="ui-btn" href="propose.html">Proposer</a>
+        <a class="ui-btn selected" href="propose.html">Proposer</a>
       </li>
     </ul>
   </div>

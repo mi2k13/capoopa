@@ -51,7 +51,8 @@ class UserResource(ModelResource):
 
 		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
 		serializers = Serializer(formats=['xml', 'json'])
-		bundle.data['answers'] = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
+		bundle.data['answers'] = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] 
+		#serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
 		# tentative pour Serialiser (transformer en JSON) l'objet
 		#Serializer.serialize(self, bundle, format='application/json', options={})
 		#Serializer.to_json(self, bundle, options=None)
