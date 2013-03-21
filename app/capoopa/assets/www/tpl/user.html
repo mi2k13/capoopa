@@ -1,15 +1,21 @@
 {{#tpl}}
 <div class="top-bar">
-  <h1>{{ nickname }}</h1>
+  <div class="app-name">
+    Capoopa
+    <div class="right">
+      <a href="challenges.html"><img src="img/profile.png" class="icon"/></a>
+      <a href="user.html"><img src="img/profile.png" class="icon"/></a>
+    </div>
+  </div>
 </div>
 
 <div class="content">
 
-  <h2>Profil</h2>
+  <h2>Profil {{ nickname }}</h2>
   <div class="inner-content profile">
     <div class="pull-right avatar">
       {{#if avatar}}
-      <img src="img/user/{{ avatar }}" alt="" / >
+      <img src="img/user/{{ avatar }}.jpg" alt="" / >
       {{else}}
       <img src="img/user/default.jpg" alt="" / >
       {{/if}}
@@ -67,13 +73,13 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-  Handlebars.registerHelper('sss', function(nb1, nb2) {
-    var sum = parseInt(nb1, 10) + parseInt(nb2, 10);
-    if (!isNaN(sum))
-      return sum;
-    else
-      return '???';
-  });
+    Handlebars.registerHelper('sss', function(nb1, nb2) {
+      var sum = parseInt(nb1, 10) + parseInt(nb2, 10);
+      if (!isNaN(sum))
+        return sum;
+      else
+        return '???';
+    });
   });
 
 
