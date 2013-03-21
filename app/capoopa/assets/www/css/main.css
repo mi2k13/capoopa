@@ -4,6 +4,7 @@ body {
   padding: 0;
   color: #333;
   font-size: 18px;
+  overflow-x: hidden;
 }
 
 div, p, textarea, label { font-family: 'Arial', sans-serif; }
