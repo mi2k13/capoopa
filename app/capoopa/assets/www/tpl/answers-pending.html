@@ -3,8 +3,8 @@
   {{#each tpl}}
   <li data-item="{{ id }}" data-challenge="{{ challengeID_id }}" class="open-right">
       <img src="img/status/{{status}}.png" alt="" class="thumb" />
-      <h3 class="ui-li-heading">{{ challengeID_id }}</h3>
-      <p class="ui-li-desc">{{ status }}</p>
+      <h3 class="ui-li-heading">{{ challengeID_name }}</h3>
+      <p class="ui-li-desc">{{ challengeID_type }}</p>
   </li>
   {{/each}}
 </ul>
