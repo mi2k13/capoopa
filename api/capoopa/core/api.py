@@ -4,6 +4,7 @@ from django.conf.urls import *
 from core.models import Challenge
 from core.models import Answer
 from core.models import User
+from core.models import Photo
 from tastypie.authorization import DjangoAuthorization
 #from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
@@ -52,8 +53,13 @@ class UserResource(ModelResource):
 
 		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
 		serializers = Serializer(formats=['xml', 'json'])
-		bundle.data['answers'] = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
-		#bundle.data['challenge']= [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)])
+		answers = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
+		for ans in answers:
+			ans['challengeID_name'] = Challenge.objects.get(id=ans['challengeID_id']).title
+			ans['challengeID_type'] = Challenge.objects.get(id=ans['challengeID_id']).type
+			#ans['challengeID_name'] = Challenge.objects.del(id=ans['challengeID_id']).challengeID_id
+		bundle.data['answers'] = answers
+		# bundle.data['challenge']= [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)]
 		# tentative pour Serialiser (transformer en JSON) l'objet
 		#Serializer.serialize(self, bundle, format='application/json', options={})
 		#Serializer.to_json(self, bundle, options=None)
@@ -89,7 +95,19 @@ class AnswerResource(ModelResource):
 		authorization= Authorization()
 		#authentication = BasicAuthentication()
 		always_return_data = True
+	
+class PhotoResource(ModelResource):
+	answerID = fields.OneToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True)
+	class Meta:
+		queryset = Answer.objects.all()
+		resource_name = 'answer'
 
+		allowed_methods = ['get','post']
+		serializer = Serializer(formats=['xml', 'json'])
+		authorization= Authorization()
+		#authentication = BasicAuthentication()
+		always_return_data = True
+		
 	def hydrate(self, bundle):
 		print 'la'
 		#self.method_check(request, allowed=['post'])
@@ -107,7 +125,6 @@ class AnswerResource(ModelResource):
 			print bundle.data['image']
 			filename = "%s%s.jpg" % (bundle.obj.pk, time.time()) 
 			fh = file(filename,"wb" ) #timestamp + id
-
 			fh = open(filename, "wb")
 			fh.write(bundle.data['image'].decode('base64'))
 			#fh.write(base64.b64decode(bundle.data['image']))
