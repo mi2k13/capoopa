@@ -4,8 +4,6 @@ $(document).ready(function(){
     var title = $('input[name=title]').val();
     var description = $('textarea[name=description]').val();
 
-    console.log("pute", title, description);
-
     if (title && description){
       $('.error').text('');
 

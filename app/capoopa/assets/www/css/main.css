@@ -175,6 +175,20 @@ a {
   background-color: #eee;
 }
 
+.info {
+  font-style: italic;
+}
+
+.success, .error {
+  font-size: 22px;
+  padding: 5px;
+}
+.success { color: #35B45B; }
+.error { color: #f45f47; }
+
+.back img {
+  max-height: 30px;
+}
 
 .text-though {
   position: relative;
@@ -194,6 +208,7 @@ a {
 
 .text-though:after { right: 0; }
 .text-though:before { left: 0; }
+
 
 .third {
   width: 31%;

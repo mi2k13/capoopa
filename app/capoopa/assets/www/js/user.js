@@ -37,6 +37,48 @@ $(document).ready(function() {
     return false;
   });
 
+  $('#edit-user').submit( function(){
+    var nickname = $('input[name=nickname]').val();
+    var description = $('textarea[name=description]').val();
+    var password = $('input[name=password]').val();
+    var password2 = $('input[name=verifPass]').val();
+
+    var textSucces = 'Vos informations ont bien été éditées';
+
+    $('.error').text('');
+    $('.success').text('');
+
+    if(password || password2) {
+      if(password && !password2)
+        $('.error').text('Oops: il faut remplir les deux password');
+      else if(password != password2)
+        $('.error').text('Oops: les passwords sont différents');
+      else {
+        var data = JSON.stringify({
+          "id": 1,
+          "nickname": nickname,
+          "description": description,
+          "password": password
+        });
+
+        $('.success').text(textSucces);
+        postData('user/', data);
+      }
+      return false;
+    }
+
+    var data = JSON.stringify({
+      "id": 1,
+      "nickname": nickname,
+      "description": description,
+    });
+
+    $('.success').text(textSucces);
+    postData('user/', data);
+
+    return false;
+  });
+
 });
 
 function editItem(id, type) {
