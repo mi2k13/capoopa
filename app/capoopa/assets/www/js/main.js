@@ -95,7 +95,6 @@ function loadTemplate(templateName, templateInput) {
           size: templateInput.length
         }));
       }
-
     }
   });
 };

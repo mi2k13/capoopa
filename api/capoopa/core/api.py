@@ -11,6 +11,8 @@ from tastypie import fields
 
 from tastypie.serializers import Serializer
 import time
+import base64
+import os
 
 
 #url /core/user : displays all users
@@ -51,6 +53,7 @@ class UserResource(ModelResource):
 		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
 		serializers = Serializer(formats=['xml', 'json'])
 		bundle.data['answers'] = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
+		#bundle.data['challenge']= [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)])
 		# tentative pour Serialiser (transformer en JSON) l'objet
 		#Serializer.serialize(self, bundle, format='application/json', options={})
 		#Serializer.to_json(self, bundle, options=None)
@@ -59,7 +62,11 @@ class UserResource(ModelResource):
 
 
 class ChallengeResource(ModelResource):
+<<<<<<< HEAD
+	author = fields.ToOneField(UserResource, attribute='author' , related_name='author', full=True)
+=======
 	author = fields.OneToOneField(UserResource, attribute='author' , related_name='author', full=True)
+>>>>>>> ca643fabfc58e1f9a28fee302de754d4382445e9
 	#users = fields.ForeignKey(UserResource, attribute='users', full=True, null=True)
 	class Meta:
 		queryset = Challenge.objects.all()
@@ -100,11 +107,14 @@ class AnswerResource(ModelResource):
 
 		#image = data.get('image', '')
 		if "image" in bundle.data:
-			filename = "%s%s" % (bundle.obj.pk, time.time())  
+			#filename =   "blop.jpg"
+			print bundle.data['image']
+			filename = "%s%s.jpg" % (bundle.obj.pk, time.time()) 
 			fh = file(filename,"wb" ) #timestamp + id
 
 			fh = open(filename, "wb")
-			fh.write(bundle.data['image'].decode('base64'))
+			#fh.write(bundle.data['image'].decode('base64'))
+			fh.write(base64.b64decode(bundle.data['image']))
 			fh.close()
 
 			# Changer le bundle.obj.image en mettant a la place l'URL de l'image uploadee
