@@ -97,7 +97,7 @@ class AnswerResource(ModelResource):
 		always_return_data = True
 	
 class PhotoResource(ModelResource):
-	answerID = fields.OneToOneField(AnswerResource, attribute='userID' , related_name='userID', full=True)
+	answerID = fields.OneToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True)
 	class Meta:
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
