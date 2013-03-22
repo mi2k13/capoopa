@@ -7,7 +7,7 @@ body {
   overflow-x: hidden;
 }
 
-div, p, textarea, label { font-family: 'Arial', sans-serif; }
+div, p, textarea, label, input { font-family: 'Arial', sans-serif; }
 h1, h2, h3, h4 { font-family: 'Lato', 'Arial', sans-serif; }
 
 h2 { 
@@ -275,7 +275,7 @@ a {
 
 /* form */
 
-input, textarea, .button {
+input[type=text], input[type=password], textarea, .button, select {
   border: none;
   padding: 10px;
   width: 100%;
@@ -283,25 +283,39 @@ input, textarea, .button {
   box-sizing: border-box;
 }
 
-::-webkit-input-placeholder {
-    color:    #333;
+input, textarea, legend, select {
+  color: #666;
+  font-size: 28px;
 }
-:-moz-placeholder {
-    color:    #333;
+
+input, textarea, select {
+  background-color: #eee;
+  border: none;
 }
-:-ms-input-placeholder {
-    color:    #333;
+
+input[type=text], textarea, legend {
+  margin-top: 10px;
 }
 
 label { display: none; }
 
-input[type=text], input[type=password], textarea {
-  background-color: #eee;
-  border: none;
-  color: #333;
-  font-size: 30px;
-  margin-bottom: 10px;
+legend {
+  color: #bbb;
+  font-size: 18px;
+  text-transform: uppercase;
 }
+
+
+::-webkit-input-placeholder {
+    color:    #999;
+}
+:-moz-placeholder {
+    color:    #999;
+}
+:-ms-input-placeholder {
+    color:    #999;
+}
+
 
 /* top bar */
 

@@ -28,11 +28,25 @@
 
       <div class="inner-content">
         <form type="post" action="" id="propose-challenge">
-          <label for="title">Titre :</label>
+          <label for="title">Titre</label>
           <input type="text" name="title" placeholder="Titre" />
 
-          <label for="title">Description :</label>
-          <textarea name="description" placeholder="Description"></textarea>
+
+          <label for="description">Description</label>
+          <textarea name="description" placeholder="Description" rows="4"></textarea>
+
+          <label for="description">Catégorie</label>
+          <legend>Catégorie :</legend>
+          <select name="category">
+            <option>divers</option>
+            <option>animal</option>
+            <option>crade</option>
+          </select>
+
+          
+          <legend>Type de défi :</legend>
+          <input type="radio" name="type" value="first"/> Premier à le faire<br/>
+          <input type="radio" name="type" value="time"/> Temps limité
 
           <input type="submit" value="Envoyer" class="button" />
           <div class="error"></div>
