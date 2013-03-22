@@ -97,10 +97,10 @@ class AnswerResource(ModelResource):
 		always_return_data = True
 	
 class PhotoResource(ModelResource):
-	answerID = fields.OneToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True)
+	answerID = fields.ToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True)
 	class Meta:
 		queryset = Answer.objects.all()
-		resource_name = 'answer'
+		resource_name = 'photo'
 
 		allowed_methods = ['get','post']
 		serializer = Serializer(formats=['xml', 'json'])
