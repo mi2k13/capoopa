@@ -4,6 +4,7 @@ from django.conf.urls import *
 from core.models import Challenge
 from core.models import Answer
 from core.models import User
+from core.models import Photo
 from tastypie.authorization import DjangoAuthorization
 #from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
@@ -94,7 +95,19 @@ class AnswerResource(ModelResource):
 		authorization= Authorization()
 		#authentication = BasicAuthentication()
 		always_return_data = True
+	
+class PhotoResource(ModelResource):
+	answerID = fields.OneToOneField(AnswerResource, attribute='userID' , related_name='userID', full=True)
+	class Meta:
+		queryset = Answer.objects.all()
+		resource_name = 'answer'
 
+		allowed_methods = ['get','post']
+		serializer = Serializer(formats=['xml', 'json'])
+		authorization= Authorization()
+		#authentication = BasicAuthentication()
+		always_return_data = True
+		
 	def hydrate(self, bundle):
 		print 'la'
 		#self.method_check(request, allowed=['post'])
@@ -124,28 +137,3 @@ class AnswerResource(ModelResource):
 			print 'pas de donnees dans image '
 
 		return bundle
-
-		'''
-
-		ou
-
-		def photo(self, bundle):
-		print 'la'
-
-		#image = data.get('image', '')
-		if "image" in bundle.data:
-			filename = "%s%s" % (bundle.obj.pk, time.time())  
-			fh = file(filename,"wb" ) #timestamp + id
-
-			fh = open(filename, "wb")
-			fh.write(bundle.data['image'].decode('base64'))
-			fh.close()
-
-			# Changer le bundle.obj.image en mettant a la place l'URL de l'image uploadee
-			bundle.obj.image = filename
-
-		else:
-			print 'pas de donnees dans image '
-
-		return bundle
-		'''
