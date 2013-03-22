@@ -13,7 +13,6 @@ $(document).ready(function() {
   });
 
 
-
   $('#signup').submit(function() {
     var email = $('input[name=email]').val();
     var password = $('input[name=password]').val();
@@ -33,28 +32,19 @@ $(document).ready(function() {
 
     });
 
-    console.log(data);
-
     postData('user/', data);
-
-    /*$.ajax({
-      type: "POST",
-      url: 'http://localhost:8000/api/core/user/',
-      contentType: 'application/json',
-      data: data,
-      success: function() {
-        console.log("envoyé!");
-      },
-      error: function() {
-        console.log("pas envoyé...");
-      },
-      dataType: 'json'
-    });*/
 
     return false;
   });
 
 });
+
+function editItem(id, type) {
+  loadData(type + '/' + id, 'edit-' + type, 0);
+  $('.slide-container').addClass('slide-left');
+  $('.slide-container').removeClass('slide-right');
+  $("html, body").animate({ scrollTop: 0 }, 0);
+}
 
 Handlebars.registerHelper('nbAnswers', function(nb1, nb2) {
   var sum = parseInt(nb1, 10) + parseInt(nb2, 10);

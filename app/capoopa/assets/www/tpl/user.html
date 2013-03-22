@@ -1,5 +1,5 @@
 {{#tpl}}
-<div class="content">
+<div class="top-content">
 
   <h2>Profil {{ nickname }}</h2>
   <div class="inner-content profile">
@@ -57,5 +57,16 @@
     </div>
   </div>
 
+  <div class="right"><span class="button edit-profile">edit</span></div>
+
 </div>
 {{/tpl}}
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.edit-profile').click( function(){
+       editItem(1, 'user');
+    });
+  });
+</script>

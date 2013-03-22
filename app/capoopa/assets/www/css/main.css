@@ -52,6 +52,9 @@ a {
 .right { float: right; }
 .left { float: left; }
 
+
+/* slider */
+
 .slide-container {
   width: 200%;
   height: 200px;
@@ -396,11 +399,14 @@ legend {
 
 /* content */
 
-.content {
-  margin-top: 90px;
+.content, .high-content, .top-content {
   margin-bottom: 60px;
   position: relative;
 }
+
+.content { margin-top: 90px; }
+.high-content { margin-top: 50px; }
+.top-content { margin-top: -50px; }
 
 .inner-content {
   padding: 10px;

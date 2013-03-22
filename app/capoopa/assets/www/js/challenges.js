@@ -22,8 +22,6 @@ $(document).ready(function(){
       $('.error').text('Oops : Vous n\'avez pas indiqué toutes les informations nécessaires');
 
     return false;
-
-
   });
 
 });
