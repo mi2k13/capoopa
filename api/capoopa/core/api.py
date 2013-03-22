@@ -62,7 +62,11 @@ class UserResource(ModelResource):
 
 
 class ChallengeResource(ModelResource):
+<<<<<<< HEAD
 	author = fields.ToOneField(UserResource, attribute='author' , related_name='author', full=True)
+=======
+	author = fields.OneToOneField(UserResource, attribute='author' , related_name='author', full=True)
+>>>>>>> ca643fabfc58e1f9a28fee302de754d4382445e9
 	#users = fields.ForeignKey(UserResource, attribute='users', full=True, null=True)
 	class Meta:
 		queryset = Challenge.objects.all()

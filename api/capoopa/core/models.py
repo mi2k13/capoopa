@@ -25,6 +25,6 @@ class Answer(models.Model):
 	userID = models.ForeignKey(User)
 	challengeID = models.ForeignKey(Challenge)
 	status = models.CharField(max_length=10)
-	image = models.TextField(blank=True)
+	image = models.CharField(max_length=20000, blank=True)
 	#media = models.IntegerField(max_length=200)
 	nbAbuse = models.IntegerField(max_length=200, blank=True, default='0')
