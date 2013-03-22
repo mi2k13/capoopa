@@ -21,9 +21,11 @@ function toggleMenu() {
 }
 
 function postData(path, data) {
+  var fullPath = 'http://localhost:8000/api/core/' + path;
+  
   $.ajax({
     type: "POST",
-    url: 'http://localhost:8000/api/core/user/',
+    url: fullPath,
     contentType: 'application/json',
     data: data,
     success: function() {
@@ -45,6 +47,7 @@ function loadData(path, template, type) {
     dataType: 'jsonp',
     cache: false,
     processData: false,
+    async: false,
     type: 'GET',
     success: function(data, textStatus, jqXHR) {
       if (type == 0)
@@ -73,7 +76,10 @@ function loadTemplate(templateName, templateInput) {
     success: function (data) {
       source = data;
       template = Handlebars.compile(source);
-      $('#' + templateName).html(template({tpl: templateInput}));
+      $('#' + templateName).html(template({
+        tpl: templateInput,
+        size: templateInput.length
+      }));
     }
   });
 };
