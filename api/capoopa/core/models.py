@@ -6,7 +6,7 @@ class User(models.Model):
 	#ID = models.CharField(max_length=4)
 	email = models.CharField(max_length=30)
 	#descriptif = models.TextField()
-	avatar = models.CharField(max_length=200)
+	avatar = models.CharField(max_length=200, blank=True)
 	#password = models.CharField(max_length=30)
 	#nbSuccess = models.IntegerField(max_length=200) 
 	#nbFail = models.IntegerField(max_length=200) 
@@ -31,6 +31,4 @@ class Answer(models.Model):
 	image = models.CharField(max_length=20000, blank=True)
 	#media = models.IntegerField(max_length=200)
 	#nbAbuse = models.IntegerField(max_length=200)
-
-	
 

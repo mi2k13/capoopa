@@ -62,7 +62,11 @@ class UserResource(ModelResource):
 
 
 class ChallengeResource(ModelResource):
+<<<<<<< HEAD
 	author = fields.ToOneField(UserResource, attribute='author' , related_name='author', full=True)
+=======
+	author = fields.OneToOneField(UserResource, attribute='author' , related_name='author', full=True)
+>>>>>>> ca643fabfc58e1f9a28fee302de754d4382445e9
 	#users = fields.ForeignKey(UserResource, attribute='users', full=True, null=True)
 	class Meta:
 		queryset = Challenge.objects.all()
@@ -120,28 +124,3 @@ class AnswerResource(ModelResource):
 			print 'pas de donnees dans image '
 
 		return bundle
-
-		'''
-
-		ou
-
-		def photo(self, bundle):
-		print 'la'
-
-		#image = data.get('image', '')
-		if "image" in bundle.data:
-			filename = "%s%s" % (bundle.obj.pk, time.time())  
-			fh = file(filename,"wb" ) #timestamp + id
-
-			fh = open(filename, "wb")
-			fh.write(bundle.data['image'].decode('base64'))
-			fh.close()
-
-			# Changer le bundle.obj.image en mettant a la place l'URL de l'image uploadee
-			bundle.obj.image = filename
-
-		else:
-			print 'pas de donnees dans image '
-
-		return bundle
-		'''

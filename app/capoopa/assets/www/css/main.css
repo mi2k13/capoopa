@@ -4,6 +4,7 @@ body {
   padding: 0;
   color: #333;
   font-size: 18px;
+  overflow-x: hidden;
 }
 
 div, p, textarea, label { font-family: 'Arial', sans-serif; }
@@ -48,6 +49,8 @@ a {
 .toggle-top { background-image: url(img/top-arrow.png); }
 .toggle-bottom { background-image: url(img/bottom-arrow.png); }
 
+.right { float: right; }
+.left { float: left; }
 
 .slide-container {
   width: 200%;
@@ -312,7 +315,7 @@ input[type=text], input[type=password], textarea {
   z-index: 999;
 }
 
-.top-bar p {
+.top-bar div.app-name {
   margin: 5px;
   font-size: 28px;
   text-align: center;
@@ -320,6 +323,10 @@ input[type=text], input[type=password], textarea {
   text-transform: lowercase;
 }
 
+.top-bar .icon {
+  max-height: 35px;
+  padding: 0 5px;
+}
 
 /* sub-bar */
 

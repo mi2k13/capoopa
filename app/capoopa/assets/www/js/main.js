@@ -31,8 +31,9 @@ function postData(path, data) {
     success: function() {
       console.log("envoyé!");
     },
-    error: function() {
+    error: function(jqXHR, textStatus, errorThrown) {
       console.log("pas envoyé...");
+      console.log(errorThrown);
     },
     dataType: 'json'
   });
@@ -58,7 +59,7 @@ function loadData(path, template, type) {
 
       else if (type == 2) {
         var pending = sortData(data.answers, 'pending');
-        var over = sortData(data.answers, 'over').concat(sortData(data.answers, 'failed')).concat(sortData(data.answers, 'completed'));
+        var over = sortData(data.answers, 'over').concat(sortData(data.answers, 'completed')).concat(sortData(data.answers, 'failed'));
         loadTemplate(template+'-pending', pending);
         loadTemplate(template+'-over', over);
       }
@@ -76,10 +77,24 @@ function loadTemplate(templateName, templateInput) {
     success: function (data) {
       source = data;
       template = Handlebars.compile(source);
-      $('#' + templateName).html(template({
-        tpl: templateInput,
-        size: templateInput.length
-      }));
+
+      if(templateName == 'user') {
+        var answ =getNbAnswers(templateInput);
+        templateInput.nbCompleted = answ[0];
+        templateInput.nbFailed = answ[1];
+
+        $('#' + templateName).html(template({
+          tpl: templateInput,
+          size: templateInput.length,
+        }));
+      }
+
+      else {
+        $('#' + templateName).html(template({
+          tpl: templateInput,
+          size: templateInput.length
+        }));
+      }
     }
   });
 };
@@ -91,4 +106,17 @@ function sortData(data, type) {
       result.push(item);
   });
   return result;
+}
+
+function getNbAnswers(data) {
+  var completed = 0,
+      failed    = 0;
+
+  $.each(data.answers, function( key, value ) {
+    if (value.status == 'completed')
+      completed++;
+    else if (value.status == 'failed')
+      failed++;
+  });
+  return [completed, failed];
 }
