@@ -21,6 +21,9 @@ class Challenge(models.Model):
 	nbAnswer = models.IntegerField(max_length=5, default='0')
 	type = models.CharField(max_length=6)
 
+	def __unicode__(self):
+		return self.title
+
 class Answer(models.Model):
 	userID = models.ForeignKey(User)
 	challengeID = models.ForeignKey(Challenge)

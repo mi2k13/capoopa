@@ -52,8 +52,13 @@ class UserResource(ModelResource):
 
 		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
 		serializers = Serializer(formats=['xml', 'json'])
-		bundle.data['answers'] = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
-		#bundle.data['challenge']= [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)])
+		answers = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
+		for ans in answers:
+			ans['challengeID_name'] = Challenge.objects.get(id=ans['challengeID_id']).title
+			#ans['challengeID_name'] = Challenge.objects.get(id=ans['challengeID_id']).type
+			#ans['challengeID_name'] = Challenge.objects.del(id=ans['challengeID_id']).challengeID_id
+		bundle.data['answers'] = answers
+		# bundle.data['challenge']= [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)]
 		# tentative pour Serialiser (transformer en JSON) l'objet
 		#Serializer.serialize(self, bundle, format='application/json', options={})
 		#Serializer.to_json(self, bundle, options=None)
@@ -107,7 +112,6 @@ class AnswerResource(ModelResource):
 			print bundle.data['image']
 			filename = "%s%s.jpg" % (bundle.obj.pk, time.time()) 
 			fh = file(filename,"wb" ) #timestamp + id
-
 			fh = open(filename, "wb")
 			fh.write(bundle.data['image'].decode('base64'))
 			#fh.write(base64.b64decode(bundle.data['image']))
@@ -120,3 +124,28 @@ class AnswerResource(ModelResource):
 			print 'pas de donnees dans image '
 
 		return bundle
+
+		'''
+
+		ou
+
+		def photo(self, bundle):
+		print 'la'
+
+		#image = data.get('image', '')
+		if "image" in bundle.data:
+			filename = "%s%s" % (bundle.obj.pk, time.time())  
+			fh = file(filename,"wb" ) #timestamp + id
+
+			fh = open(filename, "wb")
+			fh.write(bundle.data['image'].decode('base64'))
+			fh.close()
+
+			# Changer le bundle.obj.image en mettant a la place l'URL de l'image uploadee
+			bundle.obj.image = filename
+
+		else:
+			print 'pas de donnees dans image '
+
+		return bundle
+		'''
