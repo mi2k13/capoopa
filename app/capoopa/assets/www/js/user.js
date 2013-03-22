@@ -4,7 +4,7 @@ $(document).ready(function() {
     var email = $('input[name=email]').val();
     var password = $('input[name=password]').val();
 
-    if (email == 'anne@kontestapp.com' && password == 'pass')
+    if (email == 'log' && password == 'pass')
       window.location.replace('challenges.html');
     else
       $('.error').text('Oops : L\'adresse email et/ou le mot de passe que vous avez indiqués sont incorrects.');
