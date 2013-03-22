@@ -3,14 +3,21 @@ $(document).ready(function(){
   $('#propose-challenge').submit( function(){
     var title = $('input[name=title]').val();
     var description = $('textarea[name=description]').val();
+    var category = $('select[name=category]').val();
+    var type = $('input[name=type]').val();
 
-    if (title && description){
+
+    if (title && description && category && type){
       $('.error').text('');
 
       var data = JSON.stringify({
         "title": title,
         "description": description,
-        "author": '/api/core/user/1/'
+        "author": '/api/core/user/1/',
+        "beginning": 1300000,
+        "end": 150000,
+        "category": category,
+        "type": type
       });
 
       postData('challenge/', data);
@@ -31,10 +38,6 @@ function showItem(id, type) {
   $("html, body").animate({ scrollTop: 0 }, 0);
 }
 
-function hideItem() {
-  $('.slide-container').addClass('slide-right');
-  $('.slide-container').removeClass('slide-left');
-}
 
 Handlebars.registerHelper('time', function(timestamp) {
   var dt = new Date(timestamp * 1000);

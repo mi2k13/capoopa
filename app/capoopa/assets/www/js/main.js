@@ -6,19 +6,6 @@ $(document).ready(function(){
   else                        loadData(type + '/1', type, 0);
 });
 
-function toggleMenu() {
-  $('.toggle').click(function() {
-      if ($(this).hasClass('toggle-top')) {
-        $(this).removeClass('toggle-top');
-        $(this).addClass('toggle-bottom');
-      }
-      else if ($(this).addClass('toggle-bottom')) {
-        $(this).removeClass('toggle-bottom');
-        $(this).addClass('toggle-top');
-      }
-      $(this).next('.toggle-content').slideToggle('slow');
-    });
-}
 
 function postData(path, data) {
   var fullPath = 'http://localhost:8000/api/core/' + path;
@@ -98,6 +85,27 @@ function loadTemplate(templateName, templateInput) {
     }
   });
 };
+
+function toggleMenu() {
+  $('.toggle').click(function() {
+      if ($(this).hasClass('toggle-top')) {
+        $(this).removeClass('toggle-top');
+        $(this).addClass('toggle-bottom');
+      }
+      else if ($(this).addClass('toggle-bottom')) {
+        $(this).removeClass('toggle-bottom');
+        $(this).addClass('toggle-top');
+      }
+      $(this).next('.toggle-content').slideToggle('slow');
+    });
+}
+
+
+function hideItem() {
+  $('.slide-container').addClass('slide-right');
+  $('.slide-container').removeClass('slide-left');
+}
+
 
 function sortData(data, type) {
   var result = new Array();

@@ -40,7 +40,8 @@
       var data = JSON.stringify({
         "userID":  "/api/core/user/1/",
         "challengeID": "/api/core/challenge/" + itemId + '/',
-        "status": status
+        "status": status,
+        "nbAbuse": 0
       });
 
       postData('answer/', data);
