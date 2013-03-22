@@ -109,8 +109,8 @@ class AnswerResource(ModelResource):
 			fh = file(filename,"wb" ) #timestamp + id
 
 			fh = open(filename, "wb")
-			#fh.write(bundle.data['image'].decode('base64'))
-			fh.write(base64.b64decode(bundle.data['image']))
+			fh.write(bundle.data['image'].decode('base64'))
+			#fh.write(base64.b64decode(bundle.data['image']))
 			fh.close()
 
 			# Changer le bundle.obj.image en mettant a la place l'URL de l'image uploadee
