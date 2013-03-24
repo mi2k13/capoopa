@@ -1,12 +1,24 @@
 {{#tpl}}
-  <h2><span class="back"><img src="img/back.png"></span> {{ title }}</h2>
-  <p class="inner-content">
-    {{ description }}
-    {{ date beginning }}
-    {{ time duration }}
-    {{ type }}
-    {{ category }}
-  </p>
+  <h2><span class="back"><img src="img/back.png"></span> {{ title }} <img src="img/type/{{type}}.png" class="icon" /></h2>
+  <div class="inner-content">
+
+    <h3>Informations</h3>
+    <ul>
+      <li>Catégorie : {{ category }}</li>
+      <li>Type : {{ getType type }}</li>
+      <li>Début : {{ date beginning }}</li>
+      <li>Durée : {{ time duration }}</li>
+      <li>Temps restant : {{ timeLeft beginning duration }}</li>
+    </ul>
+
+    <h3>Description du défi</h3>
+    <p>{{ description }}</p>
+
+    <div>
+      <div class="button large">GO!!</div> 
+    </div>
+
+  </div>
 {{/tpl}}
 
 <script type="text/javascript">

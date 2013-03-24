@@ -2,7 +2,7 @@ body {
   background: #f9f9f9;
   margin: 0;
   padding: 0;
-  color: #333;
+  color: #555;
   font-size: 18px;
   overflow-x: hidden;
 }
@@ -24,6 +24,7 @@ h2 .info {
 }
 
 h3 {
+  color: #333;
   font-size: 26px;
   margin-bottom: 0;
 }
@@ -189,6 +190,7 @@ a {
 
 .back img {
   max-height: 30px;
+  margin-right: 20px;
 }
 
 .text-though {
@@ -425,6 +427,8 @@ legend {
 .inner-content {
   padding: 10px;
 }
+
+.content .icon { max-height: 50px; }
 
 .content ul.list {
   list-style: none;
