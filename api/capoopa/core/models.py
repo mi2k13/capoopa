@@ -5,10 +5,10 @@ from django.db import models
 class User(models.Model):
 	email = models.CharField(max_length=30)
 	password = models.CharField(max_length=30)
-	nickname = models.CharField(max_length=30)
-	description = models.TextField()
+	nickname = models.CharField(max_length=30, blank=True)
+	description = models.TextField(blank=True)
 	avatar = models.CharField(max_length=100, blank=True)
-	nbRate = models.IntegerField(max_length=5, default='0') 
+	nbRate = models.IntegerField(max_length=5) 
 
 class Challenge(models.Model):
 	title = models.CharField(max_length=20)
@@ -17,8 +17,8 @@ class Challenge(models.Model):
 	beginning = models.IntegerField(max_length=12)
 	duration = models.IntegerField(max_length=12)
 	category = models.CharField(max_length=15) # cree un dico de differentes valus pour les enums
-	nbAbuse = models.IntegerField(max_length=5, default='0') 
-	nbAnswer = models.IntegerField(max_length=5, default='0')
+	nbAbuse = models.IntegerField(max_length=5) 
+	nbAnswer = models.IntegerField(max_length=5)
 	type = models.CharField(max_length=6)
 
 	def __unicode__(self):
@@ -30,7 +30,7 @@ class Answer(models.Model):
 	status = models.CharField(max_length=10)
 	#image = models.TextField(blank=True)
 	#media = models.IntegerField(max_length=200)
-	nbAbuse = models.IntegerField(max_length=200, blank=True, default='0')
+	nbAbuse = models.IntegerField(max_length=200, blank=True)
 
 class Photo(models.Model):
 	answerID = models.ForeignKey(Answer)

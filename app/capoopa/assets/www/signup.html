@@ -7,8 +7,6 @@
   <meta http-equiv="Content-Type" content="text/ html; charset=UTF-8" />
 
   <link rel="stylesheet" href="css/main.css" />
-  <script src="lib/jquery-1.8.2.min.js"></script>
-  <script src="js/user.js"></script>
   <link href='http://fonts.googleapis.com/css?family=Lato|Sarina' rel='stylesheet' type='text/css'>
   
 
@@ -21,18 +19,21 @@
 
   <div class="content"> 
 
-    <div class="logo">capoopa</div>
+    <div class="logo app-name">capoopa</div>
  
     <form method="post" action="" id="signup">
       <label for="email">Email :</label>
-      <input type="text" name="email" placeholder="email" />
+      <input type="text" name="email" placeholder="email" class="large" />
       
       <label for="password">Password :</label>
-      <input type="password" name="password" placeholder="password"/>
+      <input type="password" name="password" placeholder="password" class="large"/>
       <label for="password2">Conform password :</label>
-      <input type="password" name="password2" placeholder="confirm password"/>
+      <input type="password" name="password2" placeholder="confirm password" class="large"/>
 
-      <input type="submit" value="Inscription" class="button" />
+      <input type="submit" value="Inscription" class="button large" />
+
+      <div class="info error"></div>
+      <div class="info success"></div>
     </form>
 
   </div><!-- /content -->
@@ -42,3 +43,8 @@
 
 </body>
 </html>
+
+  <script src="lib/jquery-1.8.2.min.js"></script>
+  <script src="lib/handlebars.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/user.js"></script>

@@ -19,21 +19,27 @@ $(document).ready(function() {
     var password2 = $('input[name=password2]').val();
 
     if (password !== password2) {
-     console.log('error password');
+      $('.error').text('Les deux mots de passe doivent être identiques');
       return false; 
     }
 
     //vérifier si compte existe déjà
+    if(email && password) {
+      $('.error').text('');
+      var data = JSON.stringify({
+        "email": email,
+        "password": password,
+        "description": '',
+        "avatar": '',
+        "nickname": '',
+        "nbRate": 0
+      });
 
-
-    var data = JSON.stringify({
-      "email": email,
-      "avatar": password,
-
-    });
-
-    postData('user/', data);
-
+      postData('user/', data);
+      $('.success').html('YEAH ! Votre compte a bien été créé, vous pouvez aller relever des défis dès maintenant ! <a href="index.html">Me connecter</a>');
+    }
+    else
+      $('.error').text('Attention, vous n\'avez pas rempli tous les champs !');
     return false;
   });
 
