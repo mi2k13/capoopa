@@ -7,21 +7,27 @@ $(document).ready(function(){
     var type = $('select[name=type]').val();
     var debut = $('input[name=beginning]').val();
     var duree = $('input[name=duration]').val();
-    var dureeType = $('select[name=duree-type]').val();
+    var dureeType = $('select[name=duration-type]').val();
+
+    var debutTab = debut.split('/');
+    debut = debutTab[2] + '-' + debutTab[1] + '-' + debutTab[0];
 
     var dateBeginning = new Date(debut + ' 00:00:00');
     debut = dateBeginning.getTime() / 1000;
 
+    var duration = timeToTimestamp(duree, dureeType);
+
     if (title && description && category && type && debut && duree) {
-      if(is_int(duree)) {
+      if(!isNaN(parseInt(duree * 1))) { // is int ?
         $('.error').text('');
+
 
         var data = JSON.stringify({
           "title": title,
           "description": description,
           "author": '/api/core/user/1/',
           "beginning": debut,
-          "duration": timeToTimestamp(duree, dureeType),
+          "duration": duration,
           "category": category,
           "type": type
         });
@@ -29,8 +35,8 @@ $(document).ready(function(){
         postData('challenge/', data);
         $('.success').text('Votre proposition de challenge a bien été ajouté');
       }
-      else $('.error').text('Vous devez entrer un chiffre entier pour la durée.');
-      return false;
+      else
+        $('.error').text('Vous devez entrer un chiffre entier pour la durée.');
     }
     else
       $('.error').text('Oops : Vous n\'avez pas indiqué toutes les informations nécessaires');

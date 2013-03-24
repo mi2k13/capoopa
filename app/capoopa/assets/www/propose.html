@@ -36,19 +36,19 @@
           <label for="description">Description</label>
           <textarea name="description" placeholder="Description" rows="4" class="large"></textarea>
 
-<!--           <label for="description">Catégorie</label>
+          <label for="description">Catégorie</label>
           <legend>Catégorie :</legend>
           <select name="category" class="large">
             <option>divers</option>
             <option>animal</option>
             <option>crade</option>
-          </select> -->
+          </select>
 
           <label for="type">Type de défi</label>
           <legend>Type de défi :</legend>
           <select name="type" class="large">
-            <option>temps limité</option>
-            <option>premier à le faire</option>
+            <option value="time">temps limité</option>
+            <option value="first">premier à le faire</option>
           </select>
 
           <label for="beginning">Début</label>
@@ -58,9 +58,9 @@
           <legend>Durée</legend>
           <input type="text" name="duration" />
           <select name="duration-type">
-            <option>minutes</option>
-            <option>heures</option>
-            <option>jours</option>
+            <option value="minutes">minutes</option>
+            <option value="hours">heures</option>
+            <option value="days">jours</option>
           </select>
 
           <input type="submit" value="Envoyer" class="button large" />
