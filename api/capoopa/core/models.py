@@ -8,7 +8,7 @@ class User(models.Model):
 	nickname = models.CharField(max_length=30, blank=True)
 	description = models.TextField(blank=True)
 	avatar = models.CharField(max_length=100, blank=True)
-	nbRate = models.IntegerField(max_length=5) 
+	nbRate = models.IntegerField(max_length=5)
 
 class Challenge(models.Model):
 	title = models.CharField(max_length=20)
