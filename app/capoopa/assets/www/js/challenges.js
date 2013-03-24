@@ -92,13 +92,6 @@ function timeToTimestamp(time, type) {
     return time * 60 * 60 * 24;
 }
 
-function isPasted(timestamp) {
-  var current = Math.round(((new Date()).getTime()-Date.UTC(1970,0,1))/1000);
-  if (timestamp - current < 0){
-    return 'open-right';
-  }
-  return '';
-}
 
 Handlebars.registerHelper('date', function(timestamp) {
   return timestampToDate(timestamp, true);
@@ -108,8 +101,16 @@ Handlebars.registerHelper('time', function(ms) {
   return timestampToTime(ms);
 });
 
-Handlebars.registerHelper('isPasted', function(timestamp) {
-  return isPasted(timestamp);
+Handlebars.registerHelper('isPasted', function(start, duration) {
+  var current = Math.round(((new Date()).getTime()-Date.UTC(1970,0,1))/1000);
+  var end = start + duration;
+
+  if (start - current < 0 && end - current > 0)
+    return 'open-right';
+  else if (end - current < 0)
+      return 'over';
+
+  return '';
 });
 
 Handlebars.registerHelper('timeLeft', function(start, duration) {

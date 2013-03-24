@@ -133,12 +133,14 @@ a {
 
 
 
-.open-right, .open-left {
+.open-right, .open-left, .over {
   min-width: 30px;
   min-height: 30px;
 }
-.open-right { background: url(img/right-arrow.png) no-repeat right center}
-.open-left { background: url(img/left-arrow.png) no-repeat right center}
+.open-right { background: url(img/right-arrow.png) no-repeat right center; }
+.open-left { background: url(img/left-arrow.png) no-repeat right center; }
+
+.over { background: url(img/over.png) no-repeat right center; }
 
 .button {
   background-color: #ccc;

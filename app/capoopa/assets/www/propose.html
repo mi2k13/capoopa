@@ -104,6 +104,10 @@
 <script src="js/challenges.js"></script>
 
 <script type="text/javascript">
+  var current = Math.round(((new Date()).getTime()-Date.UTC(1970,0,1))/1000);
+
+  $('.datepicker').val(timestampToDate(current));
+
   $(function(){  
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
   });

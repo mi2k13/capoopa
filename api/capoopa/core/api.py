@@ -58,6 +58,7 @@ class UserResource(ModelResource):
 			ans['challengeID_name'] = Challenge.objects.get(id=ans['challengeID_id']).title
 			ans['challengeID_type'] = Challenge.objects.get(id=ans['challengeID_id']).type
 			ans['challengeID_beginning'] = Challenge.objects.get(id=ans['challengeID_id']).beginning
+			ans['challengeID_duration'] = Challenge.objects.get(id=ans['challengeID_id']).duration
 			#ans['challengeID_name'] = Challenge.objects.del(id=ans['challengeID_id']).challengeID_id
 		bundle.data['answers'] = answers
 		# bundle.data['challenge']= [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)]
