@@ -3,6 +3,7 @@ $(document).ready(function(){
 
   if (type == 'challenge')    loadData(type + '/', type + 's', 1);
   else if (type == 'answer')  loadData('user/1', type + 's', 2);
+  else if (type == 'rate')    loadData('answer/1', type, 0);
   else                        loadData(type + '/1', type, 0);
 });
 
