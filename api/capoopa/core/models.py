@@ -17,8 +17,8 @@ class Challenge(models.Model):
 	beginning = models.IntegerField(max_length=12)
 	duration = models.IntegerField(max_length=12)
 	category = models.CharField(max_length=15) # cree un dico de differentes valus pour les enums
-	nbAbuse = models.IntegerField(max_length=5) 
-	nbAnswer = models.IntegerField(max_length=5)
+	nbAbuse = models.IntegerField(max_length=5, blank=True) 
+	nbAnswer = models.IntegerField(max_length=5, blank=True)
 	type = models.CharField(max_length=6)
 
 	def __unicode__(self):

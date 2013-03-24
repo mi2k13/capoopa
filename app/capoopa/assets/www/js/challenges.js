@@ -29,7 +29,9 @@ $(document).ready(function(){
           "beginning": debut,
           "duration": duration,
           "category": category,
-          "type": type
+          "type": type,
+          "nbAbuse": 0,
+          "nbAnswer": 0
         });
 
         postData('challenge/', data);
