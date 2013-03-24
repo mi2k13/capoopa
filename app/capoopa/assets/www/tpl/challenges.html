@@ -1,5 +1,6 @@
 <h2>Défis</h2>
 <ul class="list">
+  {{#if tpl}}
   {{#each tpl}}
   <li data-item="{{ id }}">
 
@@ -20,6 +21,9 @@
       {{/if}}
   </li>
   {{/each}}
+  {{else}}
+    <p class="inner-content info">Ooops, il semblerait qu'il n'y ait aucun défi à proposer. Soit vous avez tout fait, soit Arnaud n'a pas rempli la base de données !</p>
+  {{/if}}
 </ul>
 
 

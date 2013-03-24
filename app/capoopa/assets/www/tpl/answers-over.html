@@ -1,11 +1,15 @@
 <h2 class="toggle toggle-top">Over <span class="info">( {{size}} )</span></h2>
 <ul class="list toggle-content">
+  {{#if tpl}}
   {{#each tpl}}
   <li data-item="{{ id }}" data-challenge="{{ challengeID_id }}" class="open-right">
       <img src="img/status/{{status}}.png" alt="" class="thumb" />
       <h3 class="ui-li-heading">{{challengeID_name}}</h3>
   </li>
   {{/each}}
+  {{else}}
+    <p class="inner-content info">Vous n'avez terminé aucun défi pour l'instant... mais ça ne serait tarder.</p>
+  {{/if}}
 </ul>
 
 <script type="text/javascript">
