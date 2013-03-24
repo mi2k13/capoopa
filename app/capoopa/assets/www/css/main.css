@@ -145,12 +145,14 @@ a {
 .button {
   background-color: #ccc;
   color: #333;
+  padding: 10px 0;
   margin-top: 10px;
   font-size: 34px;
   display: block;
   text-align: center;
   text-transform: lowercase;
   cursor: pointer;
+  border-bottom: 5px solid #eee;
 }
 
 .progress {
@@ -224,7 +226,7 @@ a {
 
 /* form */
 
-input[type=text], input[type=password], textarea, select, .button {
+input[type=text], input[type=password], textarea, select {
   border: none;
   padding: 10px;
   outline: 0;
@@ -392,9 +394,15 @@ legend {
 
 .sub-bar .navbar li { 
   float: left;
-  width: 25%;
   padding: 7px 0;
   text-align: center;
+}
+
+.sub-bar .navbar.nav-four li {
+  width: 25%;
+}
+.sub-bar .navbar.nav-three li {
+  width: 33.3%;
 }
 
 .sub-bar .navbar .ui-btn {
