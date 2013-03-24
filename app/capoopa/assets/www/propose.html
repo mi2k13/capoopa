@@ -7,6 +7,7 @@
   <meta http-equiv="Content-Type" content="text/ html; charset=UTF-8" />
 
   <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/jquery-ui-1.10.2.custom.css" />
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
 </head> 
@@ -27,29 +28,44 @@
     <div class="content">
 
       <div class="inner-content">
+
         <form type="post" action="" id="propose-challenge">
           <label for="title">Titre</label>
-          <input type="text" name="title" placeholder="Titre" />
-
+          <input type="text" name="title" placeholder="Titre" class="large" />
 
           <label for="description">Description</label>
-          <textarea name="description" placeholder="Description" rows="4"></textarea>
+          <textarea name="description" placeholder="Description" rows="4" class="large"></textarea>
 
-          <label for="description">Catégorie</label>
+<!--           <label for="description">Catégorie</label>
           <legend>Catégorie :</legend>
-          <select name="category">
+          <select name="category" class="large">
             <option>divers</option>
             <option>animal</option>
             <option>crade</option>
+          </select> -->
+
+          <label for="type">Type de défi</label>
+          <legend>Type de défi :</legend>
+          <select name="type" class="large">
+            <option>temps limité</option>
+            <option>premier à le faire</option>
           </select>
 
-          
-          <legend>Type de défi :</legend>
-          <input type="radio" name="type" value="first"/> Premier à le faire<br/>
-          <input type="radio" name="type" value="time"/> Temps limité
+          <label for="beginning">Début</label>
+          <legend>Début du défi</legend>
+          <input type="text" name="beginning" class="datepicker large" />
 
-          <input type="submit" value="Envoyer" class="button" />
-          <div class="error"></div>
+          <legend>Durée</legend>
+          <input type="text" name="duration" />
+          <select name="duration-type">
+            <option>minutes</option>
+            <option>heures</option>
+            <option>jours</option>
+          </select>
+
+          <input type="submit" value="Envoyer" class="button large" />
+          <div class="info success"></div>
+          <div class="info error"></div>
         </form>
       </div>
 
@@ -82,7 +98,14 @@
 
 
 <script src="lib/jquery-1.8.2.min.js"></script>
+<script src="lib/jquery-ui-1.10.2.custom.min.js"></script>
 <script src="lib/handlebars.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/challenges.js"></script>
+
+<script type="text/javascript">
+  $(function(){  
+    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+  });
+
+</script>

@@ -49,8 +49,24 @@ a {
 .toggle-top { background-image: url(img/top-arrow.png); }
 .toggle-bottom { background-image: url(img/bottom-arrow.png); }
 
+.large { width: 100%; }
+.half { width: 49%; margin: 0 0.5%;}
+
 .right { float: right; }
 .left { float: left; }
+
+.pull-right {
+  float: right;
+  margin-left: 20px;
+}
+.pull-left  {
+  float: left; 
+  margin-right: 20px;
+}
+
+.unoverflow { overflow: hidden; }
+.clear { clear: both; }
+.breath-bottom { margin-bottom: 50px; }
 
 
 /* slider */
@@ -123,26 +139,11 @@ a {
 .open-right { background: url(img/right-arrow.png) no-repeat right center}
 .open-left { background: url(img/left-arrow.png) no-repeat right center}
 
-
-.pull-right {
-  float: right;
-  margin-left: 20px;
-}
-.pull-left  {
-  float: left; 
-  margin-right: 20px;
-}
-.unoverflow { overflow: hidden; }
-.clear { clear: both; }
-.breath-bottom { margin-bottom: 50px; }
-
-
 .button {
   background-color: #ccc;
   color: #333;
   margin-top: 10px;
   font-size: 34px;
-  width: 100%;
   display: block;
   text-align: center;
   text-transform: lowercase;
@@ -217,6 +218,48 @@ a {
 }
 
 
+/* form */
+
+input[type=text], input[type=password], textarea, select, .button {
+  border: none;
+  padding: 10px;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+input, textarea, legend, select {
+  color: #666;
+  font-size: 28px;
+}
+
+input, textarea, select {
+  background-color: #eee;
+  border: none;
+}
+
+input[type=text], textarea, legend {
+  margin-top: 10px;
+}
+
+label { display: none; }
+
+legend {
+  color: #bbb;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+
+::-webkit-input-placeholder {
+    color:    #999;
+}
+:-moz-placeholder {
+    color:    #999;
+}
+:-ms-input-placeholder {
+    color:    #999;
+}
+
 /* actions */
 .actions {
   float: right;
@@ -288,50 +331,6 @@ a {
   margin: 10px 0;
   color: #fff;
   text-shadow: 2px 1px 2px #666;
-}
-
-
-/* form */
-
-input[type=text], input[type=password], textarea, .button, select {
-  border: none;
-  padding: 10px;
-  width: 100%;
-  outline: 0;
-  box-sizing: border-box;
-}
-
-input, textarea, legend, select {
-  color: #666;
-  font-size: 28px;
-}
-
-input, textarea, select {
-  background-color: #eee;
-  border: none;
-}
-
-input[type=text], textarea, legend {
-  margin-top: 10px;
-}
-
-label { display: none; }
-
-legend {
-  color: #bbb;
-  font-size: 18px;
-  text-transform: uppercase;
-}
-
-
-::-webkit-input-placeholder {
-    color:    #999;
-}
-:-moz-placeholder {
-    color:    #999;
-}
-:-ms-input-placeholder {
-    color:    #999;
 }
 
 

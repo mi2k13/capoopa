@@ -128,3 +128,55 @@ function getNbAnswers(data) {
   });
   return [completed, failed];
 }
+
+function timestampToDate(timestamp, full) {
+  var dt = new Date(timestamp * 1000);
+  var day = dt.getDate();
+  var month = dt.getMonth() + 1;
+  var year = dt.getFullYear();
+
+  if(day < 10)    day   = '0' + day;
+  if(month < 10)  month = '0' + month;
+
+  if(full) {
+    var hours = dt.getHours();
+    var minutes = dt.getMinutes();
+
+    if (hours < 10)   hours = '0' + hours;
+    if (minutes < 10) minutes = '0' + minutes;
+
+    return day + '/' + month + '/' + year + ' ' + hours + ":" + minutes;
+  }
+
+  return day + '/' + month + '/' + year;
+}
+
+function timestampToTime(ms) {
+  var min = 60;
+  var hours = min * 60;
+  var days = hours * 24;
+
+  if(ms < hours)
+    return ms/min + ' minutes';
+  else if (ms < days)
+    return ms/hours + ' heures';
+  else
+    return ms/days + ' jours';
+}
+
+function timeToTimestamp(time, type) {
+  if(type == "minutes")
+    return time * 60;
+  else if (type == "hours")
+    return time * 60 * 60;
+  else if (type == "days")
+    return time * 60 * 60 * 24;
+}
+
+function isPasted(timestamp) {
+  var current = Math.round(((new Date()).getTime()-Date.UTC(1970,0,1))/1000);
+  if (timestamp - current < 0){
+    return 'open-right';
+  }
+  return '';
+}

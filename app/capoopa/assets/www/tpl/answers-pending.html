@@ -1,10 +1,10 @@
 <h2 class="toggle toggle-top">Pending <span class="info">( {{size}} )</span></h2>
 <ul class="list toggle-content">
   {{#each tpl}}
-  <li data-item="{{ id }}" data-challenge="{{ challengeID_id }}" class="open-right">
-      <img src="img/status/{{status}}.png" alt="" class="thumb" />
+  <li data-item="{{ id }}" data-challenge="{{ challengeID_id }}" class="{{isPasted challengeID_beginning}}" >
+      <img src="img/type/{{challengeID_type}}.png" alt="" class="thumb" />
       <h3 class="ui-li-heading">{{ challengeID_name }}</h3>
-      <p class="ui-li-desc">{{ challengeID_type }}</p>
+      <p class="ui-li-desc">{{date challengeID_beginning}}</p>
   </li>
   {{/each}}
 </ul>

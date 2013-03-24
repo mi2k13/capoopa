@@ -14,8 +14,8 @@ class Challenge(models.Model):
 	title = models.CharField(max_length=20)
 	description = models.TextField()
 	author = models.ForeignKey(User)
-	beginning = models.IntegerField(max_length=10)
-	end = models.IntegerField(max_length=10)
+	beginning = models.IntegerField(max_length=12)
+	duration = models.IntegerField(max_length=12)
 	category = models.CharField(max_length=15) # cree un dico de differentes valus pour les enums
 	nbAbuse = models.IntegerField(max_length=5, default='0') 
 	nbAnswer = models.IntegerField(max_length=5, default='0')
