@@ -9,8 +9,8 @@ $(document).ready(function(){
 
 
 function postData(path, data) {
-  var fullPath = 'http://localhost:8000/api/core/' + path;
-  
+  //var fullPath = 'http://localhost:8000/api/core/' + path;
+  var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/' + path;
   $.ajax({
     type: "POST",
     url: fullPath,
@@ -30,8 +30,8 @@ function postData(path, data) {
 // type : 0=none ; 1=objects ; 2=answers
 function loadData(path, template, type) {
   $.ajax({
-    url: 'http://localhost:8000/api/core/' + path,
-    //url: 'http://ssh.alwaysdata.com:11390/api/' + path,
+    //url: 'http://localhost:8000/api/core/' + path,
+    url: 'http://ssh.alwaysdata.com:11390/api/' + path,
     contentType: 'application/json',
     dataType: 'jsonp',
     cache: false,
