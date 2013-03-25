@@ -11,7 +11,7 @@ $(document).ready(function(){
 function postData(path, data) {
   //var fullPath = 'http://localhost:8000/api/core/' + path;
   var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/' + path;
-  
+
   $.ajax({
     type: "POST",
     url: fullPath,
@@ -33,6 +33,7 @@ function loadData(path, template, type) {
   $.ajax({
     //url: 'http://localhost:8000/api/core/' + path,
     url: 'http://ssh.alwaysdata.com:11390/api/core/' + path,
+
     contentType: 'application/json',
     dataType: 'jsonp',
     cache: false,
