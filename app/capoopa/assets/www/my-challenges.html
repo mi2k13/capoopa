@@ -35,7 +35,7 @@
       // console.log(imageData);
 
       // Get image handle
-	  alert('onPhotoDataSuccess');
+	  console.log('onPhotoDataSuccess');
       var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
@@ -50,7 +50,7 @@
 	  //Ici le code pour dire quelle fonction va s occuper de l image
 	  //Convertir en Json avec stringify le imageData
 	  
-	   alert("Envoie photo juste avant stringify");
+	   console.log("Envoie photo juste avant stringify");
 	  //Convertir Json : stringify
 	  
 	    var data = JSON.stringify({
@@ -60,21 +60,21 @@
 	
       postData('photo/', data);
 	     
-		 alert('End post photo');
+		 console.log('End post photo');
 	  //var data = JSON.stringify({ "imageData": imageData; });
 	
 		//La fonction photo s occupera de l image
 	   //$.post('http://localhost:8000/api/core/photo/', {data:imageData}, 
 	  // $.post('http://ssh.alwaysdata.com:11390/api/core/photo/', {data:imageData},
-       //          function(data){alert('success');});
+       //          function(data){console.log('success');});
     }
 
     // A button will call this function
     //
     function capturePhoto() {
-		alert('Capture Photo');
+		console.log('Capture Photo');
       // Take picture using device camera and retrieve image as base64-encoded string
-	  alert('Now go to onPhotoDataSuccess');
+	  console.log('Now go to onPhotoDataSuccess');
       navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
 	  
     }
@@ -82,7 +82,7 @@
     // Called if something bad happens.
     // 
     function onFail(message) {
-      alert('Failed because: ' + message);
+      console.log('Failed because: ' + message);
     }
 
     </script> 
