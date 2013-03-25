@@ -35,3 +35,7 @@ class Answer(models.Model):
 class Photo(models.Model):
 	answerID = models.ForeignKey(Answer)
 	image = models.TextField(blank=True)
+
+class Friend(models.Model):
+	userFriend = models.ForeignKey(User, related_name='userFriend')
+	friends = models.ForeignKey(User, related_name='friend')

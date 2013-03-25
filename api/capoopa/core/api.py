@@ -5,6 +5,7 @@ from core.models import Challenge
 from core.models import Answer
 from core.models import User
 from core.models import Photo
+from core.models import Friend
 from tastypie.authorization import DjangoAuthorization
 #from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
@@ -37,6 +38,7 @@ import os
 #url /core/challenge/<title> : displays all informations about this challenge
 
 class UserResource(ModelResource):
+	#friend = fields.ToOneField(UserResource, attribute='friend' , related_name='friend', full=True)
 	#answers = fields.ManyToManyField('AnswerResource', attribute='answers' , related_name='answers', full=True, null=True)
 
 	class Meta:
@@ -54,6 +56,7 @@ class UserResource(ModelResource):
 		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
 		serializers = Serializer(formats=['xml', 'json'])
 		answers = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
+		friends = [st.__dict__ for st in Friend.objects.filter(userFriend=bundle.obj)]
 		for ans in answers:
 			ans['challengeID_name'] = Challenge.objects.get(id=ans['challengeID_id']).title
 			ans['challengeID_type'] = Challenge.objects.get(id=ans['challengeID_id']).type
@@ -61,6 +64,11 @@ class UserResource(ModelResource):
 			ans['challengeID_duration'] = Challenge.objects.get(id=ans['challengeID_id']).duration
 			#ans['challengeID_name'] = Challenge.objects.del(id=ans['challengeID_id']).challengeID_id
 		bundle.data['answers'] = answers
+
+
+		for fri in friends:
+			fri['friends_name'] = User.objects.get(id=fri['id']).nickname
+		bundle.data['friends'] = friends
 		# bundle.data['challenge']= [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)]
 		# tentative pour Serialiser (transformer en JSON) l'objet
 		#Serializer.serialize(self, bundle, format='application/json', options={})
@@ -86,8 +94,8 @@ class ChallengeResource(ModelResource):
 
 
 class AnswerResource(ModelResource):
-	userID = fields.OneToOneField(UserResource, attribute='userID' , related_name='userID', full=True)
-	challengeID = fields.OneToOneField(ChallengeResource, attribute='challengeID' , related_name='challengeID', full=True)
+	userID = fields.OneToOneField(UserResource, attribute='userID' , related_name='userID', full=True, null=True)
+	challengeID = fields.OneToOneField(ChallengeResource, attribute='challengeID' , related_name='challengeID', full=True, null=True)
 	class Meta:
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
@@ -139,3 +147,19 @@ class PhotoResource(ModelResource):
 			print 'pas de donnees dans image '
 
 		return bundle
+
+
+class FriendResource(ModelResource):
+	userFriend = fields.OneToOneField(UserResource, attribute='userFriend' , related_name='userFriend', full=True, null=True)
+	friends = fields.ToManyField(UserResource, attribute='friends' , related_name='friends', full=True, null=True)
+	
+
+	class Meta:
+		queryset = Answer.objects.all()
+		resource_name = 'friends'
+
+		allowed_methods = ['get','post']
+		serializer = Serializer(formats=['xml', 'json'])
+		authorization= Authorization()
+		#authentication = BasicAuthentication()
+		always_return_data = True
