@@ -151,11 +151,10 @@ class PhotoResource(ModelResource):
 
 class FriendResource(ModelResource):
 	userFriend = fields.OneToOneField(UserResource, attribute='userFriend' , related_name='userFriend', full=True, null=True)
-	friends = fields.ToManyField(UserResource, attribute='friends' , related_name='friends', full=True, null=True)
-	
+	friends = fields.OneToOneField(UserResource, attribute='friends' , related_name='friends', full=True, null=True)
 
 	class Meta:
-		queryset = Answer.objects.all()
+		queryset = Friend.objects.all()
 		resource_name = 'friends'
 
 		allowed_methods = ['get','post']
