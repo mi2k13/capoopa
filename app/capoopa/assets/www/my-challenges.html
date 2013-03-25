@@ -34,8 +34,8 @@
       // console.log(imageData);
 
       // Get image handle
-	  console.log('onPhotoDataSuccess');
 
+	  //alert('onPhotoDataSuccess');
       var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
@@ -60,9 +60,8 @@
 	
 		postData('photo/', data);
 		that.hide();
-	     
-		 console.log('End post photo');
 
+		alert('End post photo');
 	  //var data = JSON.stringify({ "imageData": imageData; });
 	
 		//La fonction photo s occupera de l image
@@ -83,7 +82,7 @@
     // Called if something bad happens.
     // 
     function onFail(message) {
-      console.log('Failed because: ' + message);
+      alert('Failed because: ' + message);
     }
 
     </script> 
