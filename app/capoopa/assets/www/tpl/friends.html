@@ -1,0 +1,12 @@
+<h2>Mes amis</h2>
+<ul class="list">
+  {{#if tpl}}
+  {{#each tpl}}
+  <li data-item="{{ id }}">
+    {{nickname}}
+  </li>
+  {{/each}}
+  {{else}}
+    <p class="inner-content info">Vous n'avez pas encore d'amis, mais vous pouvez en ajouter.</p>
+  {{/if}}
+</ul>

@@ -1,0 +1,12 @@
+<h2>Mes groupes</h2>
+<ul class="list">
+  {{#if tpl}}
+  {{#each tpl}}
+  <li data-item="{{ id }}">
+    {{title}}
+  </li>
+  {{/each}}
+  {{else}}
+    <p class="inner-content info">Vous n'avez pas encore de groupe d'amis, mais vous pouvez en créer.</p>
+  {{/if}}
+</ul>
