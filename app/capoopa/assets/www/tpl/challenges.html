@@ -44,7 +44,7 @@
       itemId = $(this).parents('li').data('item');
 
       var data = JSON.stringify({
-        "userID":  "/api/core/user/" + userID,
+        "userID":  "/api/core/user/" + userID + '/',
         "challengeID": "/api/core/challenge/" + itemId + '/',
         "status": status,
         "nbAbuse": 0

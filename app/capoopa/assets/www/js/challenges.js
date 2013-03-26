@@ -26,7 +26,7 @@ $(document).ready(function(){
         var data = JSON.stringify({
           "title": title,
           "description": description,
-          "author": '/api/core/user/' + userID,
+          "author": '/api/core/user/' + userID + '/',
           "beginning": debut,
           "duration": duration,
           "category": category,
