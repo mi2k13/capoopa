@@ -10,6 +10,7 @@ from tastypie.authorization import DjangoAuthorization
 #from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
 from tastypie import fields
+from tastypie.resources import ALL_WITH_RELATIONS
 
 from tastypie.serializers import Serializer
 import time
@@ -49,6 +50,9 @@ class UserResource(ModelResource):
 		authorization= Authorization()
 		#authentication = BasicAuthentication()
 		always_return_data = True
+		filtering = {
+			'email': ALL_WITH_RELATIONS
+		}
 
 
 	def dehydrate(self, bundle):

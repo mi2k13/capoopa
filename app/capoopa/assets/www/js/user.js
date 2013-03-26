@@ -1,13 +1,20 @@
 $(document).ready(function() {
 
+  logout(); // reset user
+
   $('#signin').submit(function() {
     var email = $('input[name=email]').val();
     var password = $('input[name=password]').val();
 
-    if (email == 'log' && password == 'pass')
-      window.location.replace('challenges.html');
-    else
-      $('.error').text('Oops : L\'adresse email et/ou le mot de passe que vous avez indiqués sont incorrects.');
+    if (email && password) {
+      login(email, password);
+      if (localStorage.getItem('user'))
+        console.log("connecté !");
+        //window.location.replace('challenges.html');
+      else
+        $('.error').text('Oops : L\'adresse email et/ou le mot de passe que vous avez indiqués sont incorrects.');
+    }
+   
 
     return false;
   });
@@ -86,6 +93,29 @@ $(document).ready(function() {
   });
 
 });
+
+function login(email, pass) {
+  console.log(email, pass);
+  $.ajax({
+    //url: 'http://localhost:8000/api/core/user/?email=' + email,
+    url: 'http://ssh.alwaysdata.com:11390/api/core/user/?email=' + email,
+
+    contentType: 'application/json',
+    dataType: 'jsonp',
+    cache: false,
+    processData: false,
+    async: false,
+    type: 'GET',
+    success: function(data, textStatus, jqXHR) {
+      if (data.objects[0] && pass == data.objects[0].password)
+        localStorage.setItem('user', data.objects[0].id);
+    }
+  });
+}
+
+function logout() {
+  localStorage.setItem('user', '');
+}
 
 function editItem(id, type) {
   loadData(type + '/' + id, 'edit-' + type, 0);
