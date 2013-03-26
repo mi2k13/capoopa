@@ -5,17 +5,17 @@ $(document).ready(function(){
     var type = $('.page').data('type');
 
     if (type == 'challenge')    loadData(type + '/', type + 's', 1);
-    else if (type == 'answer')  loadData('user/' + userID, type + 's', 2);
+    else if (type == 'answer')  loadData('answer/?userID=' + userID, 'answers', 2);
     else if (type == 'rate')    loadData('answer/' + userID, type, 0);
-    else if (type == 'friends') loadData('user/' + userID, type, 0);
+    else if (type == 'friends') loadData('friends/?userID' + userID, type, 1);
     else                        loadData(type + '/' + userID, type, 0);
   }
 });
 
 
 function postData(path, data) {
-  //var fullPath = 'http://localhost:8000/api/core/' + path;
-  var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/' + path;
+  var fullPath = 'http://localhost:8000/api/core/' + path;
+  //var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/' + path;
 
   $.ajax({
     type: "POST",
@@ -36,8 +36,8 @@ function postData(path, data) {
 // type : 0=none ; 1=objects ; 2=answers
 function loadData(path, template, type) {
   $.ajax({
-    //url: 'http://localhost:8000/api/core/' + path,
-    url: 'http://ssh.alwaysdata.com:11390/api/core/' + path,
+    url: 'http://localhost:8000/api/core/' + path,
+    //url: 'http://ssh.alwaysdata.com:11390/api/core/' + path,
 
     contentType: 'application/json',
     dataType: 'jsonp',
@@ -46,6 +46,7 @@ function loadData(path, template, type) {
     async: false,
     type: 'GET',
     success: function(data, textStatus, jqXHR) {
+
       if (type == 0)
         loadTemplate(template, data);
 
@@ -53,8 +54,8 @@ function loadData(path, template, type) {
         loadTemplate(template, data.objects);
 
       else if (type == 2) {
-        var pending = sortData(data.answers, 'pending');
-        var over = sortData(data.answers, 'over').concat(sortData(data.answers, 'completed')).concat(sortData(data.answers, 'failed'));
+        var pending = sortData(data.objects, 'pending');
+        var over = sortData(data.objects, 'over').concat(sortData(data.objects, 'completed')).concat(sortData(data.objects, 'failed'));
         loadTemplate(template+'-pending', pending);
         loadTemplate(template+'-over', over);
       }
@@ -63,6 +64,10 @@ function loadData(path, template, type) {
 }
 
 function loadTemplate(templateName, templateInput) {
+
+  console.log(templateName);
+  console.log(templateInput);
+
   var source;
   var template;
   var path = 'tpl/' + templateName + '.html';

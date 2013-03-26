@@ -1,9 +1,9 @@
 <h2>Mes amis</h2>
 <ul class="list">
   {{#if tpl}}
-  {{#each tpl.friends}}
-  <li data-item="{{ friends_id }}">
-    {{friends_name}}
+  {{#each tpl}}
+  <li data-item="{{ friend.id }}">
+    {{friend.nickname}}
   </li>
   {{/each}}
   {{else}}

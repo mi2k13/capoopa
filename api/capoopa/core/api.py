@@ -10,7 +10,7 @@ from tastypie.authorization import DjangoAuthorization
 #from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
 from tastypie import fields
-from tastypie.resources import ALL_WITH_RELATIONS
+from tastypie.resources import ALL, ALL_WITH_RELATIONS
 
 from tastypie.serializers import Serializer
 import time
@@ -55,31 +55,6 @@ class UserResource(ModelResource):
 		}
 
 
-	def dehydrate(self, bundle):
-
-		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
-		serializers = Serializer(formats=['xml', 'json'])
-		answers = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
-		friends = [st.__dict__ for st in Friend.objects.filter(userFriend=bundle.obj)]
-		for ans in answers:
-			ans['challengeID_name'] = Challenge.objects.get(id=ans['challengeID_id']).title
-			ans['challengeID_type'] = Challenge.objects.get(id=ans['challengeID_id']).type
-			ans['challengeID_beginning'] = Challenge.objects.get(id=ans['challengeID_id']).beginning
-			ans['challengeID_duration'] = Challenge.objects.get(id=ans['challengeID_id']).duration
-			#ans['challengeID_name'] = Challenge.objects.del(id=ans['challengeID_id']).challengeID_id
-		bundle.data['answers'] = answers
-
-
-		for fri in friends:
-			fri['friends_name'] = User.objects.get(id=fri['id']).nickname
-		bundle.data['friends'] = friends
-		# bundle.data['challenge']= [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)]
-		# tentative pour Serialiser (transformer en JSON) l'objet
-		#Serializer.serialize(self, bundle, format='application/json', options={})
-		#Serializer.to_json(self, bundle, options=None)
-		return bundle
-
-
 
 class ChallengeResource(ModelResource):
 	author = fields.ToOneField(UserResource, attribute='author' , related_name='author', full=True)
@@ -109,7 +84,50 @@ class AnswerResource(ModelResource):
 		authorization= Authorization()
 		#authentication = BasicAuthentication()
 		always_return_data = True
+		filtering = {
+			'userID': ALL
+		}
 	
+	def build_filters(self, filters=None):
+		# This is a personnal filter which permit to filter tags by letters in it. Eg : tag=ences => get "sciences"
+		if filters is None:
+			filters = {}
+
+		orm_filters = super(AnswerResource, self).build_filters(filters)
+
+		if 'userID' in filters:
+		  orm_filters['userID__exact'] = filters['userID']
+		return orm_filters
+
+
+class FriendResource(ModelResource):
+	user = fields.OneToOneField(UserResource, attribute='user' , related_name='user', full=True, null=True)
+	friend = fields.OneToOneField(UserResource, attribute='friend' , related_name='friend', full=True, null=True)
+
+	class Meta:
+		queryset = Friend.objects.all()
+		resource_name = 'friends'
+		filtering = {
+			'user': ALL
+		}
+
+		allowed_methods = ['get','post']
+		serializer = Serializer(formats=['xml', 'json'])
+		authorization= Authorization()
+		#authentication = BasicAuthentication()
+		always_return_data = True
+
+	def build_filters(self, filters=None):
+	  # This is a personnal filter which permit to filter tags by letters in it. Eg : tag=ences => get "sciences"
+		if filters is None:
+			filters = {}
+
+		orm_filters = super(FriendResource, self).build_filters(filters)
+
+		if 'user' in filters:
+			orm_filters['user__exact'] = filters['user']
+		return orm_filters
+
 class PhotoResource(ModelResource):
 	answerID = fields.OneToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True)
 	class Meta:
@@ -151,18 +169,3 @@ class PhotoResource(ModelResource):
 			print 'pas de donnees dans image '
 
 		return bundle
-
-
-class FriendResource(ModelResource):
-	userFriend = fields.OneToOneField(UserResource, attribute='userFriend' , related_name='userFriend', full=True, null=True)
-	friends = fields.OneToOneField(UserResource, attribute='friends' , related_name='friends', full=True, null=True)
-
-	class Meta:
-		queryset = Friend.objects.all()
-		resource_name = 'friends'
-
-		allowed_methods = ['get','post']
-		serializer = Serializer(formats=['xml', 'json'])
-		authorization= Authorization()
-		#authentication = BasicAuthentication()
-		always_return_data = True
