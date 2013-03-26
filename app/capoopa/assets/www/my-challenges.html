@@ -76,6 +76,26 @@
 	  // $.post('http://ssh.alwaysdata.com:11390/api/core/photo/', {data:imageData},
        //          function(data){console.log('success');});
     }
+	
+	// Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI 
+      // console.log(imageURI);
+
+      // Get image handle
+      //
+      var largeImage = document.getElementById('largeImage');
+
+      // Unhide image elements
+      //
+      largeImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      largeImage.src = imageURI;
+    }
 
     // A button will call this function
     //
@@ -86,10 +106,23 @@
 	  alert('Now go to onPhotoDataSucess');
 	  
 	 // console.log('Now go to onPhotoDataSuccess');
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, 
-	  destinationType: destinationType.DATA_URL,
-		sourceType: source,
-		allowEdit: true });
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+    }
+	
+	// A button will call this function
+    //
+    function capturePhotoEdit() {
+      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true }); 
+    }
+	
+	// A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
     }
 	
     // Called if something bad happens.
