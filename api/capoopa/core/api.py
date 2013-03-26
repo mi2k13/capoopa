@@ -12,6 +12,7 @@ from core.models import Vote
 #from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
 from tastypie import fields
+from tastypie.utils import trailing_slash
 
 from tastypie.resources import ALL, ALL_WITH_RELATIONS
 
@@ -84,6 +85,13 @@ class ChallengeResource(ModelResource):
 		#authentication = BasicAuthentication()
 		always_return_data = True
 		#fields=['author','description','title']
+
+	def dehydrate(self, bundle):
+		sqs = Answer.objects.filter(challengeID=bundle.obj.id)
+		if sqs:
+			return None
+		else:
+			return bundle
 
 
 class AnswerResource(ModelResource):

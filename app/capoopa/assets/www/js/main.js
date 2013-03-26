@@ -51,7 +51,7 @@ function loadData(path, template, type) {
         loadTemplate(template, data);
 
       else if (type == 1)
-        loadTemplate(template, data.objects);
+        loadTemplate(template, filterNull(data.objects));
 
       else if (type == 2) {
         var pending = sortData(data.objects, 'pending');
@@ -64,10 +64,6 @@ function loadData(path, template, type) {
 }
 
 function loadTemplate(templateName, templateInput) {
-
-  console.log(templateName);
-  console.log(templateInput);
-
   var source;
   var template;
   var path = 'tpl/' + templateName + '.html';
@@ -127,6 +123,15 @@ function sortData(data, type) {
       result.push(item);
   });
   return result;
+}
+
+function filterNull(data) {
+  var arr = new Array();
+  $.each( data, function( key, item ) {
+    if (item)
+      arr.push(item);
+  });
+  return arr;
 }
 
 function getNbAnswers(data) {
