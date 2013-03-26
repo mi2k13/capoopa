@@ -75,13 +75,8 @@ function loadTemplate(templateName, templateInput) {
       template = Handlebars.compile(source);
 
       if(templateName == 'user') {
-        var answ =getNbAnswers(templateInput);
-        templateInput.nbCompleted = answ[0];
-        templateInput.nbFailed = answ[1];
-
         $('#' + templateName).html(template({
-          tpl: templateInput,
-          size: templateInput.length,
+          tpl: templateInput
         }));
       }
 

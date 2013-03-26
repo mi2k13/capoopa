@@ -60,7 +60,7 @@ class UserResource(ModelResource):
 			'email': ALL_WITH_RELATIONS
 		}
 
-	def override_urls(self):
+	def prepend_urls(self):
 		return [
 			url(r'^(?P<resource_name>%s)/search%s$' %(self._meta.resource_name, trailing_slash()),self.wrap_view('search'), name='api_search'),
 			]
@@ -72,6 +72,11 @@ class UserResource(ModelResource):
 		user = [st.__dict__ for st in User.objects.filter(nickname=nickname)]
 		return user
 
+	def dehydrate(self, bundle):
+	 	userID = bundle.obj
+		bundle.data['nbCompleted'] = Answer.objects.filter(userID=userID, status="completed").count()
+		bundle.data['nbFailed'] = Answer.objects.filter(userID=userID, status="failed").count()
+		return bundle
 
 
 class ChallengeResource(ModelResource):
@@ -99,7 +104,6 @@ class ChallengeResource(ModelResource):
 		if sqsAnswer:
 			sqsAnswer = [ans for ans in sqsAnswer]
 			sqsChallenge = Challenge.objects.exclude(id__in=[ans.challengeID.id for ans in sqsAnswer])
-			print "ok"
 			if sqsChallenge:
 				return self.create_response(request, {
 					'success': True,
@@ -120,8 +124,6 @@ class AnswerResource(ModelResource):
 	class Meta:
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
-
-
 		allowed_methods = ['get','post']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
@@ -132,12 +134,9 @@ class AnswerResource(ModelResource):
 		}
 
 	def dehydrate(self, bundle):
-
-		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
 		serializers = Serializer(formats=['xml', 'json'])
 		vote = [st.__dict__ for st in Vote.objects.filter(answerID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
 		bundle.data['vote'] = vote
-
 		return bundle
 
 	
