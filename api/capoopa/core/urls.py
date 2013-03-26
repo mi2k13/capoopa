@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from tastypie.api import Api
-from core.api import UserResource, ChallengeResource, AnswerResource, PhotoResource, FriendResource, VoteResource
+from core.api import UserResource, ChallengeResource, AnswerResource, PhotoResource, VoteResource
 from core import views
 
 
@@ -9,7 +9,6 @@ core_api.register(UserResource())
 core_api.register(ChallengeResource())
 core_api.register(AnswerResource())
 core_api.register(PhotoResource())
-core_api.register(FriendResource())
 core_api.register(VoteResource())
 
 urlpatterns = patterns('',

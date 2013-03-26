@@ -6,7 +6,6 @@ from core.models import Challenge
 from core.models import Answer
 from core.models import User
 from core.models import Photo
-from core.models import Friend
 from core.models import Vote
 #from tastypie.authorization import DjangoAuthorization
 #from tastypie.authentication import BasicAuthentication
