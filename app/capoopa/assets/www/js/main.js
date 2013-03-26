@@ -4,7 +4,7 @@ $(document).ready(function(){
   if (userID) {
     var type = $('.page').data('type');
 
-    if (type == 'challenge')    loadData(type + '/', type + 's', 1);
+    if (type == 'challenge')    loadData(type + '/getChallenges/?userID=' + userID , type + 's', 1);
     else if (type == 'answer')  loadData('answer/?userID=' + userID, 'answers', 2);
     else if (type == 'rate')    loadData('answer/' + userID, type, 0);
     else if (type == 'friends') loadData('friends/?userID' + userID, type, 1);

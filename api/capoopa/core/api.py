@@ -73,6 +73,7 @@ class UserResource(ModelResource):
 		return user
 
 
+
 class ChallengeResource(ModelResource):
 	author = fields.ToOneField(UserResource, attribute='author' , related_name='author', full=True)
 	#users = fields.ForeignKey(UserResource, attribute='users', full=True, null=True)
@@ -86,12 +87,31 @@ class ChallengeResource(ModelResource):
 		always_return_data = True
 		#fields=['author','description','title']
 
-	def dehydrate(self, bundle):
-		sqs = Answer.objects.filter(challengeID=bundle.obj.id)
-		if sqs:
-			return None
-		else:
-			return bundle
+	def prepend_urls(self):
+		return [
+	  url(r"^(?P<resource_name>%s)/getChallenges%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('getChallenges'), name="api_getChallenges")
+	 ]
+
+	def getChallenges(self, request, **kwargs):
+		self.method_check(request, allowed=['get'])
+		userID = request.GET['userID']
+		sqsAnswer = Answer.objects.filter(userID=userID)
+		if sqsAnswer:
+			sqsAnswer = [ans for ans in sqsAnswer]
+			sqsChallenge = Challenge.objects.exclude(id__in=[ans.challengeID.id for ans in sqsAnswer])
+			print "ok"
+			if sqsChallenge:
+				return self.create_response(request, {
+					'success': True,
+					'objects': [challenge.__dict__ for challenge in sqsChallenge]
+					})
+
+	# def dehydrate(self, bundle):
+	# 	sqs = Answer.objects.filter(challengeID=bundle.obj.id)
+	# 	if sqs:
+	# 		return None
+	# 	else:
+	# 		return bundle
 
 
 class AnswerResource(ModelResource):
