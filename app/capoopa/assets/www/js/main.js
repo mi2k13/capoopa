@@ -7,7 +7,7 @@ $(document).ready(function(){
     if (type == 'challenge')    loadData(type + '/getChallenges/?userID=' + userID , type + 's', 1);
     else if (type == 'answer')  loadData('answer/?userID=' + userID, 'answers', 2);
     else if (type == 'rate')    loadData('answer/' + userID, type, 0);
-    else if (type == 'friends') loadData('friends/?userID' + userID, type, 1);
+    else if (type == 'friends') loadData('user/' + userID, type, 0);
     else                        loadData(type + '/' + userID, type, 0);
   }
 });
@@ -17,13 +17,16 @@ function postData(path, data) {
   var fullPath = 'http://localhost:8000/api/core/' + path;
   //var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/' + path;
 
+  var result;
   $.ajax({
     type: "POST",
     url: fullPath,
     contentType: 'application/json',
     data: data,
-    success: function() {
+    async: false,
+    success: function(data) {
       console.log("envoyé!");
+      result = data;
     },
     error: function(jqXHR, textStatus, errorThrown) {
       console.log("pas envoyé...");
@@ -31,6 +34,7 @@ function postData(path, data) {
     },
     dataType: 'json'
   });
+  return result;
 }
 
 // type : 0=none ; 1=objects ; 2=answers
@@ -46,7 +50,6 @@ function loadData(path, template, type) {
     async: false,
     type: 'GET',
     success: function(data, textStatus, jqXHR) {
-
       if (type == 0)
         loadTemplate(template, data);
 
@@ -74,7 +77,7 @@ function loadTemplate(templateName, templateInput) {
       source = data;
       template = Handlebars.compile(source);
 
-      if(templateName == 'user') {
+      if (templateName == 'user') {
         $('#' + templateName).html(template({
           tpl: templateInput
         }));

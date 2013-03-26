@@ -11,8 +11,6 @@ $(document).ready(function() {
       else
         $('.error').text('Oops : L\'adresse email et/ou le mot de passe que vous avez indiqués sont incorrects.');
     }
-   
-
     return false;
   });
 
@@ -40,7 +38,7 @@ $(document).ready(function() {
       });
 
       postData('user/', data);
-      $('.success').html('YEAH ! Votre compte a bien été créé, vous pouvez aller relever des défis dès maintenant ! <a href="index.html">Me connecter</a>');
+      $('.success').text('YEAH ! Votre compte a bien été créé, vous pouvez aller relever des défis dès maintenant ! <a href="index.html">Me connecter</a>');
     }
     else
       $('.error').text('Attention, vous n\'avez pas rempli tous les champs !');

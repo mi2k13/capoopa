@@ -9,6 +9,7 @@ class User(models.Model):
 	description = models.TextField(blank=True)
 	avatar = models.CharField(max_length=100, blank=True)
 	nbRate = models.IntegerField(max_length=5)
+	friends = models.ManyToManyField("self")
 
 class Challenge(models.Model):
 	title = models.CharField(max_length=20)
@@ -35,10 +36,6 @@ class Answer(models.Model):
 class Photo(models.Model):
 	answerID = models.ForeignKey(Answer)
 	image = models.TextField(blank=True)
-
-class Friend(models.Model):
-	user = models.ForeignKey(User, related_name='user')
-	friend = models.ForeignKey(User, related_name='friend')
 
 class Vote(models.Model):
 	answerID = models.ForeignKey(Answer, related_name='answerID')

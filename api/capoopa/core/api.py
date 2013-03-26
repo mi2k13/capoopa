@@ -43,8 +43,6 @@ import os
 #url /core/challenge/<title> : displays all informations about this challenge
 
 class UserResource(ModelResource):
-	#friend = fields.ToOneField(UserResource, attribute='friend' , related_name='friend', full=True)
-	#answers = fields.ManyToManyField('AnswerResource', attribute='answers' , related_name='answers', full=True, null=True)
 
 	class Meta:
 		queryset = User.objects.all()
@@ -63,6 +61,7 @@ class UserResource(ModelResource):
 	def prepend_urls(self):
 		return [
 			url(r'^(?P<resource_name>%s)/search%s$' %(self._meta.resource_name, trailing_slash()),self.wrap_view('search'), name='api_search'),
+			url(r'^(?P<resource_name>%s)/addFriend%s$' %(self._meta.resource_name, trailing_slash()),self.wrap_view('addFriend'), name='api_addFriend'),
 			]
 
 	def search(self, request, **kwargs):
@@ -70,12 +69,27 @@ class UserResource(ModelResource):
 		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
 		nickname = data.get('nickname', '')
 		user = [st.__dict__ for st in User.objects.filter(nickname=nickname)]
-		return user
+		return self.create_response(request, {
+					'objects': [st.__dict__ for st in User.objects.filter(nickname=nickname)]
+					})
+
+	def addFriend(self, request, **kwargs):
+		self.method_check(request, allowed=['post'])
+		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+		userID = data.get('userID')
+		friendID = data.get('friendID')
+		my_user = User.objects.get(id=userID)
+		my_user.friends.add(User.objects.get(id=friendID))
+		my_user.save()
+		return self.create_response(request, {
+					'success': True
+					})
 
 	def dehydrate(self, bundle):
 	 	userID = bundle.obj
 		bundle.data['nbCompleted'] = Answer.objects.filter(userID=userID, status="completed").count()
 		bundle.data['nbFailed'] = Answer.objects.filter(userID=userID, status="failed").count()
+		bundle.data['friends'] = [friend.__dict__ for friend in bundle.obj.friends.all()]
 		return bundle
 
 
@@ -151,34 +165,6 @@ class AnswerResource(ModelResource):
 		  orm_filters['userID__exact'] = filters['userID']
 		return orm_filters
 
-
-class FriendResource(ModelResource):
-	user = fields.OneToOneField(UserResource, attribute='user' , related_name='user', full=True, null=True)
-	friend = fields.OneToOneField(UserResource, attribute='friend' , related_name='friend', full=True, null=True)
-
-	class Meta:
-		queryset = Friend.objects.all()
-		resource_name = 'friends'
-		filtering = {
-			'user': ALL
-		}
-
-		allowed_methods = ['get','post']
-		serializer = Serializer(formats=['xml', 'json'])
-		authorization= Authorization()
-		#authentication = BasicAuthentication()
-		always_return_data = True
-
-	def build_filters(self, filters=None):
-	  # This is a personnal filter which permit to filter tags by letters in it. Eg : tag=ences => get "sciences"
-		if filters is None:
-			filters = {}
-
-		orm_filters = super(FriendResource, self).build_filters(filters)
-
-		if 'user' in filters:
-			orm_filters['user__exact'] = filters['user']
-		return orm_filters
 
 class PhotoResource(ModelResource):
 	answerID = fields.OneToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True)
