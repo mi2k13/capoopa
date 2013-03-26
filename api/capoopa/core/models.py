@@ -39,3 +39,7 @@ class Photo(models.Model):
 class Friend(models.Model):
 	userFriend = models.ForeignKey(User, related_name='userFriend')
 	friends = models.ForeignKey(User, related_name='friend')
+
+class Vote(models.Model):
+	answerID = models.ForeignKey(Answer, related_name='answerID')
+	Vote = models.IntegerField(max_length=5, blank=True)
