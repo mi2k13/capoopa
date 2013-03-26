@@ -1,10 +1,15 @@
 $(document).ready(function(){
-  type = $('.page').data('type');
+  var userID = getUserID();
 
-  if (type == 'challenge')    loadData(type + '/', type + 's', 1);
-  else if (type == 'answer')  loadData('user/1', type + 's', 2);
-  else if (type == 'rate')    loadData('answer/1', type, 0);
-  else                        loadData(type + '/1', type, 0);
+  if (userID) {
+    var type = $('.page').data('type');
+
+    if (type == 'challenge')    loadData(type + '/', type + 's', 1);
+    else if (type == 'answer')  loadData('answer/?userID=' + userID, 'answers', 2);
+    else if (type == 'rate')    loadData('answer/' + userID, type, 0);
+    else if (type == 'friends') loadData('friends/?userID' + userID, type, 1);
+    else                        loadData(type + '/' + userID, type, 0);
+  }
 });
 
 
@@ -41,6 +46,7 @@ function loadData(path, template, type) {
     async: false,
     type: 'GET',
     success: function(data, textStatus, jqXHR) {
+
       if (type == 0)
         loadTemplate(template, data);
 
@@ -48,8 +54,8 @@ function loadData(path, template, type) {
         loadTemplate(template, data.objects);
 
       else if (type == 2) {
-        var pending = sortData(data.answers, 'pending');
-        var over = sortData(data.answers, 'over').concat(sortData(data.answers, 'completed')).concat(sortData(data.answers, 'failed'));
+        var pending = sortData(data.objects, 'pending');
+        var over = sortData(data.objects, 'over').concat(sortData(data.objects, 'completed')).concat(sortData(data.objects, 'failed'));
         loadTemplate(template+'-pending', pending);
         loadTemplate(template+'-over', over);
       }
@@ -58,6 +64,10 @@ function loadData(path, template, type) {
 }
 
 function loadTemplate(templateName, templateInput) {
+
+  console.log(templateName);
+  console.log(templateInput);
+
   var source;
   var template;
   var path = 'tpl/' + templateName + '.html';
@@ -130,4 +140,8 @@ function getNbAnswers(data) {
       failed++;
   });
   return [completed, failed];
+}
+
+function getUserID() {
+  return localStorage.getItem('user');
 }

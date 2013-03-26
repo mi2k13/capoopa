@@ -2,10 +2,10 @@
 <ul class="list toggle-content">
   {{#if tpl}}
   {{#each tpl}}
-  <li data-item="{{ id }}" data-challenge="{{ challengeID_id }}" class="{{isPasted challengeID_beginning challengeID_duration}}" >
-      <img src="img/type/{{challengeID_type}}.png" alt="" class="thumb" />
-      <h3 class="ui-li-heading">{{ challengeID_name }}</h3>
-      <p class="ui-li-desc">{{date challengeID_beginning}}</p>
+  <li data-item="{{ id }}" data-challenge="{{ challengeID.id }}" class="{{isPasted challengeID.beginning challengeID.duration}}" >
+      <img src="img/type/{{challengeID.type}}.png" alt="" class="thumb" />
+      <h3 class="ui-li-heading">{{ challengeID.title }}</h3>
+      <p class="ui-li-desc">{{date challengeID.beginning}}</p>
   </li>
   {{/each}}
   {{else}}

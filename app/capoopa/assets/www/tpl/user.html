@@ -68,8 +68,10 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    var userID = getUserID();
+
     $('.edit-profile').click( function(){
-       editItem(1, 'user');
+       editItem(userID, 'user');
     });
   });
 </script>

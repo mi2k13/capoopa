@@ -12,9 +12,8 @@ from core.models import Vote
 #from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
 from tastypie import fields
-from tastypie.http import HttpUnauthorized, HttpForbidden
-from django.conf.urls import url
-from tastypie.utils import trailing_slash
+
+from tastypie.resources import ALL, ALL_WITH_RELATIONS
 
 from tastypie.serializers import Serializer
 import time
@@ -56,43 +55,14 @@ class UserResource(ModelResource):
 		#authentication = BasicAuthentication()
 		always_return_data = True
 
-
-	def dehydrate(self, bundle):
-
-		#bundle.data['answers'] = Answer.objects.filter(userID=bundle.obj)
-		serializers = Serializer(formats=['xml', 'json'])
-		answers = [st.__dict__ for st in Answer.objects.filter(userID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
-		friends = [st.__dict__ for st in Friend.objects.filter(userFriend=bundle.obj)]
-		for ans in answers:
-			ans['challengeID_name'] = Challenge.objects.get(id=ans['challengeID_id']).title
-			ans['challengeID_type'] = Challenge.objects.get(id=ans['challengeID_id']).type
-			ans['challengeID_beginning'] = Challenge.objects.get(id=ans['challengeID_id']).beginning
-			ans['challengeID_duration'] = Challenge.objects.get(id=ans['challengeID_id']).duration
-			#ans['challengeID_name'] = Challenge.objects.del(id=ans['challengeID_id']).challengeID_id
-		bundle.data['answers'] = answers
-
-		for fri in friends:
-			fri['friends_name'] = User.objects.get(id=fri['id']).nickname
-		bundle.data['friends'] = friends
-		# bundle.data['challenge']= [st.__dict__ for st in Challenge.objects.filter(author=bundle.obj)]
-		# tentative pour Serialiser (transformer en JSON) l'objet
-		#Serializer.serialize(self, bundle, format='application/json', options={})
-		#Serializer.to_json(self, bundle, options=None)
-		return bundle
+		filtering = {
+			'email': ALL_WITH_RELATIONS
+		}
 
 	def override_urls(self):
 		return [
 			url(r'^(?P<resource_name>%s)/search%s$' %(self._meta.resource_name, trailing_slash()),self.wrap_view('search'), name='api_search'),
 			]
-
-	'''def search(self, request, bundle):
-		serializers = Serializer(formats=['xml', 'json'])
-
-		friend = [st.__dict__ for st in User.objects.filter(nickname=bundle.obj)]
-
-		for fri in friends:
-			fri['friends_name'] = User.objects.get(request=fri['id']).nickname
-		bundle.data['friends'] = friends'''
 
 	def search(self, request, **kwargs):
 		self.method_check(request, allowed=['post'])
@@ -129,6 +99,9 @@ class AnswerResource(ModelResource):
 		authorization= Authorization()
 		#authentication = BasicAuthentication()
 		always_return_data = True
+		filtering = {
+			'userID': ALL
+		}
 
 	def dehydrate(self, bundle):
 
@@ -138,6 +111,47 @@ class AnswerResource(ModelResource):
 		bundle.data['vote'] = vote
 
 		return bundle
+
+	
+	def build_filters(self, filters=None):
+		# This is a personnal filter which permit to filter tags by letters in it. Eg : tag=ences => get "sciences"
+		if filters is None:
+			filters = {}
+
+		orm_filters = super(AnswerResource, self).build_filters(filters)
+
+		if 'userID' in filters:
+		  orm_filters['userID__exact'] = filters['userID']
+		return orm_filters
+
+
+class FriendResource(ModelResource):
+	user = fields.OneToOneField(UserResource, attribute='user' , related_name='user', full=True, null=True)
+	friend = fields.OneToOneField(UserResource, attribute='friend' , related_name='friend', full=True, null=True)
+
+	class Meta:
+		queryset = Friend.objects.all()
+		resource_name = 'friends'
+		filtering = {
+			'user': ALL
+		}
+
+		allowed_methods = ['get','post']
+		serializer = Serializer(formats=['xml', 'json'])
+		authorization= Authorization()
+		#authentication = BasicAuthentication()
+		always_return_data = True
+
+	def build_filters(self, filters=None):
+	  # This is a personnal filter which permit to filter tags by letters in it. Eg : tag=ences => get "sciences"
+		if filters is None:
+			filters = {}
+
+		orm_filters = super(FriendResource, self).build_filters(filters)
+
+		if 'user' in filters:
+			orm_filters['user__exact'] = filters['user']
+		return orm_filters
 
 class PhotoResource(ModelResource):
 	answerID = fields.OneToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True)
@@ -159,7 +173,7 @@ class PhotoResource(ModelResource):
 
 
 		# A deserialiser : bundle.obj.image
-		#data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
 
 		#image = data.get('image', '')
 		if "image" in bundle.data:
@@ -180,40 +194,6 @@ class PhotoResource(ModelResource):
 
 		return bundle
 
-class FriendResource(ModelResource):
-	userFriend = fields.OneToOneField(UserResource, attribute='userFriend' , related_name='userFriend', full=True, null=True)
-	friends = fields.OneToOneField(UserResource, attribute='friends' , related_name='friends', full=True, null=True)
-
-	class Meta:
-		queryset = Friend.objects.all()
-		resource_name = 'friends'
-		excludes = ['answers', 'avatar', 'description']
-
-		allowed_methods = ['get','post']
-		serializer = Serializer(formats=['xml', 'json'])
-		authorization= Authorization()
-		#authentication = BasicAuthentication()
-		always_return_data = True
-
-'''class FriendResource(ModelResource):
-	userFriend = fields.OneToOneField(UserResource, attribute='userFriend' , related_name='userFriend', full=True, null=True)
-	friends = fields.ToManyField(UserResource, attribute='friends' , related_name='friends', full=True, null=True)	
-	class Meta:
-		queryset = Friend.objects.all()
-		resource_name = 'friends'
-		excludes = ['status', 'nbAbuse']
-
-		allowed_methods = ['get','post']
-		serializer = Serializer(formats=['xml', 'json'])
-		authorization= Authorization()
-		#authentication = BasicAuthentication()
-		always_return_data = True
-
-	#def dehydrate(self, bundle):
-	#	serializers = Serializer(formats=['xml', 'json'])
-	#	users = [st.__dict__ for st in User.objects.filter(id=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
-	#	bundle.data['users'] = users
-	#	return bundle'''
 
 class VoteResource(ModelResource):
 	answerID = fields.ToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True, null=True)

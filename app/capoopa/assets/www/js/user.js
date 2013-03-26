@@ -4,10 +4,14 @@ $(document).ready(function() {
     var email = $('input[name=email]').val();
     var password = $('input[name=password]').val();
 
-    if (email == 'log' && password == 'pass')
-      window.location.replace('challenges.html');
-    else
-      $('.error').text('Oops : L\'adresse email et/ou le mot de passe que vous avez indiqués sont incorrects.');
+    if (email && password) {
+      login(email, password);
+      if (localStorage.getItem('user'))
+        window.location.replace('challenges.html');
+      else
+        $('.error').text('Oops : L\'adresse email et/ou le mot de passe que vous avez indiqués sont incorrects.');
+    }
+   
 
     return false;
   });
@@ -43,7 +47,10 @@ $(document).ready(function() {
     return false;
   });
 
+
   $('#edit-user').submit( function(){
+    var userID = getUserID();
+
     var nickname = $('input[name=nickname]').val();
     var description = $('textarea[name=description]').val();
     var password = $('input[name=password]').val();
@@ -61,7 +68,7 @@ $(document).ready(function() {
         $('.error').text('Oops: les passwords sont différents');
       else {
         var data = JSON.stringify({
-          "id": 1,
+          "id": userID,
           "nickname": nickname,
           "description": description,
           "password": password
@@ -74,7 +81,7 @@ $(document).ready(function() {
     }
 
     var data = JSON.stringify({
-      "id": 1,
+      "id": userID,
       "nickname": nickname,
       "description": description,
     });
@@ -86,6 +93,30 @@ $(document).ready(function() {
   });
 
 });
+
+function login(email, pass) {
+  $.ajax({
+    //url: 'http://localhost:8000/api/core/user/?email=' + email,
+    url: 'http://ssh.alwaysdata.com:11390/api/core/user/?email=' + email,
+
+    contentType: 'application/json',
+    dataType: 'jsonp',
+    cache: false,
+    processData: false,
+    async: false,
+    type: 'GET',
+    success: function(data, textStatus, jqXHR) {
+      if (data.objects[0] && pass == data.objects[0].password)
+        localStorage.setItem('user', data.objects[0].id);
+      else
+        console.log("pas connecté!");
+    }
+  });
+}
+
+function logout() {
+  localStorage.setItem('user', '');
+}
 
 function editItem(id, type) {
   loadData(type + '/' + id, 'edit-' + type, 0);
