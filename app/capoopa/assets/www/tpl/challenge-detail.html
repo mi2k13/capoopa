@@ -18,7 +18,7 @@
 
     <div>
       <button onclick="capturePhoto();" class="button large uploadPhoto">GO!!</button> 
-	  <button onclick="capturePhoto();" class="button large uploadPhoto">Recup photo!!</button> 
+	  <button onclick="capturePhotoEdit();" class="button large uploadPhoto">Recup photo!!</button> 
 	  <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);" class="button large uploadPhoto">Recup photo librairie </button>
 	  <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" class="button large uploadPhoto">Recup album</button>
    
@@ -27,6 +27,8 @@
   </div>
 {{/tpl}}
 
+<script type="text/javascript" charset="utf-8" src="lib/cordova-2.3.0.js"></script>
+	
 <script type="text/javascript">
   $(document).ready(function(){
     $('.back').click( function(){
@@ -63,6 +65,7 @@
     
     alert(imageData);
     
+    //
     var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
@@ -73,7 +76,9 @@
       // The inline CSS rules are used to resize the image
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
-    
+//  file://storage/sdcard0/Android/data/com.phonegap.www/cache/1364297595398.jpg
+
+    alert('affiche smallImage');
     alert(smallImage);
     
     //Ici le code pour dire quelle fonction va s occuper de l image
@@ -103,7 +108,8 @@
   // Called when a photo is successfully retrieved
     //
     function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI 
+      alert('onPhotoURISuccess');
+    // Uncomment to view the image file URI 
       // console.log(imageURI);
 
       // Get image handle
@@ -118,6 +124,7 @@
       // The inline CSS rules are used to resize the image
       //
       largeImage.src = imageURI;
+    alert('Sort de onPhotoURISuccess');
     }
 
     // A button will call this function
@@ -154,4 +161,4 @@
       alert('Failed because: ' + message);
     }
 
-    </script> 
+</script> 
