@@ -131,7 +131,7 @@ class PhotoResource(ModelResource):
 
 
 		# A deserialiser : bundle.obj.image
-		#data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
 
 		#image = data.get('image', '')
 		if "image" in bundle.data:
