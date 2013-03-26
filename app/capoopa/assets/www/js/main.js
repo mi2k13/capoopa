@@ -1,11 +1,15 @@
 $(document).ready(function(){
-  type = $('.page').data('type');
+  var userID = getUserID();
 
-  if (type == 'challenge')    loadData(type + '/', type + 's', 1);
-  else if (type == 'answer')  loadData('user/1', type + 's', 2);
-  else if (type == 'rate')    loadData('answer/1', type, 0);
-  else if (type == 'friends') loadData('user/1', type, 0);
-  else                        loadData(type + '/1', type, 0);
+  if (userID) {
+    var type = $('.page').data('type');
+
+    if (type == 'challenge')    loadData(type + '/', type + 's', 1);
+    else if (type == 'answer')  loadData('user/' + userID, type + 's', 2);
+    else if (type == 'rate')    loadData('answer/' + userID, type, 0);
+    else if (type == 'friends') loadData('user/' + userID, type, 0);
+    else                        loadData(type + '/' + userID, type, 0);
+  }
 });
 
 
@@ -131,4 +135,8 @@ function getNbAnswers(data) {
       failed++;
   });
   return [completed, failed];
+}
+
+function getUserID() {
+  return localStorage.getItem('user');
 }

@@ -29,6 +29,8 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    var userID = getUserID();
+
     toggleMenu();
 
     $('li .actions span').click( function(){
@@ -42,7 +44,7 @@
       itemId = $(this).parents('li').data('item');
 
       var data = JSON.stringify({
-        "userID":  "/api/core/user/1/",
+        "userID":  "/api/core/user/" + userID,
         "challengeID": "/api/core/challenge/" + itemId + '/',
         "status": status,
         "nbAbuse": 0

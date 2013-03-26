@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  var userID = getUserID();
 
   $('#propose-challenge').submit( function(){
     var title = $('input[name=title]').val();
@@ -25,7 +26,7 @@ $(document).ready(function(){
         var data = JSON.stringify({
           "title": title,
           "description": description,
-          "author": '/api/core/user/1/',
+          "author": '/api/core/user/' + userID,
           "beginning": debut,
           "duration": duration,
           "category": category,
