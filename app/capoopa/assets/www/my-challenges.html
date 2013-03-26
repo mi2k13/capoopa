@@ -35,7 +35,7 @@
 
       // Get image handle
 
-	  //alert('onPhotoDataSuccess');
+	  alert('onPhotoDataSuccess');
       var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
@@ -50,7 +50,8 @@
 	  //Ici le code pour dire quelle fonction va s occuper de l image
 	  //Convertir en Json avec stringify le imageData
 	  
-	   console.log("Envoie photo juste avant stringify");
+	   alert('Envoie photo juste avant stringify');
+	  // console.log("Envoie photo juste avant stringify");
 	  //Convertir Json : stringify
 	  
 	    var data = JSON.stringify({
@@ -73,9 +74,12 @@
     // A button will call this function
     //
     function capturePhoto() {
-		console.log('Capture Photo');
+	  alert('Capture photo');
+	// console.log('Capture Photo');
       // Take picture using device camera and retrieve image as base64-encoded string
-	  console.log('Now go to onPhotoDataSuccess');
+	  alert('Now go to onPhotoDataSucess');
+	  
+	 // console.log('Now go to onPhotoDataSuccess');
       navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
     }
 	
