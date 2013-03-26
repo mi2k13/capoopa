@@ -51,6 +51,8 @@
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
 	  
+	  alert(smallImage);
+	  
 	  //Ici le code pour dire quelle fonction va s occuper de l image
 	  //Convertir en Json avec stringify le imageData
 	  
@@ -84,7 +86,10 @@
 	  alert('Now go to onPhotoDataSucess');
 	  
 	 // console.log('Now go to onPhotoDataSuccess');
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, 
+	  destinationType: destinationType.DATA_URL,
+		sourceType: source,
+		allowEdit: true });
     }
 	
     // Called if something bad happens.
