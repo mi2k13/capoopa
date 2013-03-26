@@ -8,7 +8,7 @@
 
   <link rel="stylesheet" href="css/main.css" />
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-  
+  <script type="text/javascript" charset="utf-8" src="lib/cordova-2.3.0.js"></script>
   
   <script type="text/javascript" charset="utf-8">
 
@@ -41,21 +41,20 @@
 	  alert(imageData);
 	  
 	  //
-//	  var smallImage = document.getElementById('smallImage');
+	  var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
       //
- //     smallImage.style.display = 'block';
+      smallImage.style.display = 'block';
 
       // Show the captured photo
       // The inline CSS rules are used to resize the image
       //
- //     smallImage.src = "data:image/jpeg;base64," + imageData;
+      smallImage.src = "data:image/jpeg;base64," + imageData;
 //  file://storage/sdcard0/Android/data/com.phonegap.www/cache/1364297595398.jpg
 
 	  alert('affiche smallImage');
 	//  alert(smallImage);
-	  
 	  
 	  //Ici le code pour dire quelle fonction va s occuper de l image
 	  //Convertir en Json avec stringify le imageData
@@ -195,6 +194,5 @@
 <script src="lib/jquery-1.8.2.min.js"></script>
 <script src="lib/handlebars.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="lib/cordova-2.3.0.js"></script>
 <script src="js/main.js"></script>
 <script src="js/challenges.js"></script>
