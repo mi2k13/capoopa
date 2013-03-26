@@ -39,7 +39,7 @@
 	  alert('onPhotoDataSuccess');
 	  
 	  alert(imageData);
-	  
+	  //
 	  var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
@@ -50,8 +50,11 @@
       // The inline CSS rules are used to resize the image
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
-	  
+//  file://storage/sdcard0/Android/data/com.phonegap.www/cache/1364297595398.jpg
+
+	  alert('affiche smallImage');
 	  alert(smallImage);
+	  
 	  
 	  //Ici le code pour dire quelle fonction va s occuper de l image
 	  //Convertir en Json avec stringify le imageData
@@ -80,7 +83,8 @@
 	// Called when a photo is successfully retrieved
     //
     function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI 
+      alert('onPhotoURISuccess');
+	  // Uncomment to view the image file URI 
       // console.log(imageURI);
 
       // Get image handle
@@ -95,6 +99,7 @@
       // The inline CSS rules are used to resize the image
       //
       largeImage.src = imageURI;
+	  alert('Sort de onPhotoURISuccess');
     }
 
     // A button will call this function
