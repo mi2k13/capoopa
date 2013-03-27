@@ -19,7 +19,6 @@ class Challenge(models.Model):
 	duration = models.IntegerField(max_length=12)
 	category = models.CharField(max_length=15) # cree un dico de differentes valus pour les enums
 	nbAbuse = models.IntegerField(max_length=5, blank=True, null=True) 
-	nbAnswer = models.IntegerField(max_length=5, blank=True, null=True)
 	type = models.CharField(max_length=6)
 	private = models.BooleanField()
 	group = models.ForeignKey("Group", blank=True, null=True)
@@ -31,13 +30,8 @@ class Answer(models.Model):
 	userID = models.ForeignKey(User)
 	challengeID = models.ForeignKey(Challenge)
 	status = models.CharField(max_length=10)
-	#image = models.TextField(blank=True)
-	#media = models.IntegerField(max_length=200)
-	nbAbuse = models.IntegerField(max_length=200, blank=True, null=True)
-
-class Photo(models.Model):
-	answerID = models.ForeignKey(Answer)
-	image = models.TextField(blank=True)
+	image = models.FileField(upload_to="answers", blank=True, null=True)
+	#nbAbuse = models.IntegerField(max_length=200, blank=True, null=True)
 
 class Vote(models.Model):
 	answerID = models.ForeignKey(Answer, related_name='answerID')

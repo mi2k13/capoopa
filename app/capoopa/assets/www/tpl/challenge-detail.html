@@ -66,14 +66,15 @@
 	  
 	 // alert(imageData);
 	  
+   var answerID = 1;
+
 	  	var data = JSON.stringify({
-        "answerID":  "/api/core/answer/1/",
         "image": imageData
 		});
 		
 	//	alert('var data');
 		
-		postData('photo/', data);
+		postData('answer/addImage/?answerID=' answerID+ , data);
 		that.hide();
 		
     }

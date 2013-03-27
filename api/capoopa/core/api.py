@@ -2,15 +2,17 @@ from tastypie.resources import ModelResource
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.conf.urls import *
+from django.core.files import File
+from django.core.files.base import ContentFile
 from core.models import Challenge
 from core.models import Answer
 from core.models import User
-from core.models import Photo
 from core.models import Vote
 from core.models import Group
 from tastypie.authorization import Authorization
 from tastypie import fields
 from tastypie.utils import trailing_slash
+
 
 from tastypie.resources import ALL, ALL_WITH_RELATIONS
 
@@ -216,6 +218,12 @@ class AnswerResource(ModelResource):
 			'userID': ALL
 		}
 
+	def prepend_urls(self):
+		return [
+	  url(r"^(?P<resource_name>%s)/getRandomAnswer%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('getRandomAnswer'), name="api_getRandomAnswer"),
+	  url(r"^(?P<resource_name>%s)/addImage%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('addImage'), name="api_addImage"),
+	 ]
+
 	def dehydrate(self, bundle):
 		serializers = Serializer(formats=['xml', 'json'])
 		vote = [st.__dict__ for st in Vote.objects.filter(answerID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
@@ -231,17 +239,39 @@ class AnswerResource(ModelResource):
 		  orm_filters['userID__exact'] = filters['userID']
 		return orm_filters
 
+	def getRandomAnswer(self, request, **kwargs):
+		self.method_check(request, allowed=['get'])
+		userID = request.GET['userID']
+		user = User.objects.get(id=userID)
+		sqsAnswer = Answer.objects.exclude(userID=user).order_by('?')[:1]
+		if sqsAnswer:
+			return self.create_response(request, {
+				'success': True,
+				'objects': [answer.__dict__ for answer in sqsAnswer]
+				})
 
-class PhotoResource(ModelResource):
-	answerID = fields.OneToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True)
-	class Meta:
-		queryset = Photo.objects.all()
-		resource_name = 'photo'
-
-		allowed_methods = ['get','post','delete']
-		serializer = Serializer(formats=['xml', 'json'])
-		authorization= Authorization()
-		always_return_data = True
+	def addImage(self, request, **kwargs):
+		self.method_check(request, allowed=['post'])
+		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+		image64 = data.get('image')
+		answer = Group.objects.get(id=data.get('answerID'))
+		
+		fh = open("/www/img/answers/temporaire.jpg", "wb") # ouverture pour écriture d'un fichier temporaire
+		fh.write(image64.decode('base64')) #decode et création de l'image
+		fh.close()
+		if fh.closed:
+			fh = open("/www/img/answers/temporaire.jpg", "r") #ouverture en lecture
+			content_file = ContentFile(fh.read()) #ecriture du contenu du fichier
+			answer.image.save(data.get('answerID') + '.jpg', content_file)
+			answer.status = 'over'
+			answer.save()
+			fh.close()
+			if fh.closed:
+	     os.remove(unicode(fh.name))
+	     del fh
+		return self.create_response(request, {
+					'success': True
+					})
 
 	def hydrate(self, bundle):
 		#data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
@@ -258,6 +288,7 @@ class PhotoResource(ModelResource):
 			print 'pas de donnees dans image '
 
 		return bundle
+
 
 
 class VoteResource(ModelResource):
