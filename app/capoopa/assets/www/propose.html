@@ -188,6 +188,7 @@
 
       var duration = timeToTimestamp(duree, dureeType);
 
+
       if (title && description && category && type && debut && duree) {
         if(!isNaN(parseInt(duree * 1))) { // is int ?
           $('.error').text('');
@@ -208,8 +209,21 @@
               "groupID": groupID
             });
 
-            console.log(data);
-            postData('challenge/createChallenge/', data);
+            var resultPost = postData('challenge/createChallenge/', data);
+            $.each(groupsAC, function( key, item ) {
+              var members = getData('group/' + item.value + '/');
+              if (members.members){
+                $.each(members.members, function( key2, item2 ) {
+                  var data2 = JSON.stringify({
+                    "userID":  "/api/core/user/" + item2.id + '/',
+                    "challengeID": "/api/core/challenge/" + resultPost.challengeID + '/',
+                    "status": 'pending',
+                    "nbAbuse": 0
+                  });
+                  postData('answer/', data2);
+                });
+              }
+            });
             $('.success').text('Votre proposition de challenge a bien été ajouté');
           }
           else
@@ -221,7 +235,6 @@
       else
         $('.error').text('Oops : Vous n\'avez pas indiqué toutes les informations nécessaires');
 
-      console.log(groups);
       return false;
     });
 

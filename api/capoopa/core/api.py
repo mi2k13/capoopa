@@ -175,6 +175,7 @@ class ChallengeResource(ModelResource):
 		challenge = Challenge(title=title, description=description, author=author, beginning=beginning, duration=duration, category=category, nbAbuse=nbAbuse, type=type, private=private, group=group)
 		challenge.save()
 		return self.create_response(request, {
+					'challengeID': challenge.id,
 					'success': True
 					})
 
