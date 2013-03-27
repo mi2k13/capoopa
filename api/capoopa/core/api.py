@@ -250,6 +250,7 @@ class AnswerResource(ModelResource):
 				'objects': [answer.__dict__ for answer in sqsAnswer]
 				})
 
+<<<<<<< HEAD
 	def addImage(self, request, **kwargs):
 		self.method_check(request, allowed=['post'])
 		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))

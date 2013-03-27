@@ -12,11 +12,7 @@ $(document).ready(function(){
     else if (type == 'rate')    loadData('answer/' + userID, type, 0);
     else if (type == 'friends') loadData('user/' + userID, type, 0);
     else if (type == 'group')   loadData('group/?userID=' + userID, type + 's', 1);
-<<<<<<< HEAD
     else if (type == 'rate')    loadData('answer/getRandomAnswer?userID=' + userID, type, 0);
-=======
-	//else if (type == 'rate') loadData('answer/' + answerID);
->>>>>>> 8eb1d6f0f322d7d87ee647c018e447a81d44958f
     else                        loadData(type + '/' + userID, type, 0);
   }
 });
