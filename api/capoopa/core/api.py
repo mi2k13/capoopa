@@ -98,7 +98,7 @@ class ChallengeResource(ModelResource):
 	class Meta:
 		queryset = Challenge.objects.all()
 		resource_name = 'challenge'
-		allowed_methods = ['get','post']
+		allowed_methods = ['get','post','delete']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
 		#authentication = BasicAuthentication()
@@ -145,7 +145,7 @@ class AnswerResource(ModelResource):
 	class Meta:
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
-		allowed_methods = ['get','post']
+		allowed_methods = ['get','post','delete']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
 		always_return_data = True
@@ -175,7 +175,7 @@ class PhotoResource(ModelResource):
 		queryset = Photo.objects.all()
 		resource_name = 'photo'
 
-		allowed_methods = ['get','post']
+		allowed_methods = ['get','post','delete']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
 		always_return_data = True
@@ -183,13 +183,13 @@ class PhotoResource(ModelResource):
 	def hydrate(self, bundle):
 
 		# A deserialiser : bundle.obj.image
-		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+		#data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
 
 		#image = data.get('image', '')
 		if "image" in bundle.data:
 			#filename =   "blop.jpg"
 			print bundle.data['image']
-			filename = "%s.jpg" % (self.answerID_id)
+			filename = "%s%s.jpg" % (bundle.obj.pk, time.time()) 
 			fh = file(filename,"wb" ) #timestamp + id
 			fh = open(filename, "wb")
 			fh.write(bundle.data['image'].decode('base64'))
@@ -223,7 +223,7 @@ class GroupResource(ModelResource):
 	class Meta:
 		queryset = Group.objects.all()
 		resource_name = 'group'
-		allowed_methods = ['get','post']
+		allowed_methods = ['get','post','delete']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
 		always_return_data = True
