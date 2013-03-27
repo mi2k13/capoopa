@@ -2,24 +2,26 @@
 <ul class="list">
   {{#if tpl}}
   {{#each tpl}}
-  <li data-item="{{ id }}">
-
-      <div class="actions">
-        <span class="validate"></span>
-        <span class="refuse"></span>
-      </div>
-      {{#if category}}
-      <img src="img/type/{{type}}.png" alt="" class="thumb" />
-      {{else}}
-      <img src="img/type/default.png" alt="" class="thumb" />
-      {{/if}}
-      <h3 class="ui-li-heading">{{ title }}</h3>
-      {{#if category}}
-      <p class="ui-li-desc">{{ category }}</p>
-      {{else}}
-      <p class="ui-li-desc">divers</p>
-      {{/if}}
-  </li>
+  {{#if private}}
+  {{else}}
+    <li data-item="{{ id }}">
+        <div class="actions">
+          <span class="validate"></span>
+          <span class="refuse"></span>
+        </div>
+        {{#if category}}
+        <img src="img/type/{{type}}.png" alt="" class="thumb" />
+        {{else}}
+        <img src="img/type/default.png" alt="" class="thumb" />
+        {{/if}}
+        <h3 class="ui-li-heading">{{ title }}</h3>
+        {{#if category}}
+        <p class="ui-li-desc">{{ category }}</p>
+        {{else}}
+        <p class="ui-li-desc">divers</p>
+        {{/if}}
+    </li>
+  {{/if}}
   {{/each}}
   {{else}}
     <p class="inner-content info">Ooops, il semblerait qu'il n'y ait aucun défi à proposer. Soit vous avez tout fait, soit Arnaud n'a pas rempli la base de données !</p>

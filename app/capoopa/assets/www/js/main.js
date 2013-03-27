@@ -11,6 +11,7 @@ $(document).ready(function(){
     else if (type == 'answer')  loadData('answer/?userID=' + userID, 'answers', 2);
     else if (type == 'rate')    loadData('answer/' + userID, type, 0);
     else if (type == 'friends') loadData('user/' + userID, type, 0);
+    else if (type == 'group')   loadData('group/?userID=' + userID, type + 's', 1);
     else                        loadData(type + '/' + userID, type, 0);
   }
 });

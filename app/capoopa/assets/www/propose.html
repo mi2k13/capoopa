@@ -64,6 +64,16 @@
             <option value="days">jours</option>
           </select>
 
+          <label for="privacy">Proposer le défi à</label>
+          <legend>Proposer le défi à...</legend>
+          <select name="privacy" class="large">
+            <option value="0">la communauté</option>
+            <option value="1">un groupe d'amis</option>
+          </select>
+
+          <label for="group">Groupe</label>
+          <input type="text" name="group" placeholder="Groupe" class="large" id="autoc" value="" />
+
           <input type="submit" value="Envoyer" class="button large" />
           <div class="info success"></div>
           <div class="info error"></div>
@@ -99,18 +109,121 @@
 
 
 <script src="lib/jquery-1.8.2.min.js"></script>
-<script src="lib/jquery-ui-1.10.2.custom.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <script src="lib/handlebars.js"></script>
 <script src="js/main.js"></script>
 <script src="js/challenges.js"></script>
 
 <script type="text/javascript">
-  var current = Math.round(((new Date()).getTime()-Date.UTC(1970,0,1))/1000);
+  $(document).ready(function(){
+    var userID = localStorage.getItem('user');
 
-  $('.datepicker').val(timestampToDate(current));
+    var current = Math.round(((new Date()).getTime()-Date.UTC(1970,0,1))/1000);
+    $('.datepicker').val(timestampToDate(current));
+    $(function(){  
+      $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+    });
 
-  $(function(){  
-    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+    $('input[name=group]').hide();
+    $('select[name=privacy]').change(function(){
+      if ($(this).val())
+        $('input[name=group]').show();
+    });
+    
+
+
+    var m_groups = getData('user/getGroups/?userID=' + userID);
+
+    if(m_groups) {
+      var groupID;
+      var groups = m_groups.groups;
+      var groupsAC = new Array();
+
+      $.each(groups, function( key, item ) {
+          groupsAC.push({
+            "label": item.title,
+            "value": item.id
+          });
+      });
+      
+      $( "#autoc" ).autocomplete({
+        minLength: 0,
+        source: groupsAC,
+        focus: function( event, ui ) {
+          $( "#autoc" ).val( ui.item.label );
+          return false;
+        },
+        select: function( event, ui ) {
+          $( "#autoc" ).val( ui.item.label );
+          groupID = ui.item.value;
+          return false;
+        }
+      })
+      .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        return $( "<li>" )
+          .append( "<a>" + item.label + "</a>" )
+          .appendTo( ul );
+      };
+    }
+    else
+      $('.error').text('Vous n\'avez pas encore d \'amis');
+
+
+
+    $('#propose-challenge').submit( function(){
+      var title = $('input[name=title]').val();
+      var description = $('textarea[name=description]').val();
+      var category = $('select[name=category]').val() || "divers";
+      var type = $('select[name=type]').val();
+      var debut = $('input[name=beginning]').val();
+      var duree = $('input[name=duration]').val();
+      var dureeType = $('select[name=duration-type]').val();
+      var privacy = $('select[name=privacy]').val();
+
+      var debutTab = debut.split('/');
+      debut = debutTab[2] + '-' + debutTab[1] + '-' + debutTab[0];
+
+      var dateBeginning = new Date(debut + ' 00:00:00');
+      debut = dateBeginning.getTime() / 1000;
+
+      var duration = timeToTimestamp(duree, dureeType);
+
+      if (title && description && category && type && debut && duree) {
+        if(!isNaN(parseInt(duree * 1))) { // is int ?
+          $('.error').text('');
+
+          if (!privacy || (privacy && groupID)) {
+
+            var data = JSON.stringify({
+              "title": title,
+              "description": description,
+              "authorID": userID,
+              "beginning": debut,
+              "duration": duration,
+              "category": category,
+              "type": type,
+              "nbAbuse": 0,
+              "nbAnswer": 0,
+              "private": privacy,
+              "groupID": groupID
+            });
+
+            console.log(data);
+            postData('challenge/createChallenge/', data);
+            $('.success').text('Votre proposition de challenge a bien été ajouté');
+          }
+          else
+            $('.error').text('Vous devez indiquer un groupe');
+        }
+        else
+          $('.error').text('Vous devez entrer un chiffre entier pour la durée.');
+      }
+      else
+        $('.error').text('Oops : Vous n\'avez pas indiqué toutes les informations nécessaires');
+
+      console.log(groups);
+      return false;
+    });
+
   });
-
 </script>

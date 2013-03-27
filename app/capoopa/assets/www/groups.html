@@ -28,25 +28,28 @@
 
     <div class="content">
 
-      <form method="post" id="addGroup">
-        <label for="title">Nom du groupe</label>
-        <input type="text" name="title" placeholder="Nom du groupe" class="large" />
+      <h2 class="toggle toggle-top">Créer un groupe</h2>
+      <div class="toggle-content inner-content">
+        <form method="post" id="addGroup">
+          <label for="title">Nom du groupe</label>
+          <input type="text" name="title" placeholder="Nom du groupe" class="large" />
 
-        <label for="membre">Membre</label>
-        <input type="text" name="member" placeholder="Membre" class="large" id="autoc" />
+          <label for="membre">Membre</label>
+          <input type="text" name="member" placeholder="Membre" class="large" id="autoc" />
 
-        <div class="members">
-          <p>Membres sélectionnés :</p>
-          <ul></ul>
-        </div>
+          <div class="members">
+            <p>Membres sélectionnés :</p>
+            <ul></ul>
+          </div>
 
-        <input type="submit" value="Créer" class="button large" />
+          <input type="submit" value="Créer" class="button large" />
 
-        <div class="info error"></div>
-        <div class="info success"></div>
-      </form>
+          <div class="info error"></div>
+          <div class="info success"></div>
+        </form>
 
-      <div class="success"></div>
+        <div class="success"></div>
+      </div>
 
       <div id="groups"></div> <!-- hbtemplate -->
     </div>
@@ -80,45 +83,50 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+
     var userID = localStorage.getItem('user');
     var members = new Array();
 
-    var friends = getData('user/1/').friends;
+    var friends = getData('user/1/');
 
-    var friendsAC = new Array();
-    $.each(friends, function( key, item ) {
-        friendsAC.push({
-          "label": item.nickname,
-          "value": item.id
-        });
-    });
-    
- 
-    $( "#autoc" ).autocomplete({
-      minLength: 0,
-      source: friendsAC,
-      focus: function( event, ui ) {
-        $( "#project" ).val( ui.item.label );
-        return false;
-      },
-      select: function( event, ui ) {
-        $( "#autoc" ).val('');
-        members.push(ui.item.value);
-        $('.members ul').append('<li>' + ui.item.label + '</li>');
-        return false;
-      }
-    })
-    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<a>" + item.label + "</a>" )
-        .appendTo( ul );
-    };
+    if(friends) {
+      friends = friends.friends;
 
+      var friendsAC = new Array();
+      $.each(friends, function( key, item ) {
+          friendsAC.push({
+            "label": item.nickname,
+            "value": item.id
+          });
+      });
+      
+      $( "#autoc" ).autocomplete({
+        minLength: 0,
+        source: friendsAC,
+        focus: function( event, ui ) {
+          $( "#autoc" ).val( ui.item.label );
+          return false;
+        },
+        select: function( event, ui ) {
+          $( "#autoc" ).val('');
+          members.push(ui.item.value);
+          $('.members ul').append('<li>' + ui.item.label + '</li>');
+          return false;
+        }
+      })
+      .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        return $( "<li>" )
+          .append( "<a>" + item.label + "</a>" )
+          .appendTo( ul );
+      };
+    }
+    else
+      $('.members').text('Vous n\'avez pas encore d \'amis');
 
 
     $("#addGroup").submit(function() {
       var data = JSON.stringify({
-        "owner": userID,
+        "owner": "/api/core/user/" + userID,
         "title": $('input[name=title]').val(),
         "members": members
       });
