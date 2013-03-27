@@ -48,7 +48,6 @@
           <div class="info success"></div>
         </form>
 
-        <div class="success"></div>
       </div>
 
       <div id="groups"></div> <!-- hbtemplate -->
@@ -126,7 +125,7 @@
 
     $("#addGroup").submit(function() {
       var data = JSON.stringify({
-        "owner": "/api/core/user/" + userID,
+        "owner": userID,
         "title": $('input[name=title]').val(),
         "members": members
       });
