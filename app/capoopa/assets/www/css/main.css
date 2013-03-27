@@ -185,6 +185,8 @@ a {
   font-style: italic;
 }
 
++.messageImage{ color: #35B45B; }
+
 .success, .error {
   font-size: 22px;
   padding: 5px;

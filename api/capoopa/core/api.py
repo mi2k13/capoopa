@@ -247,7 +247,7 @@ class PhotoResource(ModelResource):
 		#data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
 		if "image" in bundle.data:
 			print bundle.data['image']
-			filename = "%s%s.jpg" % (bundle.obj.pk, time.time()) 
+			filename = "%s.jpg" % (time.time()) 
 			fh = file(filename,"wb" ) #timestamp + id
 			fh = open(filename, "wb")
 			fh.write(bundle.data['image'].decode('base64'))
