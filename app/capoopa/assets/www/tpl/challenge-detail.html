@@ -17,11 +17,12 @@
     <p>{{ description }}</p>
 
     <div>
-      <button onclick="capturePhoto();" class="button large uploadPhoto">GO!!</button> 
-	  <button onclick="capturePhotoEdit();" class="button large uploadPhoto">Recup photo!!</button> 
-	  <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);" class="button large uploadPhoto">Recup photo librairie </button>
-	  <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" class="button large uploadPhoto">Recup album</button>
-   
+		 <button onclick="capturePhoto();" class="button large uploadPhoto">Capture Photo</button> <br>
+		 <button onclick="capturePhotoEdit();" class="button large uploadPhoto">Capture Editable Photo</button> <br>
+		 <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);" class="button large uploadPhoto">From Photo Library</button><br>
+		 <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" class="button large uploadPhoto">From Photo Album</button><br>
+		 <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+		 <img style="display:none;" id="largeImage" src="" />
     </div>
 
   </div>
@@ -63,6 +64,7 @@
       // Get image handle
     alert('onPhotoDataSuccess');
     
+	//On a enfin l image en base64 a l interieur
     alert(imageData);
     
     //
@@ -136,9 +138,10 @@
     alert('Now go to onPhotoDataSucess');
     
    // console.log('Now go to onPhotoDataSuccess');
-		navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-			destinationType: destinationType.DATA_URL });
-     // navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+   navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+        destinationType: destinationType.DATA_URL });
+    
+    //  navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
     }
   
   // A button will call this function
