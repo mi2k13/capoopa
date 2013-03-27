@@ -7,6 +7,7 @@ from core.models import Answer
 from core.models import User
 from core.models import Photo
 from core.models import Vote
+from core.models import Group
 #from tastypie.authorization import DjangoAuthorization
 #from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
@@ -94,7 +95,6 @@ class UserResource(ModelResource):
 
 class ChallengeResource(ModelResource):
 	author = fields.ToOneField(UserResource, attribute='author' , related_name='author', full=True)
-	#users = fields.ForeignKey(UserResource, attribute='users', full=True, null=True)
 	class Meta:
 		queryset = Challenge.objects.all()
 		resource_name = 'challenge'
@@ -140,7 +140,6 @@ class AnswerResource(ModelResource):
 		allowed_methods = ['get','post']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
-		#authentication = BasicAuthentication()
 		always_return_data = True
 		filtering = {
 			'userID': ALL
@@ -154,12 +153,9 @@ class AnswerResource(ModelResource):
 
 	
 	def build_filters(self, filters=None):
-		# This is a personnal filter which permit to filter tags by letters in it. Eg : tag=ences => get "sciences"
 		if filters is None:
 			filters = {}
-
 		orm_filters = super(AnswerResource, self).build_filters(filters)
-
 		if 'userID' in filters:
 		  orm_filters['userID__exact'] = filters['userID']
 		return orm_filters
@@ -177,12 +173,6 @@ class PhotoResource(ModelResource):
 		always_return_data = True
 
 	def hydrate(self, bundle):
-		print 'la'
-		#self.method_check(request, allowed=['post'])
-
-		# Verifier qu'il y a un champ image dans bundle
-		# Faire l'upload
-
 
 		# A deserialiser : bundle.obj.image
 		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
@@ -215,6 +205,54 @@ class VoteResource(ModelResource):
 		allowed_methods = ['get','post']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
-		#authentication = BasicAuthentication()
 		always_return_data = True
 		#fields=['author','description','title']
+
+class GroupResource(ModelResource):
+	owner = fields.ToOneField(UserResource, attribute='owner' , related_name='owner', full=True)
+	members = fields.ToManyField(UserResource, attribute=lambda bundle: User.objects.all())
+
+	class Meta:
+		queryset = Group.objects.all()
+		resource_name = 'group'
+		allowed_methods = ['get','post']
+		serializer = Serializer(formats=['xml', 'json'])
+		authorization= Authorization()
+		always_return_data = True
+		filtering = {
+			'owner': ALL_WITH_RELATIONS
+		}
+
+	def createGroup(self, request, **kwargs):
+		self.method_check(request, allowed=['post'])
+		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+		owner = User.objects.get(id=data.get('owner'))
+		title = data.get('title')
+		members = data.get('members')
+		group = Group(title=title, owner=owner)
+		group.save()
+		for member in members:
+			member = User.objects.get(id=member)
+			group.members.add(member)
+		group.save()
+
+		return self.create_response(request, {
+					'success': True
+					})
+
+	def prepend_urls(self):
+		return [
+	  url(r"^(?P<resource_name>%s)/createGroup%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('createGroup'), name="api_createGroup")
+	 ]
+
+	def build_filters(self, filters=None):
+		if filters is None:
+			filters = {}
+		orm_filters = super(GroupResource, self).build_filters(filters)
+		if 'owner' in filters:
+		  orm_filters['owner__exact'] = filters['owner']
+		return orm_filters
+
+	def dehydrate(self, bundle):
+		bundle.data['members'] = [members.__dict__ for members in bundle.obj.members.all()]
+		return bundle

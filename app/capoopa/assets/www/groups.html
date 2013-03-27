@@ -12,7 +12,7 @@
 </head> 
 <body>
 
-  <div class="page" data-type="user">
+  <div class="page" data-type="group">
 
     <div class="top-bar">
       <div class="app-name">
@@ -26,6 +26,20 @@
     </div>
 
     <div class="content">
+
+      <form method="post" id="addGroup">
+        <label for="title">Nom du groupe</label>
+        <input type="text" name="title" placeholder="Nom du groupe" class="large" />
+
+        <label for="membre">Membre</label>
+        <input type="text" name="member" placeholder="Membre" class="large" />
+
+        <input type="submit" value="Créer" class="button large" />
+
+        <div class="info error"></div>
+        <div class="info success"></div>
+      </form>
+
       <div id="groups"></div> <!-- hbtemplate -->
     </div>
 
@@ -55,3 +69,19 @@
 <script src="lib/handlebars.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <script src="js/main.js"></script>
+
+<script type="text/javascript">
+  var userID = localStorage.getItem('user');
+
+  $("#addGroup").submit(function() {
+    var data = JSON.stringify({
+      "owner": 1,
+      "title": $('input[name=title]').val(),
+      "members": [2,3]
+    });
+
+    postData('group/createGroup/', data);
+
+    return false;
+  });
+</script>

@@ -40,3 +40,8 @@ class Photo(models.Model):
 class Vote(models.Model):
 	answerID = models.ForeignKey(Answer, related_name='answerID')
 	Vote = models.IntegerField(max_length=5, blank=True)
+
+class Group(models.Model):
+	title = models.CharField(max_length=30)
+	owner = models.ForeignKey("User", related_name='owner')
+	members = models.ManyToManyField("User", blank=True)
