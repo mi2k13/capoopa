@@ -1,3 +1,6 @@
+//var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/';
+  var fullPath = 'http://localhost:8000/api/core/';
+
 $(document).ready(function(){
   var userID = getUserID();
 
@@ -14,13 +17,10 @@ $(document).ready(function(){
 
 
 function postData(path, data) {
- // var fullPath = 'http://localhost:8000/api/core/' + path;
-  var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/' + path;
-
   var result;
   $.ajax({
     type: "POST",
-    url: fullPath,
+    url: fullPath + path,
     contentType: 'application/json',
     data: data,
     async: false,
@@ -37,12 +37,29 @@ function postData(path, data) {
   return result;
 }
 
+function getData(path) {
+  var result;
+  $.ajax({
+    type: "GET",
+    url: fullPath + path,
+    contentType: 'application/json',
+    async: false,
+    success: function(data) {
+      result = data;
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log("pas envoyé...");
+      console.log(errorThrown);
+    },
+    dataType: 'json'
+  });
+  return result;
+}
+
 // type : 0=none ; 1=objects ; 2=answers
 function loadData(path, template, type) {
   $.ajax({
-    //url: 'http://localhost:8000/api/core/' + path,
-    url: 'http://ssh.alwaysdata.com:11390/api/core/' + path,
-
+    url: fullPath + path,
     contentType: 'application/json',
     dataType: 'jsonp',
     cache: false,
