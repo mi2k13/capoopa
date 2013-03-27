@@ -115,7 +115,6 @@ class ChallengeResource(ModelResource):
 		userID = request.GET['userID']
 		user = User.objects.get(id=userID)
 		sqsAnswer = Answer.objects.filter(userID=user)
-		print sqsAnswer[0]
 		if sqsAnswer:
 			sqsAnswer = [ans for ans in sqsAnswer]
 			sqsChallenge = Challenge.objects.exclude(id__in=[ans.challengeID.id for ans in sqsAnswer])
@@ -125,9 +124,11 @@ class ChallengeResource(ModelResource):
 					'objects': [challenge.__dict__ for challenge in sqsChallenge]
 					})
 		else:
-			return self.create_response(request, {
-					'success': False,
-					'objects': "T'as pas d'ami"
+			sqsChallenge = Challenge.objects.all()
+			if sqsChallenge:
+				return self.create_response(request, {
+					'success': True,
+					'objects': [challenge.__dict__ for challenge in sqsChallenge]
 					})
 
 	# def dehydrate(self, bundle):
