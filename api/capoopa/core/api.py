@@ -78,13 +78,14 @@ class UserResource(ModelResource):
 				'success': False
 				})
 
-
 	def dehydrate(self, bundle):
 	 	userID = bundle.obj
 		bundle.data['nbCompleted'] = Answer.objects.filter(userID=userID, status="completed").count()
 		bundle.data['nbFailed'] = Answer.objects.filter(userID=userID, status="failed").count()
 		bundle.data['friends'] = [friend.__dict__ for friend in bundle.obj.friends.all()]
 		return bundle
+
+
 
 class GroupResource(ModelResource):
 	owner = fields.ToOneField(UserResource, attribute='owner' , related_name='owner', full=True)
@@ -143,7 +144,7 @@ class ChallengeResource(ModelResource):
 	class Meta:
 		queryset = Challenge.objects.all()
 		resource_name = 'challenge'
-		allowed_methods = ['get','post']
+		allowed_methods = ['get','post','delete']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
 		always_return_data = True
@@ -207,7 +208,7 @@ class AnswerResource(ModelResource):
 	class Meta:
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
-		allowed_methods = ['get','post']
+		allowed_methods = ['get','post','delete']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
 		always_return_data = True
@@ -237,17 +238,17 @@ class PhotoResource(ModelResource):
 		queryset = Photo.objects.all()
 		resource_name = 'photo'
 
-		allowed_methods = ['get','post']
+		allowed_methods = ['get','post','delete']
 		serializer = Serializer(formats=['xml', 'json'])
 		authorization= Authorization()
 		always_return_data = True
 
 	def hydrate(self, bundle):
-		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+		#data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
 		if "image" in bundle.data:
 			print bundle.data['image']
-			filename = "%s.jpg" % (self.answerID_id)
-			fh = file(filename,"wb" )
+			filename = "%s%s.jpg" % (bundle.obj.pk, time.time()) 
+			fh = file(filename,"wb" ) #timestamp + id
 			fh = open(filename, "wb")
 			fh.write(bundle.data['image'].decode('base64'))
 			fh.close()

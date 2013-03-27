@@ -18,11 +18,8 @@
 
     <div>
 		 <button onclick="capturePhoto();" class="button large uploadPhoto">Capture Photo</button> <br>
-		 <button onclick="capturePhotoEdit();" class="button large uploadPhoto">Capture Editable Photo</button> <br>
-		 <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);" class="button large uploadPhoto">From Photo Library</button><br>
-		 <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" class="button large uploadPhoto">From Photo Album</button><br>
-		 <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-		 <img style="display:none;" id="largeImage" src="" />
+		 <div style="display:none;" id="messageImage"> Ta photo a bien été envoyé. Le défi est terminé.</div><br>
+		 <img style="display:none;width:200px;height:200px;" id="smallImage" src="" />
     </div>
 
   </div>
@@ -30,30 +27,21 @@
 
 <script type="text/javascript" charset="utf-8" src="lib/cordova-2.3.0.js"></script>
 	
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.back').click( function(){
-      hideItem();
-    });
-  });
-
+	<script type="text/javascript" charset="utf-8">
 
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value 
 
-    // Wait for PhoneGap to connect with the device
+    // Wait for Cordova to connect with the device
+    //
     document.addEventListener("deviceready",onDeviceReady,false);
 
-    // PhoneGap is ready to be used!
-  
-  //A decommenter !! Commenter pour test max photo en dur
-     
-   function onDeviceReady() {
+    // Cordova is ready to be used!
+    //
+    function onDeviceReady() {
         pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
     }
-  
-  //imageData = "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";
 
     // Called when a photo is successfully retrieved
     //
@@ -62,108 +50,48 @@
       // console.log(imageData);
 
       // Get image handle
-    alert('onPhotoDataSuccess');
-    
-	//On a enfin l image en base64 a l interieur
-    alert(imageData);
-    
-    //
-    var smallImage = document.getElementById('smallImage');
+      //
+      var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
       //
       smallImage.style.display = 'block';
+	  
+	  messageImage.style.display = 'block';
 
       // Show the captured photo
       // The inline CSS rules are used to resize the image
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
-//  file://storage/sdcard0/Android/data/com.phonegap.www/cache/1364297595398.jpg
-
-    alert('affiche smallImage');
-    alert(smallImage);
-    
-    //Ici le code pour dire quelle fonction va s occuper de l image
-    //Convertir en Json avec stringify le imageData
-    
-     alert('Envoie photo juste avant stringify');
-    // console.log("Envoie photo juste avant stringify");
-    //Convertir Json : stringify
-    
-      var data = JSON.stringify({
+	  
+	 // alert(imageData);
+	  
+	  	var data = JSON.stringify({
         "answerID":  "/api/core/answer/1/",
-        "image": imageData 
-    });
-  
-    postData('photo/', data);
-    that.hide();
-
-    alert('End post photo');
-    //var data = JSON.stringify({ "imageData": imageData; });
-  
-    //La fonction photo s occupera de l image
-     //$.post('http://localhost:8000/api/core/photo/', {data:imageData}, 
-    // $.post('http://ssh.alwaysdata.com:11390/api/core/photo/', {data:imageData},
-       //          function(data){console.log('success');});
-    }
-  
-  // Called when a photo is successfully retrieved
-    //
-    function onPhotoURISuccess(imageURI) {
-      alert('onPhotoURISuccess');
-    // Uncomment to view the image file URI 
-      // console.log(imageURI);
-
-      // Get image handle
-      //
-      var largeImage = document.getElementById('largeImage');
-
-      // Unhide image elements
-      //
-      largeImage.style.display = 'block';
-
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      largeImage.src = imageURI;
-    alert('Sort de onPhotoURISuccess');
+        "image": imageData
+		});
+		
+	//	alert('var data');
+		
+		postData('photo/', data);
+		that.hide();
+		
     }
 
     // A button will call this function
     //
     function capturePhoto() {
-    alert('Capture photo');
-  // console.log('Capture Photo');
       // Take picture using device camera and retrieve image as base64-encoded string
-    alert('Now go to onPhotoDataSucess');
-    
-   // console.log('Now go to onPhotoDataSuccess');
-   navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
         destinationType: destinationType.DATA_URL });
-    
-    //  navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
     }
-  
-  // A button will call this function
-    //
-    function capturePhotoEdit() {
-      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true }); 
-    }
-  
-  // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
-  
+
+
     // Called if something bad happens.
     // 
     function onFail(message) {
       alert('Failed because: ' + message);
     }
+	
 
-</script> 
+    </script>
