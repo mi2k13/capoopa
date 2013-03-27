@@ -273,23 +273,6 @@ class AnswerResource(ModelResource):
 					'success': True
 					})
 
-	def hydrate(self, bundle):
-		#data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
-		if "image" in bundle.data:
-			print bundle.data['image']
-			filename = "%s%s.jpg" % (bundle.obj.pk, time.time()) 
-			fh = file(filename,"wb" ) #timestamp + id
-			fh = open(filename, "wb")
-			fh.write(bundle.data['image'].decode('base64'))
-			fh.close()
-			bundle.obj.image = filename
-
-		else:
-			print 'pas de donnees dans image '
-
-		return bundle
-
-
 
 class VoteResource(ModelResource):
 	answerID = fields.ToOneField(AnswerResource, attribute='answerID' , related_name='answerID', full=True, null=True)

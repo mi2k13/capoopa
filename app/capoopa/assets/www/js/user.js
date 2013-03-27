@@ -61,7 +61,7 @@ $(document).ready(function() {
 
     if(password || password2) {
       if(password && !password2)
-        $('.error').text('Oops: il faut remplir les deux password');
+        $('.error').text('Oops: il faut remplir les deux passwords');
       else if(password != password2)
         $('.error').text('Oops: les passwords sont différents');
       else {
