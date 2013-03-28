@@ -237,6 +237,7 @@ class AnswerResource(ModelResource):
 		return [
 	  url(r"^(?P<resource_name>%s)/getRandomAnswer%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('getRandomAnswer'), name="api_getRandomAnswer"),
 	  url(r"^(?P<resource_name>%s)/addImage%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('addImage'), name="api_addImage"),
+	  url(r"^(?P<resource_name>%s)/getImage%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('getImage'), name="api_getImage"),
 	 ]
 
 	def dehydrate(self, bundle):
@@ -265,6 +266,14 @@ class AnswerResource(ModelResource):
 				'objects': [answer.__dict__ for answer in sqsAnswer]
 				})
 
+	def getImage(self, request, **kwargs):
+		self.method_check(request, allowed=['get'])
+		answer = Answer.objects.get(id=1)
+		return self.create_response(request, {
+				'name': answer.image.name,
+				'url': answer.image.url,
+				'path': answer.image.path
+				})
 
 	def addImage(self, request, **kwargs):
 		self.method_check(request, allowed=['post'])
@@ -287,7 +296,7 @@ class AnswerResource(ModelResource):
 			print 555
 			content_file = ContentFile(fh.read()) #ecriture du contenu du fichier
 			print 666
-			answer.image.save(data.get('answerID') + '.jpg', content_file)
+			answer.image.save('answer.jpg', content_file)
 			print 777
 			answer.status = 'over'
 			print 888

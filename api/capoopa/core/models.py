@@ -30,7 +30,7 @@ class Answer(models.Model):
 	userID = models.ForeignKey(User)
 	challengeID = models.ForeignKey(Challenge)
 	status = models.CharField(max_length=10)
-	image = models.FileField(upload_to="answers", blank=True, null=True)
+	image = models.FileField(upload_to="images/answers", blank=True, null=True)
 	#nbAbuse = models.IntegerField(max_length=200, blank=True, null=True)
 
 class Vote(models.Model):
