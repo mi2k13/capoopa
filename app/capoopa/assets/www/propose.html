@@ -194,7 +194,6 @@
           $('.error').text('');
 
           if (privacy == '0' || (privacy && groupID)) {
-
             var data = JSON.stringify({
               "title": title,
               "description": description,
@@ -207,6 +206,8 @@
               "private": privacy,
               "groupID": groupID
             });
+
+            console.log(data);
 
             var resultPost = postData('challenge/createChallenge/', data);
             $.each(groupsAC, function( key, item ) {

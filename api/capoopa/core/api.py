@@ -189,7 +189,6 @@ class ChallengeResource(ModelResource):
 	def getChallenges(self, request, **kwargs):
 		self.method_check(request, allowed=['get'])
 		userID = request.GET['userID']
-		print "pute"
 		user = User.objects.get(id=userID)
 		sqsAnswer = Answer.objects.filter(userID=user)
 		if sqsAnswer:

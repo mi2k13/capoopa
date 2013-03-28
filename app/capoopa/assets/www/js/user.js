@@ -93,6 +93,7 @@ $(document).ready(function() {
 });
 
 function login(email, pass) {
+  localStorage.setItem('user','');
   $.ajax({
     //url: 'http://localhost:8000/api/core/user/?email=' + email,
     url: 'http://ssh.alwaysdata.com:11390/api/core/user/?email=' + email,
@@ -104,8 +105,9 @@ function login(email, pass) {
     async: false,
     type: 'GET',
     success: function(data, textStatus, jqXHR) {
-      if (data.objects[0] && pass == data.objects[0].password)
+      if (data.objects[0] && pass == data.objects[0].password){
         localStorage.setItem('user', data.objects[0].id);
+    }
       else
         console.log("pas connecté!");
     }
