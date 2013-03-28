@@ -270,7 +270,7 @@ class AnswerResource(ModelResource):
 		self.method_check(request, allowed=['post'])
 		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
 		image64 = data.get('image')
-		answer = Group.objects.get(id=data.get('answerID'))
+		answer = Answer.objects.get(id=data.get('answerID'))
 		
 		fh = open("/temporaire.jpg", "wb")
 		fh.write(image64.decode('base64')) # decode et creation de l'img
