@@ -116,7 +116,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    var userID = localStorage.getItem('user');
+    var userID = 1;
 
     var current = Math.round(((new Date()).getTime()-Date.UTC(1970,0,1))/1000);
     $('.datepicker').val(timestampToDate(current));

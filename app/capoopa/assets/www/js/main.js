@@ -2,7 +2,7 @@ var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/';
 //var fullPath = 'http://localhost:8000/api/core/';
 
 $(document).ready(function(){
-  var userID = getUserID();
+  var userID = 1;
 
   if (userID) {
     var type = $('.page').data('type');
