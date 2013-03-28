@@ -87,7 +87,7 @@ $(document).ready(function() {
     $('.success').text(textSucces);
     postData('user/', data);
 
-    return false;
+    //return false;
   });
 
 });
