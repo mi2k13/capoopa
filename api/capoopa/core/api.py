@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from tastypie.resources import ModelResource
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -258,7 +259,7 @@ class AnswerResource(ModelResource):
 		answer = Group.objects.get(id=data.get('answerID'))
 		
 		fh = open("answers/temporaire.jpg", "wb")
-		fh.write(image64.decode('base64')) #decode et création de l'image
+		fh.write(image64.decode('base64')) # decode et creation de l'img
 		fh.close()
 		if fh.closed:
 			fh = open("answers/temporaire.jpg", "r") #ouverture en lecture
@@ -268,8 +269,8 @@ class AnswerResource(ModelResource):
 			answer.save()
 			fh.close()
 			if fh.closed:
-	     os.remove(unicode(fh.name))
-	     del fh
+				os.remove(unicode(fh.name))
+				del fh
 		return self.create_response(request, {
 					'success': True
 					})
