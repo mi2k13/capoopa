@@ -38,7 +38,7 @@ $(document).ready(function() {
       });
 
       postData('user/', data);
-      $('.success').text('YEAH ! Votre compte a bien été créé, vous pouvez aller relever des défis dès maintenant ! <a href="index.html">Me connecter</a>');
+      $('.success').html("YEAH ! Votre compte a bien été créé, vous pouvez aller relever des défis dès maintenant ! <a href='index.html'>Me connecter</a>");
     }
     else
       $('.error').text('Attention, vous n\'avez pas rempli tous les champs !');
