@@ -93,7 +93,6 @@ $(document).ready(function() {
 });
 
 function login(email, pass) {
-  localStorage.setItem('user','');
   $.ajax({
     //url: 'http://localhost:8000/api/core/user/?email=' + email,
     url: 'http://ssh.alwaysdata.com:11390/api/core/user/?email=' + email,
@@ -105,9 +104,10 @@ function login(email, pass) {
     async: false,
     type: 'GET',
     success: function(data, textStatus, jqXHR) {
-      if (data.objects[0] && pass == data.objects[0].password){
+      if (data.objects && data.objects[0] && data.objects[0] && pass == data.objects[0].password){
+        console.log(data.objects[0].id);
         localStorage.setItem('user', data.objects[0].id);
-    }
+      }
       else
         console.log("pas connecté!");
     }
@@ -124,3 +124,11 @@ function editItem(id, type) {
   $('.slide-container').removeClass('slide-right');
   $("html, body").animate({ scrollTop: 0 }, 0);
 }
+
+  Handlebars.registerHelper('nbAnswers', function(nb1, nb2) {
+    var sum = parseInt(nb1, 10) + parseInt(nb2, 10);
+    if (!isNaN(sum))
+      return sum;
+    else
+      return '???';
+  });
