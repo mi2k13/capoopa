@@ -257,7 +257,7 @@ class AnswerResource(ModelResource):
 		image64 = data.get('image')
 		answer = Group.objects.get(id=data.get('answerID'))
 		
-		fh = open("/www/img/answers/temporaire.jpg", "wb") # ouverture pour écriture d'un fichier temporaire
+		fh = open("/www/img/answers/temporaire.jpg", "wb")
 		fh.write(image64.decode('base64')) #decode et création de l'image
 		fh.close()
 		if fh.closed:
