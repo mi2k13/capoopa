@@ -34,7 +34,7 @@
 
         <div class="success"></div>
 
-        <ul class="result"></ul>
+        <ul class="result list"></ul>
       </div>
     </div>
 
@@ -86,13 +86,13 @@
     var userID = localStorage.getItem('user');
     $('.add-friend').live('click', function(){
       var friendID = $(this).parents('li').data('id');
-
+console.log(userID);
       var data = JSON.stringify({
         "userID": userID,
         "friendID": friendID
       });
 
-      postData('user/addFriend/', data);
+     // postData('user/addFriend/', data);
       $('.success').text("Ami ajouté");
     });
   });

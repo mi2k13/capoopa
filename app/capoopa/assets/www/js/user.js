@@ -106,7 +106,8 @@ function login(email, pass) {
     success: function(data, textStatus, jqXHR) {
       if (data.objects && data.objects[0] && data.objects[0] && pass == data.objects[0].password){
         console.log(data.objects[0].id);
-        localStorage.setItem('user', data.objects[0].id);
+        localStorage.setItem('user', 1);
+        //localStorage.setItem('user', data.objects[0].id);
       }
       else
         console.log("pas connecté!");
