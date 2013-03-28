@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from tastypie.resources import ModelResource
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -78,7 +77,8 @@ class UserResource(ModelResource):
 				})
 		else:
 			return self.create_response(request, {
-				'success': False
+				'success': False,
+				'groups': []
 				})
 
 	def dehydrate(self, bundle):
@@ -175,7 +175,10 @@ class ChallengeResource(ModelResource):
 		nbAbuse = data.get('nbAbuse')
 		type = data.get('type')
 		private = data.get('private')
-		group = Group.objects.get(id=data.get('groupID'))
+		if data.get('groupID'):
+			group = Group.objects.get(id=data.get('groupID'))
+		else:
+			group = None
 		challenge = Challenge(title=title, description=description, author=author, beginning=beginning, duration=duration, category=category, nbAbuse=nbAbuse, type=type, private=private, group=group)
 		challenge.save()
 		return self.create_response(request, {
@@ -186,6 +189,7 @@ class ChallengeResource(ModelResource):
 	def getChallenges(self, request, **kwargs):
 		self.method_check(request, allowed=['get'])
 		userID = request.GET['userID']
+		print "pute"
 		user = User.objects.get(id=userID)
 		sqsAnswer = Answer.objects.filter(userID=user)
 		if sqsAnswer:
@@ -196,12 +200,23 @@ class ChallengeResource(ModelResource):
 					'success': True,
 					'objects': [challenge.__dict__ for challenge in sqsChallenge]
 					})
+			else:
+				return self.create_response(request, {
+					'success': False,
+					'objects': []
+					})
+
 		else:
 			sqsChallenge = Challenge.objects.all()
 			if sqsChallenge:
 				return self.create_response(request, {
 					'success': True,
 					'objects': [challenge.__dict__ for challenge in sqsChallenge]
+					})
+			else:
+				return self.create_response(request, {
+					'success': False,
+					'objects': []
 					})
 
 
