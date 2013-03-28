@@ -1,5 +1,5 @@
 var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/';
-//  var fullPath = 'http://localhost:8000/api/core/';
+//var fullPath = 'http://localhost:8000/api/core/';
 
 $(document).ready(function(){
   var userID = getUserID();
@@ -7,13 +7,15 @@ $(document).ready(function(){
   if (userID) {
     var type = $('.page').data('type');
 
-    if (type == 'challenge')    loadData(type + '/getChallenges/?userID=' + userID , type + 's', 1);
-    else if (type == 'answer')  loadData('answer/?userID=' + userID, 'answers', 2);
-    else if (type == 'rate')    loadData('answer/' + userID, type, 0);
-    else if (type == 'friends') loadData('user/' + userID, type, 0);
-    else if (type == 'group')   loadData('group/?userID=' + userID, type + 's', 1);
-    else if (type == 'rate')    loadData('answer/getRandomAnswer?userID=' + userID, type, 0);
-    else                        loadData(type + '/' + userID, type, 0);
+    if (type) {
+      if (type == 'challenge')    loadData(type + '/getChallenges/?userID=' + userID , type + 's', 1);
+      else if (type == 'answer')  loadData('answer/?userID=' + userID, 'answers', 2);
+      else if (type == 'rate')    loadData('answer/' + userID, type, 0);
+      else if (type == 'friends') loadData('user/' + userID, type, 0);
+      else if (type == 'group')   loadData('group/?userID=' + userID, type + 's', 1);
+      else if (type == 'rate')    loadData('answer/getRandomAnswer?userID=' + userID, type, 0);
+      else                        loadData(type + '/' + userID, type, 0);
+    }
   }
 });
 
