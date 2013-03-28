@@ -47,7 +47,7 @@ $(document).ready(function() {
 
 
   $('#edit-user').submit( function(){
-    var userID = getUserID();
+    var userID = 1;
 
     var nickname = $('input[name=nickname]').val();
     var description = $('textarea[name=description]').val();
