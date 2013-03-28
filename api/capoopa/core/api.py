@@ -272,11 +272,11 @@ class AnswerResource(ModelResource):
 		image64 = data.get('image')
 		answer = Group.objects.get(id=data.get('answerID'))
 		
-		fh = open("answers/temporaire.jpg", "wb")
+		fh = open("/temporaire.jpg", "wb")
 		fh.write(image64.decode('base64')) # decode et creation de l'img
 		fh.close()
 		if fh.closed:
-			fh = open("answers/temporaire.jpg", "r") #ouverture en lecture
+			fh = open("/temporaire.jpg", "r") #ouverture en lecture
 			content_file = ContentFile(fh.read()) #ecriture du contenu du fichier
 			answer.image.save(data.get('answerID') + '.jpg', content_file)
 			answer.status = 'over'
