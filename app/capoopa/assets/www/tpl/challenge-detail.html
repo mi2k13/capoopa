@@ -71,12 +71,13 @@
 		var answerID = 1;
 
 	  	var data = JSON.stringify({
+        "answerID": answerID,
         "image": imageData
 		});
 		
 	//	alert('var data');
 		
-		postData('answer/addImage/?answerID=' + answerID, data);
+		postData('answer/addImage/', data);
 		that.hide();
 		
     }

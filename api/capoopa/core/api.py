@@ -271,32 +271,29 @@ class AnswerResource(ModelResource):
 		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
 		image64 = data.get('image')
 		answer = Answer.objects.get(id=data.get('answerID'))
-		answer.status = "pute"
-		answer.save()
-		# print "answer " + answer
-		# fh = open("temporaire.jpg", "wb")
-		# print 111
-		# fh.write(image64.decode('base64')) # decode et creation de l'img
-		# print 222
-		# fh.close()
-		# print 333
-		# if fh.closed:
-		# 	print 444
-		# 	fh = open("temporaire.jpg", "r") #ouverture en lecture
-		# 	print 555
-		# 	content_file = ContentFile(fh.read()) #ecriture du contenu du fichier
-		# 	print 666
-		# 	answer.image.save(data.get('answerID') + '.jpg', content_file)
-		# 	print 777
-		# 	answer.status = 'over'
-		# 	print 888
-		# 	answer.save()
-		# 	print 999
-		# 	fh.close()
-		# 	print 000
-		# 	if fh.closed:
-		# 		os.remove(unicode(fh.name))
-		# 		del fh
+		fh = open("temporaire.jpg", "wb")
+		print 111
+		fh.write(image64.decode('base64')) # decode et creation de l'img
+		print 222
+		fh.close()
+		print 333
+		if fh.closed:
+			print 444
+			fh = open("temporaire.jpg", "r") #ouverture en lecture
+			print 555
+			content_file = ContentFile(fh.read()) #ecriture du contenu du fichier
+			print 666
+			answer.image.save(data.get('answerID') + '.jpg', content_file)
+			print 777
+			answer.status = 'over'
+			print 888
+			answer.save()
+			print 999
+			fh.close()
+			print 000
+		if fh.closed:
+			os.remove(unicode(fh.name))
+			del fh
 		return self.create_response(request, {
 					'success': True
 					})
