@@ -268,9 +268,13 @@ class AnswerResource(ModelResource):
 
 	def addImage(self, request, **kwargs):
 		self.method_check(request, allowed=['post'])
+		print 11
 		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+		print 22
 		image64 = data.get('image')
+		print 33
 		answer = Answer.objects.get(id=data.get('answerID'))
+		print 44
 		fh = open("temporaire.jpg", "wb")
 		print 111
 		fh.write(image64.decode('base64')) # decode et creation de l'img
