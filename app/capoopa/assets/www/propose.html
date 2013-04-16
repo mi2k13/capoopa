@@ -16,14 +16,12 @@
   <div class="page" data-type="">
 
     <div class="top-bar">
-      <div class="app-name">
-        Capoopa
-        <div class="right">
-          <a href="challenges.html"><img src="img/challenges.png" class="icon"/></a>
-          <a href="friends.html"><img src="img/friends.png" class="icon"/></a>
-          <a href="user.html"><img src="img/profile.png" class="icon"/></a>
-        </div>
+      <div class="right icons">
+        <a href="challenges.html"><img src="img/challenges.png" class="icon"/></a>
+        <a href="friends.html"><img src="img/friends.png" class="icon"/></a>
+        <a href="user.html"><img src="img/profile.png" class="icon"/></a>
       </div>
+      <div class="app-name"></div>
     </div>
 
     <div class="content">
@@ -133,6 +131,7 @@
 
 
     var m_groups = getData('user/getGroups/?userID=' + userID);
+    console.log(m_groups);
 
     if(m_groups) {
       var groupID;

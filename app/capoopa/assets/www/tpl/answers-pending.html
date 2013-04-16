@@ -1,14 +1,14 @@
-<h2 class="toggle toggle-top">Pending <span class="info">( {{size}} )</span></h2>
+<h1 class="toggle toggle-top">En cours <span class="info">( {{size}} )</span></h1>
 <ul class="list toggle-content">
   {{#if tpl}}
   {{#each tpl}}
   <li data-item="{{ id }}" data-challenge="{{ challengeID.id }}" class="{{isPasted challengeID.beginning challengeID.duration}}" >
       {{#if challengeID.private}}
-      <img src="img/type/friends.png" alt="" class="thumb" />
+      <div class="thumb"><img src="img/type/friends.png" alt="" /></div>
       {{else}}
-      <img src="img/type/{{challengeID.type}}.png" alt="" class="thumb" />
+      <div class="thumb"><img src="img/type/{{challengeID.type}}.png" alt="" /></div>
       {{/if}}
-      <h3 class="ui-li-heading">{{ challengeID.title }}</h3>
+      <h2 class="ui-li-heading">{{ challengeID.title }}</h2>
       <p class="ui-li-desc">{{date challengeID.beginning}} {{#if challengeID.private}} - défi proposé par {{challengeID.author.nickname}} {{/if}}</p>
   </li>
   {{/each}}

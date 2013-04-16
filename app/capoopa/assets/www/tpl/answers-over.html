@@ -1,10 +1,10 @@
-<h2 class="toggle toggle-top">Over <span class="info">( {{size}} )</span></h2>
+<h1 class="toggle toggle-top">Terminés <span class="info">( {{size}} )</span></h1>
 <ul class="list toggle-content">
   {{#if tpl}}
   {{#each tpl}}
   <li data-item="{{ id }}" data-challenge="{{ challengeID.id }}" class="open-right">
-      <img src="img/status/{{status}}.png" alt="" class="thumb" />
-      <h3 class="ui-li-heading">{{ challengeID.title }}</h3>
+      <div class="thumb"><img src="img/status/{{status}}.png" alt="" /></div>
+      <h2 class="ui-li-heading">{{ challengeID.title }}</h2>
   </li>
   {{/each}}
   {{else}}

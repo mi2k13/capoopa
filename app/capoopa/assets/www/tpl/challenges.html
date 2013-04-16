@@ -1,4 +1,4 @@
-<h2>Défis</h2>
+<h1>Défis</h1>
 <ul class="list">
   {{#if tpl}}
   {{#each tpl}}
@@ -10,11 +10,11 @@
           <span class="refuse"></span>
         </div>
         {{#if category}}
-        <img src="img/type/{{type}}.png" alt="" class="thumb" />
+        <div class="thumb"><img src="img/type/{{type}}.png" alt="" /></div>
         {{else}}
-        <img src="img/type/default.png" alt="" class="thumb" />
+        <div class="thumb"><img src="img/type/default.png" alt="" class="thumb" /></div>
         {{/if}}
-        <h3 class="ui-li-heading">{{ title }}</h3>
+        <h2 class="ui-li-heading">{{ title }}</h2>
         {{#if category}}
         <p class="ui-li-desc">{{ category }}</p>
         {{else}}

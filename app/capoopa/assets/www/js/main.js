@@ -1,10 +1,48 @@
-var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/';
-//var fullPath = 'http://localhost:8000/api/core/';
+//var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/';
+fullPath  = 'http://localhost:8000/api/core/',
+userID    = 1;
 
 $(document).ready(function(){
-  var userID = 1;
 
-  if (userID) {
+  var options,
+      type = $('.page').data('type');
+
+  if (type) {
+    switch (type) {
+      case 'challenge' :
+        options = {
+          path: type + '/getChallenges/?userID=' + userID,
+          template: type + 's',
+          opt: 1
+        };
+        break;
+      case 'answer' :
+        options = {
+          path: type + '/?userID=' + userID,
+          template: type + 's',
+          opt: 2
+        };
+        break;
+      case 'group' :
+        options = {
+          path: 'group/?userID=' + userID,
+          template: type + 's',
+          opt: 1
+        };
+        break;
+      case 'friend' :
+        options = {
+          path: 'user/' + userID,
+          template: type + 's',
+          opt: 0
+        };
+        break;
+    }
+  loadPage(options, prout);
+  }
+  
+
+  /*if (userID) {
     var type = $('.page').data('type');
 
     if (type) {
@@ -16,9 +54,39 @@ $(document).ready(function(){
       else if (type == 'rate')    loadData('answer/getRandomAnswer?userID=' + userID, type, 0);
       else                        loadData(type + '/' + userID, type, 0);
     }
-  }
+  }*/
 });
 
+
+function loadPage(options, callback) {
+  $.ajax({
+    url: fullPath + options.path,
+    contentType: 'application/json',
+    dataType: 'jsonp',
+    cache: false,
+    processData: false,
+    async: false,
+    type: 'GET',
+    success: function(data, textStatus, jqXHR) {
+      callback(options, data);
+    }
+  });
+}
+
+function prout(options, data) {
+  if (options.opt == 0)
+    loadTemplate(options.template, data);
+
+  else if (options.opt == 1)
+    loadTemplate(options.template, filterNull(data.objects));
+
+  else if (options.opt == 2) {
+    var pending = sortData(data.objects, 'pending');
+    var over = sortData(data.objects, 'over').concat(sortData(data.objects, 'completed')).concat(sortData(data.objects, 'failed'));
+    loadTemplate(options.template + '-pending', pending);
+    loadTemplate(options.template + '-over', over);
+  }
+}
 
 function postData(path, data) {
   var result;
