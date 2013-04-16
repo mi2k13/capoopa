@@ -16,7 +16,7 @@
         {{/if}}
         <h2 class="ui-li-heading">{{ title }}</h2>
         {{#if category}}
-        <p class="ui-li-desc">{{ category }}</p>
+        <p class="ui-li-desc">{{ category }} - relevé par {{ nbAnswers }} personnes</p>
         {{else}}
         <p class="ui-li-desc">divers</p>
         {{/if}}
@@ -46,8 +46,8 @@
       itemId = $(this).parents('li').data('item');
 
       var data = JSON.stringify({
-        "userID":  "/api/core/user/" + userID + '/',
-        "challengeID": "/api/core/challenge/" + itemId + '/',
+        "user":  "/api/core/user/" + userID + '/',
+        "challenge": "/api/core/challenge/" + itemId + '/',
         "status": status,
         "nbAbuse": 0
       });

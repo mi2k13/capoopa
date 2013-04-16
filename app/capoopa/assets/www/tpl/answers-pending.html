@@ -2,17 +2,17 @@
 <ul class="list toggle-content">
   {{#if tpl}}
   {{#each tpl}}
-  <li data-item="{{ id }}" data-challenge="{{ challengeID.id }}" class="{{isPasted challengeID.beginning challengeID.duration}}" >
-      {{#if challengeID.private}}
+  <li data-item="{{ id }}" data-challenge="{{ challenge.id }}" class="{{isPasted challenge.beginning challenge.duration}}" >
+      {{#if challenge.private}}
       <div class="thumb"><img src="img/type/friends.png" alt="" /></div>
       {{else}}
-      <div class="thumb"><img src="img/type/{{challengeID.type}}.png" alt="" /></div>
+      <div class="thumb"><img src="img/type/{{challenge.type}}.png" alt="" /></div>
       {{/if}}
-      <h2 class="ui-li-heading">{{ challengeID.title }}</h2>
-      <p class="ui-li-desc">{{date challengeID.beginning}} {{#if challengeID.private}} - défi proposé par {{challengeID.author.nickname}} {{/if}}</p>
+      <h2 class="ui-li-heading">{{ challenge.title }}</h2>
+      <p class="ui-li-desc">Début du défi : {{date challenge.beginning}} {{#if challenge.private}} - défi proposé par {{challenge.author.nickname}} {{/if}}</p>
   </li>
   {{/each}}
   {{else}}
-    <p class="inner-content info">Vous n'avez pas encore de défis en cours, <a href="challenges.html">allez dès à présent en sélectionner !</a></p>
+    <p class="inner-content info">Vous n'avez pas encore de défis en cours, <a href="challenges.html">allez dès à présent en relever !</a></p>
   {{/if}}
 </ul>

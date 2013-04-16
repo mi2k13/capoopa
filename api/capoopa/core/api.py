@@ -83,8 +83,8 @@ class UserResource(ModelResource):
 
 	def dehydrate(self, bundle):
 	 	userID = bundle.obj
-		bundle.data['nbCompleted'] = Answer.objects.filter(userID=userID, status="completed").count()
-		bundle.data['nbFailed'] = Answer.objects.filter(userID=userID, status="failed").count()
+		bundle.data['nbCompleted'] = Answer.objects.filter(user=userID, status="completed").count()
+		bundle.data['nbFailed'] = Answer.objects.filter(user=userID, status="failed").count()
 		bundle.data['friends'] = [friend.__dict__ for friend in bundle.obj.friends.all()]
 		return bundle
 
@@ -159,6 +159,8 @@ class ChallengeResource(ModelResource):
 	 ]
 
 	def dehydrate(self, bundle):
+		challengeID = bundle.obj
+		bundle.data['nbAnswers'] = Answer.objects.filter(challenge=challengeID).count()
 		if bundle.obj.group:
 			bundle.data['group'] = bundle.obj.group.__dict__
 		return bundle
@@ -190,14 +192,16 @@ class ChallengeResource(ModelResource):
 		self.method_check(request, allowed=['get'])
 		userID = request.GET['userID']
 		user = User.objects.get(id=userID)
-		sqsAnswer = Answer.objects.filter(userID=user)
+		sqsAnswer = Answer.objects.filter(user=user)
 		if sqsAnswer:
 			sqsAnswer = [ans for ans in sqsAnswer]
-			sqsChallenge = Challenge.objects.exclude(id__in=[ans.challengeID.id for ans in sqsAnswer])
+			sqsChallenge = Challenge.objects.exclude(id__in=[ans.challenge.id for ans in sqsAnswer])
+			challenges = [challenge.__dict__ for challenge in sqsChallenge]
+			#challenges[ ??? ]['nbAnswers'] = Answer.objects.filter(challenge=ans.challenge.id).count()
 			if sqsChallenge:
 				return self.create_response(request, {
 					'success': True,
-					'objects': [challenge.__dict__ for challenge in sqsChallenge]
+					'objects': challenges
 					})
 			else:
 				return self.create_response(request, {
@@ -210,7 +214,7 @@ class ChallengeResource(ModelResource):
 			if sqsChallenge:
 				return self.create_response(request, {
 					'success': True,
-					'objects': [challenge.__dict__ for challenge in sqsChallenge]
+					'objects': challenges
 					})
 			else:
 				return self.create_response(request, {
@@ -220,8 +224,8 @@ class ChallengeResource(ModelResource):
 
 
 class AnswerResource(ModelResource):
-	userID = fields.OneToOneField(UserResource, attribute='userID' , related_name='userID', full=True, null=True)
-	challengeID = fields.OneToOneField(ChallengeResource, attribute='challengeID' , related_name='challengeID', full=True, null=True)
+	user = fields.OneToOneField(UserResource, attribute='user' , related_name='user', full=True, null=True)
+	challenge = fields.OneToOneField(ChallengeResource, attribute='challenge' , related_name='challenge', full=True, null=True)
 	class Meta:
 		queryset = Answer.objects.all()
 		resource_name = 'answer'
@@ -241,18 +245,16 @@ class AnswerResource(ModelResource):
 	 ]
 
 	def dehydrate(self, bundle):
-		serializers = Serializer(formats=['xml', 'json'])
-		vote = [st.__dict__ for st in Vote.objects.filter(answerID=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
-		bundle.data['vote'] = vote
+		#vote = [st.__dict__ for st in Vote.objects.filter(answer=bundle.obj)] #serializers.serialize('json', Answer.objects.filter(userID=bundle.obj))
+		#bundle.data['vote'] = vote
 		return bundle
-
 	
 	def build_filters(self, filters=None):
 		if filters is None:
 			filters = {}
 		orm_filters = super(AnswerResource, self).build_filters(filters)
-		if 'userID' in filters:
-		  orm_filters['userID__exact'] = filters['userID']
+		if 'user' in filters:
+		  orm_filters['userID__exact'] = filters['user']
 		return orm_filters
 
 	def getRandomAnswer(self, request, **kwargs):
@@ -266,6 +268,7 @@ class AnswerResource(ModelResource):
 				'objects': [answer.__dict__ for answer in sqsAnswer]
 				})
 
+
 	def getImage(self, request, **kwargs):
 		self.method_check(request, allowed=['get'])
 		answer = Answer.objects.get(id=1)
@@ -277,33 +280,19 @@ class AnswerResource(ModelResource):
 
 	def addImage(self, request, **kwargs):
 		self.method_check(request, allowed=['post'])
-		print 11
 		data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
-		print 22
 		image64 = data.get('image')
-		print 33
 		answer = Answer.objects.get(id=data.get('answerID'))
-		print 44
 		fh = open("temporaire.jpg", "wb")
-		print 111
 		fh.write(image64.decode('base64')) # decode et creation de l'img
-		print 222
 		fh.close()
-		print 333
 		if fh.closed:
-			print 444
 			fh = open("temporaire.jpg", "r") #ouverture en lecture
-			print 555
 			content_file = ContentFile(fh.read()) #ecriture du contenu du fichier
-			print 666
 			answer.image.save('answer.jpg', content_file)
-			print 777
 			answer.status = 'over'
-			print 888
 			answer.save()
-			print 999
 			fh.close()
-			print 000
 		if fh.closed:
 			os.remove(unicode(fh.name))
 			del fh
