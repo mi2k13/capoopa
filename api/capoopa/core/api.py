@@ -253,8 +253,8 @@ class AnswerResource(ModelResource):
 		if filters is None:
 			filters = {}
 		orm_filters = super(AnswerResource, self).build_filters(filters)
-		if 'user' in filters:
-		  orm_filters['userID__exact'] = filters['user']
+		if 'userID' in filters:
+		  orm_filters['user__exact'] = filters['userID']
 		return orm_filters
 
 	def getRandomAnswer(self, request, **kwargs):
