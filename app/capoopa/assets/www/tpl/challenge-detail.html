@@ -2,30 +2,31 @@
  <h1><span class="open-left small-btn back"></span> {{ title }}</h1>
   <div class="inner-content">
 
-    <h2>Informations</h2>
-    <ul>
-      <li>Catégorie : {{ category }}</li>
-      <li>Type : {{ getType type }}</li>
-      <!-- <li>Début : {{ date beginning }}</li>
-      <li>Durée : {{ time duration }}</li> -->
-      <li>Temps restant : {{ timeLeft beginning duration }}</li>
-    </ul>
-
-    <h3>Description du défi</h3>
-    <p>{{ description }}</p>
-
-    <div>
-		 <button onclick="capturePhoto();" class="button large uploadPhoto">Capture Photo</button> <br>
-		 <div style="display:none;" id="messageImage"> Ta photo a bien été envoyé. Le défi est terminé.</div><br>
-		 <img style="display:none;width:200px;height:200px;" id="smallImage" src="" />
+    <div class="half left wellLight box-status">
+      <img src="img/status/{{ type }}.png" class="status-icon" /> 
+      <span>{{getType type}}</span>
     </div>
+    <div class="half left wellLight box-time">
+      <img src="img/status/timeLeft.png" class="status-icon" /> 
+      {{ timeLeft beginning duration }} restants
+    </div>
+    <div class="clear"></div>
+
+    <h2>Le défi à relever</h2>
+    <div class="well">{{ description }}</div>
+
+    <button onclick="capturePhoto();" class="button large uploadPhoto">Challenge accepted !</button>
+
+
+    <div style="display:none;" id="messageImage"> Challenge completed ! Maintenant il faut que ton défi soit validé par un autre utilisateur.</div><br>
+    <img style="display:none;width:200px;height:200px;" id="smallImage" src="" />
 
   </div>
 {{/tpl}}
 
 <script type="text/javascript" charset="utf-8" src="lib/cordova-2.3.0.js"></script>
-	
-	<script type="text/javascript" charset="utf-8">
+  
+  <script type="text/javascript" charset="utf-8">
 
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value 
@@ -42,42 +43,32 @@
     }
 
     // Called when a photo is successfully retrieved
-    //
     function onPhotoDataSuccess(imageData) {
-      // Uncomment to view the base64 encoded image data
-      // console.log(imageData);
 
       // Get image handle
-      //
       var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
-      //
       smallImage.style.display = 'block';
-	  
-	  messageImage.style.display = 'block';
+      messageImage.style.display = 'block';
 
       // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
       smallImage.src = "data:image/jpeg;base64," + imageData;
-	  
-	 // alert(imageData);
-	  
-	    //var answerID = getAnswerID();
-	//1 for test
-		var answerID = 1;
+    
+    
+      //var answerID = getAnswerID();
+      var answerID = 1;
 
-	  	var data = JSON.stringify({
+      var data = JSON.stringify({
         "answerID": answerID,
         "image": imageData
-		});
-		
-	//	alert('var data');
-		
-		postData('answer/addImage/', data);
-		that.hide();
-		
+    });
+    
+  //  alert('var data');
+    
+    postData('answer/addImage/', data);
+    that.hide();
+    
     }
 
     // A button will call this function
@@ -94,6 +85,6 @@
     function onFail(message) {
       alert('Failed because: ' + message);
     }
-	
+  
 
     </script>
