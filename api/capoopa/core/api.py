@@ -49,7 +49,7 @@ class UserResource(ModelResource):
     self.method_check(request, allowed=['post'])
     data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
     search = data.get('search', '')
-    
+
     user = [st.__dict__ for st in User.objects.filter(Q(nickname__icontains=search) | Q(email__icontains=search))]
     return self.create_response(request, {
       'objects': user
@@ -87,7 +87,7 @@ class UserResource(ModelResource):
     userID = bundle.obj
     bundle.data['nbCompleted'] = Answer.objects.filter(user=userID, status="completed").count()
     bundle.data['nbFailed'] = Answer.objects.filter(user=userID, status="failed").count()
-    bundle.data['friends'] = [friend.__dict__ for friend in bundle.obj.friends.all()]
+    bundle.data['friends'] = [friend.__dict__ for friend in bundle.obj.friends.all().order_by('nickname')]
     return bundle
 
 
