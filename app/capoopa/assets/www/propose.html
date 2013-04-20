@@ -130,7 +130,7 @@
     
 
 
-    var m_groups = getData('user/getGroups/?userID=' + userID);
+    var m_groups = getData({path:'user/getGroups/?userID=' + userID});
     console.log(m_groups);
 
     if(m_groups) {
@@ -169,6 +169,7 @@
 
 
 
+    // déplacer dans challenges.js
     $('#propose-challenge').submit( function(){
       var title = $('input[name=title]').val();
       var description = $('textarea[name=description]').val();

@@ -1,14 +1,14 @@
 function showItem(id, type) {
-  loadData(type + '/' + id, type + '-detail', 0);
+  getData({
+      path: type + '/' + id,
+      template: type + '-detail',
+      opt: 0
+  }, getPageData);
+
+
   $('.slide-container').addClass('slide-left');
   $('.slide-container').removeClass('slide-right');
   $("html, body").animate({ scrollTop: 0 }, 0);
-}
-
-function hideItem() {
-  console.log("a");
-  $('.slide-container').addClass('slide-right');
-  $('.slide-container').removeClass('slide-left');
 }
 
 function timestampToDate(timestamp, full) {
