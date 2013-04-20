@@ -81,6 +81,7 @@ a {
   border-width: 0 0 5px 0;
   color: #fff;
   font-size: 20px;
+  text-align: center;
 }
 
 .button:active { background-color: #C4513E; }
@@ -271,9 +272,10 @@ legend {
 
 /* content */
 
-.content {
-  margin-top: 85px;
-}
+.content { position: relative;}
+
+.content-low { top: 80px; }
+.content-high { top: 40px; }
 
 .content .inner-content {
   padding: 0 10px;
