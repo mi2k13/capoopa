@@ -163,8 +163,8 @@ a {
   text-align: center;
 }
 
-.sub-bar .navbar.nav-four li {
-  width: 24.8%;
+.sub-bar .navbar.nav-four li  { width: 24.8%;}
+.sub-bar .navbar.nav-three li { width: 33.3%;
 }
 
 .sub-bar .navbar .ui-btn {

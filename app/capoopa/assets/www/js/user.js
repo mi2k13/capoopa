@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  userID = 1;
 
   $('#signin').submit(function() {
     var email = $('input[name=email]').val();
@@ -47,8 +48,6 @@ $(document).ready(function() {
 
 
   $('#edit-user').submit( function(){
-    var userID = 1;
-
     var nickname = $('input[name=nickname]').val();
     var description = $('textarea[name=description]').val();
     var password = $('input[name=password]').val();
@@ -89,6 +88,41 @@ $(document).ready(function() {
 
     //return false;
   });
+
+  $("#search").submit(function() {
+    $('.success').text('');
+    var data = JSON.stringify({"search": $('input[name=search]').val()});
+
+    var result = postData('user/search/', data).objects,
+        resultEl = $('.result');
+
+    if(result.length) {
+      resultEl.html('');
+      $.each(result, function( key, item ) {
+        var itemEl = '<li data-id="' + item.id + '">';
+          itemEl += '<div class="actions"><span class="add-friend ">ajouter</span></div>';
+          itemEl += '<img src="img/user/' + item.avatar + '.jpg" alt="" class="thumb" />';
+          itemEl += '<h2 class="ui-li-heading">' + item.nickname + '</h2>';
+          itemEl += '<p class="ui-li-desc">' + item.email + '</p>';
+          itemEl += '</li>';
+        resultEl.append(itemEl);
+      });
+    }
+    else
+      resultEl.html("Pas de résultat...");
+    return false;
+  });
+
+  $('.add-friend').live('click', function(){
+      var friendID = $(this).parents('li').data('id');
+      var data = JSON.stringify({
+        "userID": userID,
+        "friendID": friendID
+      });
+
+      postData('user/addFriend/', data);
+      $('.success').text("Ami ajouté");
+    });
 
 });
 
