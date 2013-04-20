@@ -197,7 +197,8 @@ class ChallengeResource(ModelResource):
 			sqsAnswer = [ans for ans in sqsAnswer]
 			sqsChallenge = Challenge.objects.exclude(id__in=[ans.challenge.id for ans in sqsAnswer])
 			challenges = [challenge.__dict__ for challenge in sqsChallenge]
-			#challenges[ ??? ]['nbAnswers'] = Answer.objects.filter(challenge=ans.challenge.id).count()
+			for challenge in challenges:
+				challenge['nbAnswers'] = Answer.objects.filter(challenge=challenge['id']).count()
 			if sqsChallenge:
 				return self.create_response(request, {
 					'success': True,
