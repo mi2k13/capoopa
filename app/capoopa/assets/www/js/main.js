@@ -63,7 +63,6 @@ function getData(options, callback) {
     type: 'GET',
     success: function(data, textStatus, jqXHR) {
       result = data;
-      console.log(data);
       if (callback)
         callback(options, data);
     },

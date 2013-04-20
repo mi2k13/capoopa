@@ -2,16 +2,12 @@
 
 <div class="top-content">
 
-  <h2><span class="back"><img src="img/back.png"></span> Editer mon profil</h2>
+  <h1><span class="open-left small-btn back"></span>  Editer mon profil</h1>
 
   <div class="inner-content">
     <form method="post" action="" id="edit-profile">
       <label for="nickname">Pseudo</label>
       <input {{#if nickname}}type="hidden"{{else}}type="text"{{/if}} name="nickname" placeholder="Pseudo" value="{{#if nickname}}{{nickname}}{{/if}}" class="large" />
-
-      <label for="description">Description</label>
-      <textarea name="description" placeholder="Description" rows="4" class="large">{{#if description}}{{description}}{{/if}}</textarea>
-
 
       <label for="nickname">Nouveau password</label>
       <input type="password" name="password" placeholder="Nouveau password" class="large" />
@@ -19,8 +15,7 @@
       <label for="nickname">Nouveau password </label>
       <input type="password" name="verifPass" placeholder="Valider nouveau password" class="large" />
 
-      <input type="reset" value="Annuler" class="button half left" />
-      <input type="submit" value="Modifier" class="button half" />
+      <input type="submit" value="Modifier" class="button large" />
 
       <div class="info error"></div>
       <div class="info success"></div>

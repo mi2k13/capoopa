@@ -38,6 +38,16 @@ a {
   color: #111;
 }
 
+
+/* colors */
+.red  { color: #D7533E; }
+.orange  { color: #F49E47; }
+.blue { color: #308097; }
+.green { color: #35B45B; }
+.dark-grey { color: #111; }
+.light-grey { color: #999; }
+
+
 /* align */
 .justify { text-align: justify; }
 
@@ -317,9 +327,49 @@ legend {
 }
 
 
-/* challenge detail */
-.box-status { margin-right: 5%; }
-.box-time { }
+/* user profil */
+.profile {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.profile .name {
+  margin-top: 10px;
+  font-size: 22px;
+}
+
+.profile .avatar {
+  background-color: #ddd;
+  width: 130px;
+  height: 130px;
+  border-radius: 65px;
+  margin: 0 auto;
+}
+.profile .avatar img {
+  max-width: 120px;
+  border-radius: 60px;
+  position: relative;
+  top: 5px;
+}
+
+.profile .edit {
+  background-color: #ddd;
+  padding: 5px;
+}
+
+
+/* stats */
+
+.stats .number {
+  font-size: 56px;
+  text-align: center;
+}
+
+.stats .number .desc {
+  font-size: 22px;
+  display: block;
+}
+
 
 
 /* slider */

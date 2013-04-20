@@ -120,7 +120,12 @@ function logout() {
 }
 
 function editItem(id, type) {
-  loadData(type + '/' + id, 'edit-' + type, 0);
+  getData({
+      path: type + '/' + id,
+      template: 'edit-' + type,
+      opt: 0
+  }, getPageData);
+
   $('.slide-container').addClass('slide-left');
   $('.slide-container').removeClass('slide-right');
   $("html, body").animate({ scrollTop: 0 }, 0);

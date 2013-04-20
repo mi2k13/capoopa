@@ -1,30 +1,23 @@
 {{#tpl}}
 <div class="top-content">
 
-  <h2>Profil {{ nickname }}</h2>
-  <div class="inner-content profile">
-    <div class="pull-right avatar">
+  <div class="profile">
+    <div class="right edit edit-profile">éditer</div>
+    <div class="avatar">
       {{#if avatar}}
       <img src="img/user/{{ avatar }}.jpg" alt="" / >
       {{else}}
       <img src="img/user/default.jpg" alt="" / >
       {{/if}}
-
     </div>
-    <div class="unoverflow justify">
-    {{#if description}}
-      {{ description }}
-    {{else}}
-      Aucune description n'a été fournie. Vous pouvez aller dans vos paramètres pour dire que vous gérez la fougère en slip de bain, par exemple.
-    {{/if}}
-    </div>
+    <div class="name">{{ nickname }}</div>
   </div>
 
-  <h2>Statistiques</h2>
+  <h1>Statistiques</h1>
   <div class="inner-content">
     <div class="stats">
-      <div class="third number">
-        <span class="red">
+      <div class="third left number">
+        <span class="blue">
         {{#if nbCompleted}}
           {{ nbCompleted }}
         {{else}}
@@ -33,8 +26,8 @@
         </span>
         <span class="desc light-grey">réussis</span>
       </div>
-      <div class="third number">
-        <span class="blue">
+      <div class="third left number">
+        <span class="red">
         {{#if nbFailed}}
           {{ nbFailed }}
         {{else}}
@@ -43,24 +36,12 @@
         </span>
         <span class="desc light-grey">ratés</span>
       </div>
-      <div class="third number">
+      <div class="third left number">
         <span class="dark-grey">{{nbAnswers nbCompleted nbFailed}}</span>
         <span class="desc light-grey">relevés</span>
       </div>
     </div>
     <div class="clear"></div>
-
-    <h3>Ratio</h3>
-    <div>Il va falloir noter les autres pour continuer à jouer</div>
-    <div class="progress">
-      <div class="bar" style="width: 60%;"></div>
-    </div>
-  </div>
-
-  <div class="inner-content">
-    <div class="breath"></div>
-    <div class="right button edit-profile large">Modifier mon profil</div>
-  </div>
 
 </div>
 {{/tpl}}
