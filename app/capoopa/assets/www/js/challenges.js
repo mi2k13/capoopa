@@ -5,6 +5,11 @@ function showItem(id, type) {
   $("html, body").animate({ scrollTop: 0 }, 0);
 }
 
+function hideItem() {
+  console.log("a");
+  $('.slide-container').addClass('slide-right');
+  $('.slide-container').removeClass('slide-left');
+}
 
 function timestampToDate(timestamp, full) {
   var dt = new Date(timestamp * 1000);
@@ -24,7 +29,6 @@ function timestampToDate(timestamp, full) {
 
     return day + '/' + month + '/' + year + ' ' + hours + ":" + minutes;
   }
-
   return day + '/' + month + '/' + year;
 }
 

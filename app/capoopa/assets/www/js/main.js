@@ -196,13 +196,6 @@ function toggleMenu() {
     });
 }
 
-
-function hideItem() {
-  $('.slide-container').addClass('slide-right');
-  $('.slide-container').removeClass('slide-left');
-}
-
-
 function sortData(data, type) {
   var result = new Array();
   $.each( data, function( key, item ) {

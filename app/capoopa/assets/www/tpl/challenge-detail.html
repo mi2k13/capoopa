@@ -3,11 +3,11 @@
   <div class="inner-content">
 
     <div class="half left wellLight box-status">
-      <img src="img/status/{{ type }}.png" class="status-icon" /> 
+      <i class="small-icon challenge-{{ type }}"></i>  
       <span>{{getType type}}</span>
     </div>
     <div class="half left wellLight box-time">
-      <img src="img/status/timeLeft.png" class="status-icon" /> 
+      <i class="small-icon time-left"></i> 
       {{ timeLeft beginning duration }} restants
     </div>
     <div class="clear"></div>
@@ -25,66 +25,66 @@
 {{/tpl}}
 
 <script type="text/javascript" charset="utf-8" src="lib/cordova-2.3.0.js"></script>
-  
-  <script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="utf-8">
 
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value 
+  $('.back').click(function(){
+    hideItem();
+  });
 
-    // Wait for Cordova to connect with the device
-    //
-    document.addEventListener("deviceready",onDeviceReady,false);
+  var pictureSource;   // picture source
+  var destinationType; // sets the format of returned value 
 
-    // Cordova is ready to be used!
-    //
-    function onDeviceReady() {
-        pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
-    }
+  // Wait for Cordova to connect with the device
+  //
+  document.addEventListener("deviceready",onDeviceReady,false);
 
-    // Called when a photo is successfully retrieved
-    function onPhotoDataSuccess(imageData) {
+  // Cordova is ready to be used!
+  //
+  function onDeviceReady() {
+      pictureSource=navigator.camera.PictureSourceType;
+      destinationType=navigator.camera.DestinationType;
+  }
 
-      // Get image handle
-      var smallImage = document.getElementById('smallImage');
+  // Called when a photo is successfully retrieved
+  function onPhotoDataSuccess(imageData) {
 
-      // Unhide image elements
-      smallImage.style.display = 'block';
-      messageImage.style.display = 'block';
+    // Get image handle
+    var smallImage = document.getElementById('smallImage');
 
-      // Show the captured photo
-      smallImage.src = "data:image/jpeg;base64," + imageData;
-    
-    
-      //var answerID = getAnswerID();
-      var answerID = 1;
+    // Unhide image elements
+    smallImage.style.display = 'block';
+    messageImage.style.display = 'block';
 
-      var data = JSON.stringify({
-        "answerID": answerID,
-        "image": imageData
-    });
-    
-  //  alert('var data');
-    
-    postData('answer/addImage/', data);
-    that.hide();
-    
-    }
-
-    // A button will call this function
-    //
-    function capturePhoto() {
-      // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-        destinationType: destinationType.DATA_URL });
-    }
+    // Show the captured photo
+    smallImage.src = "data:image/jpeg;base64," + imageData;
 
 
-    // Called if something bad happens.
-    // 
-    function onFail(message) {
-      alert('Failed because: ' + message);
-    }
-  
+    //var answerID = getAnswerID();
+    var answerID = 1;
 
-    </script>
+    var data = JSON.stringify({
+      "answerID": answerID,
+      "image": imageData
+  });
+      
+  postData('answer/addImage/', data);
+
+  }
+
+  // A button will call this function
+  //
+  function capturePhoto() {
+    // Take picture using device camera and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+      destinationType: destinationType.DATA_URL });
+  }
+
+
+  // Called if something bad happens.
+  // 
+  function onFail(message) {
+    alert('Failed because: ' + message);
+  }
+
+
+</script>
