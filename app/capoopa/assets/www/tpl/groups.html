@@ -1,9 +1,9 @@
-<h2 class="toggle toggle-top">Mes groupes</h2>
+<h1 class="toggle toggle-top">Mes groupes</h1>
 <ul class="list toggle-content">
   {{#if tpl}}
   {{#each tpl}}
   <li data-item="{{ id }}">
-    <h3 class="ui-li-heading">{{title}}</h3>
+    <h2 class="ui-li-heading">{{title}}</h2>
     <p class="ui-li-desc">Membres : {{#each members}} {{nickname}}, {{/each}}</p>
   </li>
   {{/each}}

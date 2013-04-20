@@ -122,7 +122,26 @@ $(document).ready(function() {
 
       postData('user/addFriend/', data);
       $('.success').text("Ami ajouté");
+  });
+
+  $("#add-group").submit(function() {
+    var members = new Array();
+
+    var checked = $("input[type=checkbox]:checked");
+    for (var i = 0, length = checked.length ; i < length ; ++i)
+      members.push(checked[i].id);
+    
+    var data = JSON.stringify({
+      "owner": userID,
+      "title": $('input[name=title]').val(),
+      "members": members
     });
+
+    postData('group/createGroup/', data);
+    $('.success').text('Votre groupe d\'amis a bien été créé!');
+
+    return false;
+  });
 
 });
 
@@ -165,10 +184,25 @@ function editItem(id, type) {
   $("html, body").animate({ scrollTop: 0 }, 0);
 }
 
-  Handlebars.registerHelper('nbAnswers', function(nb1, nb2) {
-    var sum = parseInt(nb1, 10) + parseInt(nb2, 10);
-    if (!isNaN(sum))
-      return sum;
-    else
-      return '???';
-  });
+function listFriends() {
+  getData({path:'user/1/'}, function(options, data){
+      var friends = data.friends;
+      if(friends) {
+        for (var i = 0, length = friends.length ; i < length ; ++i ) {
+          var nickname = friends[i].nickname,
+              friendID = friends[i].id
+          $('.members').append('<input type="checkbox" id="' + friendID + '" value="' + nickname + '" name="member"/><label for="' + friendID + '" class="visible"> ' + nickname + '</label><br />');
+        }
+      }
+      else
+        $('.members').text('Vous n\'avez pas encore d \'amis');
+    });
+}
+
+Handlebars.registerHelper('nbAnswers', function(nb1, nb2) {
+  var sum = parseInt(nb1, 10) + parseInt(nb2, 10);
+  if (!isNaN(sum))
+    return sum;
+  else
+    return '???';
+});

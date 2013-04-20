@@ -51,8 +51,28 @@ $(document).ready(function(){
 });
 
 
-function getData(options, callback) {
+function postData(path, data) {
   var result;
+  $.ajax({
+    type: "POST",
+    url: fullPath + path,
+    contentType: 'application/json',
+    data: data,
+    async: false,
+    success: function(data) {
+      console.log("envoyé!");
+      result = data;
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log("pas envoyé...");
+      console.log(errorThrown);
+    },
+    dataType: 'json'
+  });
+  return result;
+}
+
+function getData(options, callback) {
   $.ajax({
     url: fullPath + options.path,
     contentType: 'application/json',
@@ -62,7 +82,6 @@ function getData(options, callback) {
     async: false,
     type: 'GET',
     success: function(data, textStatus, jqXHR) {
-      result = data;
       if (callback)
         callback(options, data);
     },
@@ -71,7 +90,6 @@ function getData(options, callback) {
       console.log(errorThrown);
     }
   });
-  return result;
 }
 
 
@@ -117,30 +135,6 @@ function loadTemplate(templateName, templateInput) {
     }
   });
 };
-
-
-
-
-function postData(path, data) {
-  var result;
-  $.ajax({
-    type: "POST",
-    url: fullPath + path,
-    contentType: 'application/json',
-    data: data,
-    async: false,
-    success: function(data) {
-      console.log("envoyé!");
-      result = data;
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.log("pas envoyé...");
-      console.log(errorThrown);
-    },
-    dataType: 'json'
-  });
-  return result;
-}
 
 
 function toggleMenu() {

@@ -26,19 +26,15 @@
 
     <div class="content content-low">
 
-      <h2 class="toggle toggle-top">Créer un groupe</h2>
+      <h1 class="toggle toggle-top">Créer un groupe</h1>
       <div class="toggle-content inner-content">
-        <form method="post" id="addGroup">
+
+        <form method="post" id="add-group">
           <label for="title">Nom du groupe</label>
           <input type="text" name="title" placeholder="Nom du groupe" class="large" />
 
-          <label for="membre">Membre</label>
-          <input type="text" name="member" placeholder="Membre" class="large" id="autoc" />
-
-          <div class="members">
-            <p>Membres sélectionnés :</p>
-            <ul></ul>
-          </div>
+          <h2>Membres du groupe :</h2>
+          <div class="members"></div>
 
           <input type="submit" value="Créer" class="button large" />
 
@@ -74,67 +70,12 @@
 </html>
 
 <script src="lib/jquery-1.8.2.min.js"></script>
-<script src="lib/jquery-ui-1.10.2.custom.min.js"></script>
 <script src="lib/handlebars.js"></script>
 <script src="js/main.js"></script>
+<script src="js/user.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function(){
-
-    var userID = 1;
-    var members = new Array();
-
-    var friends = getData({path:'user/1/'});
-
-    if(friends) {
-      friends = friends.friends;
-
-      var friendsAC = new Array();
-      $.each(friends, function( key, item ) {
-          friendsAC.push({
-            "label": item.nickname,
-            "value": item.id
-          });
-      });
-
-      console.log(friendsAC);
-      
-      $( "#autoc" ).autocomplete({
-        minLength: 0,
-        source: friendsAC,
-        focus: function( event, ui ) {
-          $( "#autoc" ).val( ui.item.label );
-          return false;
-        },
-        select: function( event, ui ) {
-          $( "#autoc" ).val('');
-          members.push(ui.item.value);
-          $('.members ul').append('<li>' + ui.item.label + '</li>');
-          return false;
-        }
-      })
-      .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-        return $( "<li>" )
-          .append( "<a>" + item.label + "</a>" )
-          .appendTo( ul );
-      };
-    }
-    else
-      $('.members').text('Vous n\'avez pas encore d \'amis');
-
-
-    $("#addGroup").submit(function() {
-      var data = JSON.stringify({
-        "owner": userID,
-        "title": $('input[name=title]').val(),
-        "members": members
-      });
-
-      postData('group/createGroup/', data);
-      $('.success').text('Votre groupe d\'amis a bien été créé!');
-
-      return false;
-    });
-
+    listFriends();
   });
 </script>

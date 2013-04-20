@@ -73,8 +73,26 @@ a {
 .wellLight {background-color: #fcfcfc; text-align: center;}
 
 
-/* buttons and labels */
+/* toggle */
+.toggle {
+  background-repeat: no-repeat;
+  background-position: right center;
+  cursor: pointer;
+}
+.toggle-top { background-image: url(img/top-arrow.png); }
+.toggle-bottom { background-image: url(img/bottom-arrow.png); }
 
+
+/* info messages */
+.success, .error {
+  font-size: 22px;
+  padding: 5px;
+}
+.success { color: #35B45B; }
+.error { color: #f45f47; }
+
+
+/* buttons and labels */
 .small-btn {
   display: inline-block;
   background-color: #f45f47;
@@ -261,6 +279,12 @@ input[type=text], input[type=file], textarea, legend {
 }
 
 label { display: none; }
+label.visible {
+  display: inline-block;
+  font-size: 22px;
+  padding: 5px 10px;
+  width: 90%;
+}
 
 legend {
   color: #bbb;
@@ -369,6 +393,14 @@ legend {
   font-size: 22px;
   display: block;
 }
+
+
+
+/* groups */
+.members {
+  max-height: 200px;
+  background-color: #eee;
+} 
 
 
 
