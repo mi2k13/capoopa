@@ -3,6 +3,7 @@
   {{#if tpl}}
   {{#each tpl}}
   <li data-item="{{ id }}" data-challenge="{{ challenge.id }}" class="{{isPasted challenge.beginning challenge.duration}}" >
+    <div class="inner-item">
       {{#if challenge.private}}
       <div class="thumb"><img src="img/type/friends.png" alt="" /></div>
       {{else}}
@@ -10,6 +11,7 @@
       {{/if}}
       <h2 class="ui-li-heading">{{ challenge.title }}</h2>
       <p class="ui-li-desc">Début du défi : {{date challenge.beginning}} {{#if challenge.private}} - défi proposé par {{challenge.author.nickname}} {{/if}}</p>
+    </div>
   </li>
   {{/each}}
   {{else}}

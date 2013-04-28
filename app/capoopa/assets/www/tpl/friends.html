@@ -3,16 +3,18 @@
   {{#if tpl.friends}}
   {{#each tpl.friends}}
   <li data-item="{{ id }}">
-    <div class="actions">
-      <span class="refuse"></span>
+    <div class="inner-item">
+      <div class="actions">
+        <span class="refuse"></span>
+      </div>
+      {{#if avatar}}
+      <img src="img/user/{{avatar}}.jpg" alt="" class="thumb" />
+      {{else}}
+      <img src="img/user/null.jpg" alt="" class="thumb" />
+      {{/if}}
+      <h2 class="ui-li-heading">{{nickname}}</h2>
+      <p class="ui-li-desc">{{email}}</p>
     </div>
-    {{#if avatar}}
-    <img src="img/user/{{avatar}}.jpg" alt="" class="thumb" />
-    {{else}}
-    <img src="img/user/null.jpg" alt="" class="thumb" />
-    {{/if}}
-    <h2 class="ui-li-heading">{{nickname}}</h2>
-    <p class="ui-li-desc">{{email}}</p>
   </li>
   {{/each}}
   {{else}}

@@ -1,7 +1,7 @@
 body,
 .top-bar,
 .sub-bar {
-  max-width: 480px;
+  max-width: 320px;
 }
 
 body {
@@ -9,7 +9,7 @@ body {
   margin: 0;
   padding: 0;
   color: #555;
-  font-size: 15px;
+  font-size: 14px;
   overflow-x: hidden;
 }
 
@@ -18,18 +18,19 @@ div, p, textarea, label, input, h1, h2, h3, h4, h5 { font-family: 'Arial', sans-
 h1 { 
   color: #f45f47;
   padding: 10px;
-  font-size: 26px;
+  margin-top: 0;
+  font-size: 22px;
   border-bottom: 1px solid #f45f47;
 }
 
 h1 .info {
-  font-size: 22px;
+  font-size: 18px;
   margin-left: 20px;
 }
 
 h2 {
   color: #333;
-  font-size: 19px;
+  font-size: 18px;
   margin-bottom: 0;
 }
 
@@ -58,19 +59,21 @@ a {
 .clear { clear: both;}
 
 /* sizes */
+.large, .half, .third {box-sizing: border-box;}
+
 .large {width: 100%;}
-.half {width: 47.5%;}
-.third {width: 33%;}
+.half {width: 48%; margin: 1%;}
+.third {width: 32%; margin: 1%;}
 
 /* well */
 .well, .wellLight {
-  font-size: 18px;
   padding: 3%;
+  position: relative;
   box-sizing: border-box;
 }
 
-.well {background-color: #fff; border-bottom: 2px solid #eee;}
-.wellLight {background-color: #fcfcfc; text-align: center;}
+.well {background-color: #fff; border-bottom: 2px solid #eee; font-size: 16px;}
+.wellLight {background-color: #fcfcfc; text-align: center; font-size: 13px;}
 
 
 /* toggle */
@@ -85,7 +88,6 @@ a {
 
 /* info messages */
 .success, .error {
-  font-size: 22px;
   padding: 5px;
 }
 .success { color: #35B45B; }
@@ -108,7 +110,7 @@ a {
   border-style: solid;
   border-width: 0 0 5px 0;
   color: #fff;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
 }
 
@@ -118,12 +120,13 @@ a {
 /* icons */
 .small-icon {
   background-image: url(img/challenge-icons.png);
-  width: 20px;
-  height: 20px;
+  background-color: yellow;
+  width: 15px;
+  height: 15px;
   display: inline-block;
-  position: relative;
-  top: 4px;
-  margin-right: 5px;
+  position: absolute;
+  left: 5px;
+  top: 10px;
 }
 
 .small-icon.time-left {background-position: 0px 0px;}
@@ -173,6 +176,7 @@ a {
   margin: 0 auto;
   padding: 0;
   width: 98%;
+  font-size: 14px;
 }
 
 .sub-bar .navbar li { 
@@ -217,7 +221,7 @@ a {
 
 .open-right, .open-left, .over {
   min-width: 30px;
-  min-height: 22px;
+  min-height: 21px;
   background-repeat: no-repeat;
 }
 .over { background-image: url(img/over.png); background-position: 98% center; }
@@ -228,14 +232,20 @@ a {
 /* actions */
 
 .actions {
-  float: right;
+  /*float: right;
   margin-top: 10px;
-  margin-right: 10px;
+  margin-right: 10px;*/
+  position: absolute;
+  width: 110px;
 }
 
 .actions span {
-  padding: 5px 20px;
-  margin: 0 10px;
+  /*padding: 5px 20px;
+  margin: 0 7px;*/
+  display: inline-block;
+  width: 40px;
+  height: 25px;
+  margin: 0 5px;
   background-color: #f9f9f9;
   border-style: solid;
   border-width: 1px 1px 2px 1px;
@@ -257,7 +267,7 @@ a {
 /* form */
 
 
-input[type=text], input[type=password], textarea, select {
+input, textarea, select {
   border: none;
   padding: 10px;
   outline: 0;
@@ -266,7 +276,6 @@ input[type=text], input[type=password], textarea, select {
 
 input, textarea, legend, select {
   color: #666;
-  font-size: 28px;
 }
 
 input, textarea, select {
@@ -281,15 +290,13 @@ input[type=text], input[type=file], textarea, legend {
 label { display: none; }
 label.visible {
   display: inline-block;
-  font-size: 22px;
-  padding: 5px 10px;
-  width: 90%;
+  padding: 5px 10px 5px 0;
 }
 
 legend {
   color: #bbb;
-  font-size: 18px;
   text-transform: uppercase;
+  padding-top: 10px;
 }
 
 
@@ -308,7 +315,7 @@ legend {
 
 .content { position: relative;}
 
-.content-low { top: 80px; }
+.content-low { top: 85px; }
 .content-high { top: 40px; }
 
 .content .inner-content {
@@ -324,19 +331,52 @@ legend {
 }
 
 .list li {
-  background-color: #fdfdfd;
+  background-color: #fff;
   margin-bottom: 5px;
-  padding: 10px;
+  position: relative;
+  height: 60px;
 }
+
+.list .inner-item {
+  padding: 10px 0 0 10px;
+}
+
+.list .item, .list .challenge-actions {
+  margin: 0;
+  position: absolute;
+}
+
+.list .item {
+  background-color: #fdfdfd;
+  padding: 10px;
+  width: 100%;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.list .item.active {left: -120px;}
+
+  .list .item, .list .item.active {
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+  }
+
+.list .challenge-actions {
+  left: 65%;
+  top: 17px;
+}
+
 
 .list .ui-li-heading {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
 }
 .list .ui-li-desc {
   margin: 0;
   color: #666;
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .list .thumb {
@@ -347,7 +387,7 @@ legend {
 
 .list .thumb img {
   max-width: 40px;
-  max-height: 40px;
+  max-height: 35px;
 }
 
 

@@ -5,21 +5,25 @@
   {{#if private}}
   {{else}}
     <li data-item="{{ id }}">
-        <div class="actions">
-          <span class="validate"></span>
-          <span class="refuse"></span>
+        <div class="item">
+          {{#if category}}
+          <div class="thumb"><img src="img/type/{{type}}.png" alt="" /></div>
+          {{else}}
+          <div class="thumb"><img src="img/type/default.png" alt="" class="thumb" /></div>
+          {{/if}}
+          <h2 class="ui-li-heading">{{ title }}</h2>
+          {{#if category}}
+          <p class="ui-li-desc">{{ category }} | relevé par {{ nbAnswers }} personne(s)</p>
+          {{else}}
+          <p class="ui-li-desc">divers</p>
+          {{/if}}
         </div>
-        {{#if category}}
-        <div class="thumb"><img src="img/type/{{type}}.png" alt="" /></div>
-        {{else}}
-        <div class="thumb"><img src="img/type/default.png" alt="" class="thumb" /></div>
-        {{/if}}
-        <h2 class="ui-li-heading">{{ title }}</h2>
-        {{#if category}}
-        <p class="ui-li-desc">{{ category }} | relevé par {{ nbAnswers }} personne(s)</p>
-        {{else}}
-        <p class="ui-li-desc">divers</p>
-        {{/if}}
+        <div class="challenge-actions">
+          <div class="actions">
+            <span class="validate"></span>
+            <span class="refuse"></span>
+          </div>
+        </div>
     </li>
   {{/if}}
   {{/each}}
@@ -34,6 +38,10 @@
     var userID = 1;
 
     toggleMenu();
+
+    $('.item').click(function(){
+      $(this).toggleClass('active');
+    })
 
     $('li .actions span').click( function(){
       var that = $(this).parents('li');

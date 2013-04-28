@@ -3,9 +3,11 @@
   {{#if tpl}}
   {{#each tpl}}
   <li data-item="{{ id }}">
-    <img src="img/type/friends.png" alt="" class="thumb" />
-    <h2 class="ui-li-heading">{{title}}</h2>
-    <p class="ui-li-desc">Membres : {{#each members}} {{nickname}}, {{/each}}</p>
+    <div class="inner-item">
+      <img src="img/type/friends.png" alt="" class="thumb" />
+      <h2 class="ui-li-heading">{{title}}</h2>
+      <p class="ui-li-desc">Membres : {{#each members}} {{nickname}}, {{/each}}</p>
+    </div>
   </li>
   {{/each}}
   {{else}}

@@ -3,8 +3,10 @@
   {{#if tpl}}
   {{#each tpl}}
   <li data-item="{{ id }}" data-challenge="{{ challengeID.id }}" class="open-right">
+    <div class="inner-item">
       <div class="thumb"><img src="img/status/{{status}}.png" alt="" /></div>
       <h2 class="ui-li-heading">{{ challengeID.title }}</h2>
+    </div>
   </li>
   {{/each}}
   {{else}}
@@ -15,7 +17,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
     toggleMenu();
-    $('.open-right').click( function(){
+    $('.open-right').live("click", function(){
        showItem($(this).data("challenge"), 'challenge');
     });
   });
