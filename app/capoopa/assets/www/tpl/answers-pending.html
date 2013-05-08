@@ -10,7 +10,7 @@
       <div class="thumb"><img src="img/type/{{challenge.type}}.png" alt="" /></div>
       {{/if}}
       <h2 class="ui-li-heading">{{ challenge.title }}</h2>
-      <p class="ui-li-desc">Début du défi : {{date challenge.beginning}} {{#if challenge.private}} - défi proposé par {{challenge.author.nickname}} {{/if}}</p>
+      <p class="ui-li-desc">début le {{date challenge.beginning 0}}{{#if challenge.private}} | proposé par {{challenge.author.nickname}} {{/if}}</p>
     </div>
   </li>
   {{/each}}

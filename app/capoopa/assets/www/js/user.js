@@ -184,19 +184,19 @@ function editItem(id, type) {
   $("html, body").animate({ scrollTop: 0 }, 0);
 }
 
-function listFriends() {
-  getData({path:'user/1/'}, function(options, data){
-      var friends = data.friends;
-      if(friends) {
-        for (var i = 0, length = friends.length ; i < length ; ++i ) {
-          var nickname = friends[i].nickname,
-              friendID = friends[i].id
-          $('.members').append('<input type="checkbox" id="' + friendID + '" value="' + nickname + '" name="member"/><label for="' + friendID + '" class="visible"> ' + nickname + '</label><br />');
-        }
+function listFriends(userID) {
+  getData({path:'user/' + userID + '/'}, function(options, data){
+    var friends = data.friends;
+    if(friends) {
+      for (var i = 0, length = friends.length ; i < length ; ++i ) {
+        var nickname = friends[i].nickname,
+            friendID = friends[i].id
+        $('.members').append('<input type="checkbox" id="' + friendID + '" value="' + nickname + '" name="member"/><label for="' + friendID + '" class="visible"> ' + nickname + '</label><br />');
       }
-      else
-        $('.members').text('Vous n\'avez pas encore d \'amis');
-    });
+    }
+    else
+      $('.members').text('Vous n\'avez pas encore d \'amis');
+  });
 }
 
 Handlebars.registerHelper('nbAnswers', function(nb1, nb2) {

@@ -63,7 +63,7 @@ a {
 
 .large {width: 100%;}
 .half {width: 48%; margin: 1%;}
-.third {width: 32%; margin: 1%;}
+.third {width: 31%; margin: 1%;}
 
 /* well */
 .well, .wellLight {
@@ -246,21 +246,22 @@ a {
   width: 40px;
   height: 25px;
   margin: 0 5px;
-  background-color: #f9f9f9;
   border-style: solid;
   border-width: 1px 1px 2px 1px;
-  cursor: pointer;
+  background-color: #f9f9f9;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .actions .validate {
   color: #35B45B;
   border-color:#35B45B;
-  background: url(img/validate.png) no-repeat center;
+  background-image: url(img/validate.png);
 }
 .actions .refuse {
   color: #F45F47;
   border-color: #F45F47;
-  background: url(img/refuse.png) no-repeat center;
+  background-image: url(img/refuse.png);
 }
 
 
@@ -336,6 +337,9 @@ legend {
   position: relative;
   height: 60px;
 }
+
+.list-open li { background-color: #eee; }
+.list-open li .item { border-right: 5px solid #F45F47;}
 
 .list .inner-item {
   padding: 10px 0 0 10px;
@@ -436,12 +440,13 @@ legend {
 
 
 
-/* groups */
-.members {
+/* members & groups */
+.members, .groups {
   max-height: 200px;
   background-color: #eee;
 } 
 
+.groups {margin-bottom: 20px;}
 
 
 /* slider */

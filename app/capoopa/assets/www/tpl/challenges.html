@@ -1,5 +1,5 @@
 <h1>Défis</h1>
-<ul class="list">
+<ul class="list list-open">
   {{#if tpl}}
   {{#each tpl}}
   {{#if private}}
@@ -61,7 +61,7 @@
       });
 
       postData('answer/', data);
-      that.hide();
+      that.css('display', 'none');
 
     });
 
