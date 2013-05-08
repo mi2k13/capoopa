@@ -178,12 +178,12 @@ class ChallengeResource(ModelResource):
     category = data.get('category')
     nbAbuse = data.get('nbAbuse')
     type = data.get('type')
-    private = data.get('private')
+    privacy = data.get('privacy')
     if data.get('groupID'):
       group = Group.objects.get(id=data.get('groupID'))
     else:
       group = None
-    challenge = Challenge(title=title, description=description, author=author, beginning=beginning, duration=duration, category=category, nbAbuse=nbAbuse, type=type, private=private, group=group)
+    challenge = Challenge(title=title, description=description, author=author, beginning=beginning, duration=duration, category=category, nbAbuse=nbAbuse, type=type, private=privacy, group=group)
     challenge.save()
     return self.create_response(request, {
           'challengeID': challenge.id,

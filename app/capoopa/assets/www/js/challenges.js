@@ -11,6 +11,21 @@ function showItem(id, type) {
   $("html, body").animate({ scrollTop: 0 }, 0);
 }
 
+function listGroups(userID) {
+  getData({path:'user/getGroups/?userID=' + userID}, function(options, data){
+    var groups = data.groups;
+    if(groups) {
+      for (var i = 0, length = groups.length ; i < length ; ++i ) {
+        var title = groups[i].title,
+            groupID = groups[i].id
+        $('.groups').append('<label for="group' + groupID + '" class="visible"><input type="radio" id="group' + groupID + '" value="' + groupID + '" name="group"/> ' + title + '</label><br />');
+      }
+    }
+    else
+      $('.groups').text('Vous n\'avez pas encore d \'amis');
+  });
+}
+
 function timestampToDate(timestamp, full) {
   var dt = new Date(timestamp * 1000);
   var day = dt.getDate();
@@ -56,7 +71,7 @@ function timeToTimestamp(time, type) {
 
 
 Handlebars.registerHelper('date', function(timestamp) {
-  return timestampToDate(timestamp, true);
+  return timestampToDate(timestamp, false);
 });
 
 Handlebars.registerHelper('time', function(ms) {

@@ -29,6 +29,17 @@
       <div class="inner-content">
 
         <form type="post" action="" id="propose-challenge">
+
+          <label for="privacy">Proposer le défi à</label>
+          <legend>Proposer le défi à...</legend>
+          <label for="community" class="visible"><input type="radio" name="privacy" value="0" id="community" checked/> la communauté</label>
+          <label for="friends" class="visible"><input type="radio" name="privacy" value="1" id="friends"/> un groupe d'amis</label>
+
+          <div class="groups-box">
+            <legend>Groupe :</legend>
+            <div class="groups"></div>
+          </div>
+
           <label for="title">Titre</label>
           <input type="text" name="title" placeholder="Titre" class="large" />
 
@@ -43,34 +54,24 @@
             <option>crade</option>
           </select>
 
-          <label for="type">Type de défi</label>
           <legend>Type de défi :</legend>
-          <select name="type" class="large">
-            <option value="time">temps limité</option>
-            <option value="first">premier à le faire</option>
-          </select>
+          <label for="time" class="visible"><input type="radio" name="type" value="time" id="time" checked /> Temps limité</label>
+          <label for="first" class="visible"><input type="radio" name="type" value="first" id="first"/> Premier à le faire</label>
+
 
           <label for="beginning">Début</label>
           <legend>Début du défi</legend>
-          <input type="text" name="beginning" class="datepicker large" />
+          <input type="date" name="beginning" class="large" />
 
-          <legend>Durée</legend>
-          <input type="text" name="duration" />
-          <select name="duration-type">
-            <option value="minutes">minutes</option>
-            <option value="hours">heures</option>
-            <option value="days">jours</option>
-          </select>
-
-          <label for="privacy">Proposer le défi à</label>
-          <legend>Proposer le défi à...</legend>
-          <select name="privacy" class="large">
-            <option value="0">la communauté</option>
-            <option value="1">un groupe d'amis</option>
-          </select>
-
-          <label for="group">Groupe</label>
-          <input type="text" name="group" placeholder="Groupe" class="large" id="autoc" value="" />
+          <div class="durationBox">
+            <legend>Durée</legend>
+            <input type="number" name="duration" />
+            <select name="duration-type">
+              <option value="minutes">minutes</option>
+              <option value="hours">heures</option>
+              <option value="days">jours</option>
+            </select>
+          </div>
 
           <input type="submit" value="Envoyer" class="button large" />
           <div class="info success"></div>
@@ -107,133 +108,90 @@
 
 
 <script src="lib/jquery-1.8.2.min.js"></script>
-<script src="lib/jquery-ui-1.10.2.custom.min.js"></script>
 <script src="lib/handlebars.js"></script>
 <script src="js/main.js"></script>
 <script src="js/challenges.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function(){
+
+    // cacher durationBox si le défi est un first to do
+    // + editer pour que si duration vide => pas de date maximale
+
+
     var userID = 1;
 
-    var current = Math.round(((new Date()).getTime()-Date.UTC(1970,0,1))/1000);
-    $('.datepicker').val(timestampToDate(current));
-    $(function(){  
-      $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
-    });
-
-    $('input[name=group]').hide();
-    $('select[name=privacy]').change(function(){
-      if ($(this).val())
-        $('input[name=group]').show();
+    $('.groups-box').css('display', 'none');
+    $('input[name=privacy]').change(function(){
+      if ($(this).val() == 1)
+        $('.groups-box').css('display', 'block');
+      else
+        $('.groups-box').css('display', 'none');
     });
     
 
+    listGroups(userID);
 
-    var m_groups = getData({path:'user/getGroups/?userID=' + userID});
-    console.log(m_groups);
-
-    if(m_groups) {
-      var groupID;
-      var groups = m_groups.groups;
-      var groupsAC = new Array();
-
-      $.each(groups, function( key, item ) {
-          groupsAC.push({
-            "label": item.title,
-            "value": item.id
-          });
-      });
-      
-      $( "#autoc" ).autocomplete({
-        minLength: 0,
-        source: groupsAC,
-        focus: function( event, ui ) {
-          $( "#autoc" ).val( ui.item.label );
-          return false;
-        },
-        select: function( event, ui ) {
-          $( "#autoc" ).val( ui.item.label );
-          groupID = ui.item.value;
-          return false;
-        }
-      })
-      .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-        return $( "<li>" )
-          .append( "<a>" + item.label + "</a>" )
-          .appendTo( ul );
-      };
-    }
-    else
-      $('.error').text('Vous n\'avez pas encore d \'amis');
 
 
 
     // déplacer dans challenges.js
-    $('#propose-challenge').submit( function(){
-      var title = $('input[name=title]').val();
-      var description = $('textarea[name=description]').val();
-      var category = $('select[name=category]').val() || "divers";
-      var type = $('select[name=type]').val();
-      var debut = $('input[name=beginning]').val();
-      var duree = $('input[name=duration]').val();
-      var dureeType = $('select[name=duration-type]').val();
-      var privacy = $('select[name=privacy]').val();
+    $('#propose-challenge').submit( function(e) {
+      e.preventDefault();
 
-      var debutTab = debut.split('/');
-      debut = debutTab[2] + '-' + debutTab[1] + '-' + debutTab[0];
+      var title       = $('input[name=title]').val(),
+          description = $('textarea[name=description]').val(),
+          category    = $('select[name=category]').val() || 'divers',
+          type        = $('input[name=type]:checked').val(),
+          debut       = $('input[name=beginning]').val(),
+          duree       = $('input[name=duration]').val(),
+          dureeType   = $('select[name=duration-type]').val(),
+          privacy     = ($('input[name=privacy]:checked').val() == '0') ? false : true,
+          groupID     = $('input[name=group]:checked').val() ||'';
 
-      var dateBeginning = new Date(debut + ' 00:00:00');
-      debut = dateBeginning.getTime() / 1000;
-
-      var duration = timeToTimestamp(duree, dureeType);
-
+      var debutTab = debut.split('/'),
+          dateBeginning = new Date(debutTab[2] + '-' + debutTab[1] + '-' + debutTab[0] + ' 00:00:00');
+          debut = dateBeginning.getTime() / 1000;
 
       if (title && description && category && type && debut && duree) {
-        if(!isNaN(parseInt(duree * 1))) { // is int ?
-          $('.error').text('');
+        $('.error').text('');
 
-          if (privacy == '0' || (privacy && groupID)) {
-            var data = JSON.stringify({
-              "title": title,
-              "description": description,
-              "authorID": userID,
-              "beginning": debut,
-              "duration": duration,
-              "category": category,
-              "type": type,
-              "nbAbuse": 0,
-              "private": privacy,
-              "groupID": groupID
-            });
+        if (!privacy || (privacy && groupID)) {
+          var data = JSON.stringify({
+            "title": title,
+            "description": description,
+            "authorID": userID,
+            "beginning": debut,
+            "duration": timeToTimestamp(duree, dureeType),
+            "category": category,
+            "type": type,
+            "nbAbuse": 0,
+            "privacy": Boolean(privacy),
+            "groupID": groupID
+          });
 
-            console.log(data);
+          var resultPost = postData('challenge/createChallenge/', data);
+          console.log(resultPost);
 
-            var resultPost = postData('challenge/createChallenge/', data);
-            $.each(groupsAC, function( key, item ) {
-              var members = getData('group/' + item.value + '/');
-              if (members.members){
-                $.each(members.members, function( key2, item2 ) {
-                  var data2 = JSON.stringify({
-                    "userID":  "/api/core/user/" + item2.id + '/',
-                    "challengeID": "/api/core/challenge/" + resultPost.challengeID + '/',
+          if (groupID) {
+            getData({path: 'group/' + groupID + '/'}, function(opt, members){
+              console.log(members);
+              if (members.members) {
+                $.each(members.members, function( key, item ) {
+                  var data = JSON.stringify({
+                    "user":  "/api/core/user/" + item.id + '/',
+                    "challenge": "/api/core/challenge/" + resultPost.challengeID + '/',
                     "status": 'pending',
                     "nbAbuse": 0
                   });
-                  postData('answer/', data2);
+                  postData('answer/', data);
                 });
               }
             });
-            $('.success').text('Votre proposition de challenge a bien été ajouté');
           }
-          else
-            $('.error').text('Vous devez indiquer un groupe');
-        }
-        else
-          $('.error').text('Vous devez entrer un chiffre entier pour la durée.');
-      }
-      else
-        $('.error').text('Oops : Vous n\'avez pas indiqué toutes les informations nécessaires');
+          $('.success').text('Votre challenge a bien été ajouté !');
+        } else $('.error').text('Vous devez indiquer un groupe.');
+      } else $('.error').text('Oops ! Vous n\'avez rempli tous les champs.');
 
       return false;
     });
