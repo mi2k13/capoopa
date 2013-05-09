@@ -75,12 +75,12 @@ class UserResource(ModelResource):
     if sqsGroup:
       return self.create_response(request, {
         'success': True,
-        'groups': [group.__dict__ for group in sqsGroup]
+        'objects': [group.__dict__ for group in sqsGroup]
         })
     else:
       return self.create_response(request, {
         'success': False,
-        'groups': []
+        'objects': []
         })
 
   def dehydrate(self, bundle):
@@ -110,7 +110,8 @@ class GroupResource(ModelResource):
   def prepend_urls(self):
     return [
     url(r"^(?P<resource_name>%s)/createGroup%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('createGroup'), name="api_createGroup"),
-    url(r"^(?P<resource_name>%s)/getChallenges%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('getChallenges'), name="api_getChallenges")
+    url(r"^(?P<resource_name>%s)/getGroupChallenges%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('getGroupChallenges'), name="api_getGroupChallenges"),
+    url(r"^(?P<resource_name>%s)/getUserChallenges%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('getUserChallenges'), name="api_getUserChallenges")
    ]
 
   def build_filters(self, filters=None):
@@ -144,7 +145,7 @@ class GroupResource(ModelResource):
           'success': True
           })
 
-  def getChallenges(self, request, **kwargs):
+  def getGroupChallenges(self, request, **kwargs):
     self.method_check(request, allowed=['get'])
     groupID = request.GET['groupID']
     group = Group.objects.get(id=groupID)
@@ -152,12 +153,28 @@ class GroupResource(ModelResource):
     if sqsChallenge:
       return self.create_response(request, {
         'success': True,
-        'groups': [challenge.__dict__ for challenge in sqsChallenge]
+        'objects': [challenge.__dict__ for challenge in sqsChallenge]
         })
     else:
       return self.create_response(request, {
         'success': False,
-        'groups': []
+        'error': "Ce groupe n'a aucun challenge."
+        })
+
+  def getUserChallenges(self, request, **kwargs):
+    self.method_check(request, allowed=['get'])
+    userID = request.GET['userID']
+    user = User.objects.get(id=userID)
+    sqsGroup = Group.objects.filter(members=user)
+    if sqsGroup:
+      return self.create_response(request, {
+        'success': True,
+        'objects': [group.__dict__ for group in sqsGroup]
+        })
+    else:
+      return self.create_response(request, {
+        'success': False,
+        'error': "Vous n'appartenez &agrave;  aucun groupe."
         })
 
 

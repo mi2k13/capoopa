@@ -21,6 +21,10 @@ $(document).ready(function(){
     $(this).toggleClass('active');
   })
 
+  $('.toggle').live("click", function(e) {
+    toggleContent(e);
+  });
+
   
 
   if (type) {
@@ -55,8 +59,13 @@ $(document).ready(function(){
         break;
       case 'group' :
         options = {
-          path: 'group/?userID=' + userID,
+          path: 'group/?owner=' + userID,
           template: type + 's',
+          opt: 1
+        };
+        options2 = {
+          path: 'group/getUserChallenges/?userID=' + userID,
+          template: 'my-' + type + 's',
           opt: 1
         };
         break;
@@ -69,6 +78,8 @@ $(document).ready(function(){
         break;
     }
   getData(options, getPageData);
+  if (type == 'group')
+    getData(options2, getPageData);
   }
   
 });
@@ -105,7 +116,11 @@ function getData(options, callback) {
     async: false,
     type: 'GET',
     success: function(data, textStatus, jqXHR) {
-      if (callback)
+
+      if (data && typeof(data.success) != 'undefined' && !data.success)
+        return;
+
+      else if (callback)
         callback(options, data);
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -122,7 +137,8 @@ function getPageData(options, data) {
     loadTemplate(options.template, data);
 
   else if (options.opt == 1)
-    loadTemplate(options.template, filterNull(data.objects));
+    if (data.objects)
+      loadTemplate(options.template, filterNull(data.objects));
 
   else if (options.opt == 2) {
     var pending = sortData(data.objects, 'pending');
@@ -160,18 +176,13 @@ function loadTemplate(templateName, templateInput) {
 };
 
 
-function toggleMenu() {
-  $('.toggle').click(function() {
-      if ($(this).hasClass('toggle-top')) {
-        $(this).removeClass('toggle-top');
-        $(this).addClass('toggle-bottom');
-      }
-      else if ($(this).addClass('toggle-bottom')) {
-        $(this).removeClass('toggle-bottom');
-        $(this).addClass('toggle-top');
-      }
-      $(this).next('.toggle-content').slideToggle('slow');
-    });
+function toggleContent(e) {
+  var elt = $(e.target);
+  if (e.currentTarget.nodeName == 'H1') {
+    elt.toggleClass('toggle-top');
+    elt.toggleClass('toggle-bottom');
+  }
+  elt.next('.toggle-content').slideToggle('slow');
 }
 
 function showItem(id, type) {

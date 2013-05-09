@@ -15,7 +15,7 @@ body {
 
 div, p, textarea, label, input, h1, h2, h3, h4, h5 { font-family: 'Arial', sans-serif; }
 
-h1 .info, h2 .info {margin-left: 20px;}
+h1 .info, h2 .info {margin-left: 10px;}
 
 h1 { 
   color: #f45f47;
@@ -28,7 +28,7 @@ h1 .info {font-size: 18px;}
 
 h2 {
   color: #333;
-  font-size: 18px;
+  font-size: 17px;
   margin-bottom: 5px;
 }
 h2 .info {font-size: 16px;}
@@ -72,7 +72,7 @@ a {
   box-sizing: border-box;
 }
 
-.well {background-color: #fff; border-bottom: 2px solid #eee; font-size: 16px;}
+.well {background-color: #fff; border-bottom: 2px solid #eee; font-size: 15px;}
 .wellLight {background-color: #fcfcfc; text-align: center; font-size: 13px;}
 
 

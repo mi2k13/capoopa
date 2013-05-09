@@ -28,6 +28,9 @@
       Il n'y a pas de membre dans ce groupe !
     {{/if}}
 
+    <button class="button toggle">Ajouter un membre</button>
+    <div class="toggle-content"></div>
+
     <h2>Challenges en cours <span class="info">( {{nbChallenges}} )</span></h2>
     <ul id="group-challenges{{id}}" class="small-list"></ul>
 
@@ -35,7 +38,7 @@
 {{/tpl}}
 
 <script type="text/javascript">
-  getData({path: 'group/getChallenges/?groupID=1'}, function(opt, data){
+  getData({path: 'group/getGroupChallenges/?groupID=1'}, function(opt, data){
     var challenges = data.groups,
         challengesLength = challenges.length;
 
