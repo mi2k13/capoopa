@@ -29,7 +29,7 @@ class UserResource(ModelResource):
     queryset = User.objects.all()
     resource_name = 'user'
     allowed_methods = ['get','post']
-    serializer = Serializer(formats=['xml', 'json'])
+    serializer = Serializer(formats=['json'])
 
     authorization= Authorization()
     always_return_data = True
@@ -100,7 +100,7 @@ class GroupResource(ModelResource):
     queryset = Group.objects.all()
     resource_name = 'group'
     allowed_methods = ['get','post']
-    serializer = Serializer(formats=['xml', 'json'])
+    serializer = Serializer(formats=['json'])
     authorization= Authorization()
     always_return_data = True
     filtering = {
@@ -150,7 +150,7 @@ class ChallengeResource(ModelResource):
     queryset = Challenge.objects.all()
     resource_name = 'challenge'
     allowed_methods = ['get','post','delete']
-    serializer = Serializer(formats=['xml', 'json'])
+    serializer = Serializer(formats=['json'])
     authorization= Authorization()
     always_return_data = True
 
@@ -233,7 +233,7 @@ class AnswerResource(ModelResource):
     queryset = Answer.objects.all()
     resource_name = 'answer'
     allowed_methods = ['get','post','delete']
-    serializer = Serializer(formats=['xml', 'json'])
+    serializer = Serializer(formats=['json'])
     authorization= Authorization()
     always_return_data = True
     filtering = {
@@ -264,11 +264,18 @@ class AnswerResource(ModelResource):
     self.method_check(request, allowed=['get'])
     userID = request.GET['userID']
     user = User.objects.get(id=userID)
-    sqsAnswer = Answer.objects.exclude(userID=user).order_by('?')[:1]
+    sqsAnswer = Answer.objects.exclude(user=user).order_by('?')[:1]
+    print "pute"
+    print sqsAnswer
     if sqsAnswer:
       return self.create_response(request, {
         'success': True,
         'objects': [answer.__dict__ for answer in sqsAnswer]
+        })
+    else:
+      return self.create_response(request, {
+        'success': False,
+        'objects': []
         })
 
 
