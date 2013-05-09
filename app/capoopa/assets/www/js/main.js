@@ -7,6 +7,22 @@ $(document).ready(function(){
   var options,
       type = $('.page').data('type');
 
+
+  $('.open-right').live("click", function(){
+    if (type == 'answer') type = 'challenge';
+    showItem($(this).data("item"), type);
+  });
+
+  $('.back').live("click", function(){
+    hideItem();
+  });
+
+  $('.list-open .item').live("click", function(){
+    $(this).toggleClass('active');
+  })
+
+  
+
   if (type) {
     switch (type) {
       case 'challenge' :
@@ -21,6 +37,13 @@ $(document).ready(function(){
           path: type + '/?userID=' + userID,
           template: type + 's',
           opt: 2
+        };
+        break;
+      case 'rate' :
+        options = {
+          path: 'answer/getRandomAnswer/?userID=' + userID,
+          template: 'rate',
+          opt: 0
         };
         break;
       case 'user' :
@@ -95,6 +118,9 @@ function getData(options, callback) {
 
 // type : 0=none ; 1=objects ; 2=answers
 function getPageData(options, data) {
+  console.log(options);
+  console.log(data);
+
   if (options.opt == 0)
     loadTemplate(options.template, data);
 
@@ -149,6 +175,19 @@ function toggleMenu() {
       }
       $(this).next('.toggle-content').slideToggle('slow');
     });
+}
+
+function showItem(id, type) {
+  getData({
+      path: type + '/' + id,
+      template: type + '-detail',
+      opt: 0
+  }, getPageData);
+
+
+  $('.slide-container').addClass('slide-left');
+  $('.slide-container').removeClass('slide-right');
+  $("html, body").animate({ scrollTop: 0 }, 0);
 }
 
 function hideItem() {

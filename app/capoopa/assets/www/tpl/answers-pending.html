@@ -2,7 +2,7 @@
 <ul class="list toggle-content">
   {{#if tpl}}
   {{#each tpl}}
-  <li data-item="{{ id }}" data-challenge="{{ challenge.id }}" class="{{isPasted challenge.beginning challenge.duration}}" >
+  <li data-item="{{challenge.id}}" class="{{isPasted challenge.beginning challenge.duration}}" >
     <div class="inner-item">
       {{#if challenge.private}}
       <div class="thumb"><img src="img/type/friends.png" alt="" /></div>

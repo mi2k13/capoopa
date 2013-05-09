@@ -33,6 +33,30 @@
         <div class="success"></div>
 
         <ul class="result list"></ul>
+
+
+
+        <h1 class="toggle toggle-top">Créer un groupe</h1>
+      <div class="toggle-content inner-content">
+
+        <form method="post" id="add-group">
+          <label for="title">Nom du groupe</label>
+          <input type="text" name="title" placeholder="Nom du groupe" class="large" />
+
+          <h2>Membres du groupe :</h2>
+          <div class="members"></div>
+
+          <input type="submit" value="Créer" class="button large" />
+
+          <div class="info error"></div>
+          <div class="info success"></div>
+        </form>
+
+      </div>
+
+
+
+
       </div>
     </div>
 
@@ -62,3 +86,9 @@
 <script src="lib/handlebars.js"></script>
 <script src="js/main.js"></script>
 <script src="js/user.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    listFriends('1');
+  });
+</script>

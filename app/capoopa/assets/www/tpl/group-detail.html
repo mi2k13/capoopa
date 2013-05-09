@@ -1,0 +1,34 @@
+{{#tpl}}
+  <h1><span class="open-left small-btn back"></span> {{ title }}</h1>
+  <div class="inner-content">
+
+    <h2>Challenges en cours</h2>
+
+    <h2>Membres du groupe</h2>
+    {{#if members}}
+    <ul class="list list-open">
+      {{#each members}}
+      <li data-item="{{ id }}">
+        <div class="item">
+          {{#if avatar}}
+          <img src="img/user/{{avatar}}.jpg" alt="" class="thumb" />
+          {{else}}
+          <img src="img/user/null.jpg" alt="" class="thumb" />
+          {{/if}}
+          <h2 class="ui-li-heading">{{nickname}}</h2>
+          <p class="ui-li-desc">{{email}}</p>
+        </div>
+        <div class="challenge-actions">
+          <div class="actions">
+            <span class="refuse"></span>
+          </div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+    {{else}}
+      Il n'y a pas de membre dans ce groupe !
+    {{/if}}
+
+  </div>
+{{/tpl}}

@@ -1,16 +1,3 @@
-function showItem(id, type) {
-  getData({
-      path: type + '/' + id,
-      template: type + '-detail',
-      opt: 0
-  }, getPageData);
-
-
-  $('.slide-container').addClass('slide-left');
-  $('.slide-container').removeClass('slide-right');
-  $("html, body").animate({ scrollTop: 0 }, 0);
-}
-
 function listGroups(userID) {
   getData({path:'user/getGroups/?userID=' + userID}, function(options, data){
     var groups = data.groups;

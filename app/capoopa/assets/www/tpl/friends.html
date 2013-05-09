@@ -1,9 +1,9 @@
 <h1>Mes amis</h1>
-<ul class="list">
+<ul class="list list-open">
   {{#if tpl.friends}}
   {{#each tpl.friends}}
   <li data-item="{{ id }}">
-    <div class="inner-item">
+    <div class="item">
       {{#if avatar}}
       <img src="img/user/{{avatar}}.jpg" alt="" class="thumb" />
       {{else}}
@@ -12,10 +12,14 @@
       <h2 class="ui-li-heading">{{nickname}}</h2>
       <p class="ui-li-desc">{{email}}</p>
     </div>
+    <div class="challenge-actions">
+      <div class="actions">
+        <span class="refuse"></span>
+      </div>
+    </div>
   </li>
   {{/each}}
   {{else}}
     <p class="inner-content info">Vous n'avez pas encore d'amis, mais vous pouvez en ajouter.</p>
   {{/if}}
 </ul>
-
