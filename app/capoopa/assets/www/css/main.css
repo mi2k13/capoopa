@@ -31,7 +31,7 @@ h1 .info {
 h2 {
   color: #333;
   font-size: 18px;
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 a {
@@ -104,13 +104,13 @@ a {
 
 .button {
   background-color: #f45f47;
-  padding: 10px;
-  margin-top: 15px;
+  padding: 5px 10px;
+  margin-top: 10px;
   border-color: #C4513E;
   border-style: solid;
   border-width: 0 0 5px 0;
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -176,7 +176,7 @@ a {
   margin: 0 auto;
   padding: 0;
   width: 98%;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .sub-bar .navbar li { 
@@ -232,16 +232,12 @@ a {
 /* actions */
 
 .actions {
-  /*float: right;
-  margin-top: 10px;
-  margin-right: 10px;*/
   position: absolute;
   width: 110px;
 }
 
 .actions span {
-  /*padding: 5px 20px;
-  margin: 0 7px;*/
+
   display: inline-block;
   width: 40px;
   height: 25px;
@@ -335,7 +331,7 @@ legend {
   background-color: #fff;
   margin-bottom: 5px;
   position: relative;
-  height: 60px;
+  height: 57px;
 }
 
 .list-open li { background-color: #eee; }
@@ -387,7 +383,12 @@ legend {
   float: left;
   margin-right: 10px;
   width: 40px;
+  height: 35px;
 }
+
+.list .thumb.over {background-color: gray;}
+.list .thumb.completed {background-color: green;}
+.list .thumb.failed {background-color: red;}
 
 .list .thumb img {
   max-width: 40px;
@@ -448,6 +449,11 @@ legend {
 
 .groups {margin-bottom: 20px;}
 
+
+/* rate */
+
+.answer { width: 100%; }
+.answer img { max-width: 100%; }
 
 /* slider */
 
