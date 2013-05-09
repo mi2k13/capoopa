@@ -118,9 +118,6 @@ function getData(options, callback) {
 
 // type : 0=none ; 1=objects ; 2=answers
 function getPageData(options, data) {
-  console.log(options);
-  console.log(data);
-
   if (options.opt == 0)
     loadTemplate(options.template, data);
 

@@ -2,9 +2,7 @@
   <h1><span class="open-left small-btn back"></span> {{ title }}</h1>
   <div class="inner-content">
 
-    <h2>Challenges en cours</h2>
-
-    <h2>Membres du groupe</h2>
+    <h2>Membres du groupe <span class="info">( {{nbMembers}} )</h2>
     {{#if members}}
     <ul class="list list-open">
       {{#each members}}
@@ -30,5 +28,18 @@
       Il n'y a pas de membre dans ce groupe !
     {{/if}}
 
+    <h2>Challenges en cours <span class="info">( {{nbChallenges}} )</span></h2>
+    <ul id="group-challenges{{id}}" class="small-list"></ul>
+
   </div>
 {{/tpl}}
+
+<script type="text/javascript">
+  getData({path: 'group/getChallenges/?groupID=1'}, function(opt, data){
+    var challenges = data.groups,
+        challengesLength = challenges.length;
+
+    for (var i = 0; i < challengesLength ; ++i)
+      $('#group-challenges1').append('<li>' + challenges[i].title + '</li>');
+  });
+</script>

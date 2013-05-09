@@ -15,6 +15,8 @@ body {
 
 div, p, textarea, label, input, h1, h2, h3, h4, h5 { font-family: 'Arial', sans-serif; }
 
+h1 .info, h2 .info {margin-left: 20px;}
+
 h1 { 
   color: #f45f47;
   padding: 10px;
@@ -22,17 +24,15 @@ h1 {
   font-size: 22px;
   border-bottom: 1px solid #f45f47;
 }
-
-h1 .info {
-  font-size: 18px;
-  margin-left: 20px;
-}
+h1 .info {font-size: 18px;}
 
 h2 {
   color: #333;
   font-size: 18px;
   margin-bottom: 5px;
 }
+h2 .info {font-size: 16px;}
+
 
 a {
   text-decoration: none;
@@ -322,18 +322,20 @@ legend {
 
 /* list */
 
-.list {
+.list, .small-list {
   list-style: none;
   padding: 0;
 }
 
+.list .item, .list li, .small-list li { background-color: #fdfdfd; margin-bottom: 5px; }
+
 .list li {
-  background-color: #fff;
-  margin-bottom: 5px;
   position: relative;
   height: 57px;
+  z-index: 0;
 }
 
+.small-list li { padding: 5px;}
 .list-open li { background-color: #eee; }
 .list-open li .item { border-right: 5px solid #F45F47;}
 
@@ -347,7 +349,6 @@ legend {
 }
 
 .list .item {
-  background-color: #fdfdfd;
   padding: 10px;
   width: 100%;
   z-index: 10;

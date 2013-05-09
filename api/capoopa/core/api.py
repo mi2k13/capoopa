@@ -107,26 +107,10 @@ class GroupResource(ModelResource):
       'owner': ALL_WITH_RELATIONS
     }
 
-  def createGroup(self, request, **kwargs):
-    self.method_check(request, allowed=['post'])
-    data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
-    owner = User.objects.get(id=data.get('owner'))
-    title = data.get('title')
-    members = data.get('members')
-    group = Group(title=title, owner=owner)
-    group.save()
-    for member in members:
-      member = User.objects.get(id=member)
-      group.members.add(member)
-    group.save()
-
-    return self.create_response(request, {
-          'success': True
-          })
-
   def prepend_urls(self):
     return [
-    url(r"^(?P<resource_name>%s)/createGroup%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('createGroup'), name="api_createGroup")
+    url(r"^(?P<resource_name>%s)/createGroup%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('createGroup'), name="api_createGroup"),
+    url(r"^(?P<resource_name>%s)/getChallenges%s$" %(self._meta.resource_name, trailing_slash()),self.wrap_view('getChallenges'), name="api_getChallenges")
    ]
 
   def build_filters(self, filters=None):
@@ -139,7 +123,42 @@ class GroupResource(ModelResource):
 
   def dehydrate(self, bundle):
     bundle.data['members'] = [members.__dict__ for members in bundle.obj.members.all()]
+    bundle.data['nbChallenges'] = Challenge.objects.filter(group=bundle.obj.id).count()
+    bundle.data['nbMembers'] = bundle.data['members'].__len__()
     return bundle
+
+
+  def createGroup(self, request, **kwargs):
+    self.method_check(request, allowed=['post'])
+    data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+    owner = User.objects.get(id=data.get('owner'))
+    title = data.get('title')
+    members = data.get('members')
+    group = Group(title=title, owner=owner)
+    group.save()
+    for member in members:
+      member = User.objects.get(id=member)
+      group.members.add(member)
+    group.save()
+    return self.create_response(request, {
+          'success': True
+          })
+
+  def getChallenges(self, request, **kwargs):
+    self.method_check(request, allowed=['get'])
+    groupID = request.GET['groupID']
+    group = Group.objects.get(id=groupID)
+    sqsChallenge = Challenge.objects.filter(group=group)
+    if sqsChallenge:
+      return self.create_response(request, {
+        'success': True,
+        'groups': [challenge.__dict__ for challenge in sqsChallenge]
+        })
+    else:
+      return self.create_response(request, {
+        'success': False,
+        'groups': []
+        })
 
 
 
@@ -265,8 +284,6 @@ class AnswerResource(ModelResource):
     userID = request.GET['userID']
     user = User.objects.get(id=userID)
     sqsAnswer = Answer.objects.exclude(user=user).order_by('?')[:1]
-    print "pute"
-    print sqsAnswer
     if sqsAnswer:
       return self.create_response(request, {
         'success': True,
