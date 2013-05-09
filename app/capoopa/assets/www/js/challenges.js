@@ -1,6 +1,6 @@
 function listGroups(userID) {
   getData({path:'user/getGroups/?userID=' + userID}, function(options, data){
-    var groups = data.groups;
+    var groups = data.objects;
     if(groups) {
       for (var i = 0, length = groups.length ; i < length ; ++i ) {
         var title = groups[i].title,
