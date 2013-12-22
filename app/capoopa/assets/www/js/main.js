@@ -1,6 +1,7 @@
-//var fullPath = 'http://ssh.alwaysdata.com:11390/api/core/';
+//fullPath = 'http://ssh.alwaysdata.com:11390/api/core/';
 fullPath  = 'http://localhost:8000/api/core/',
-userID    = 1;
+
+userID = localStorage.getItem('user');
 
 $(document).ready(function(){
 
@@ -95,6 +96,7 @@ function postData(path, data) {
     async: false,
     success: function(data) {
       console.log("envoyé!");
+      console.log(data);
       result = data;
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -136,9 +138,10 @@ function getPageData(options, data) {
   if (options.opt == 0)
     loadTemplate(options.template, data);
 
-  else if (options.opt == 1)
+  else if (options.opt == 1) {
     if (data.objects)
       loadTemplate(options.template, filterNull(data.objects));
+  }
 
   else if (options.opt == 2) {
     var pending = sortData(data.objects, 'pending');

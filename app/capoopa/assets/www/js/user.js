@@ -1,5 +1,6 @@
 $(document).ready(function() {
-  userID = 1;
+  
+  userID = localStorage.getItem('user');
 
   $('#signin').submit(function() {
     var email = $('input[name=email]').val();
@@ -7,8 +8,10 @@ $(document).ready(function() {
 
     if (email && password) {
       login(email, password);
-      if (localStorage.getItem('user'))
+      if (localStorage.getItem('user')) {
+        $('.error').text('');
         window.location.replace('challenges.html');
+      }
       else
         $('.error').text('Oops : L\'adresse email et/ou le mot de passe que vous avez indiqués sont incorrects.');
     }
@@ -93,7 +96,7 @@ $(document).ready(function() {
     $('.success').text('');
     var data = JSON.stringify({"search": $('input[name=search]').val()});
 
-    var result = postData('user/search/', data).objects,
+    var result   = postData('user/search/', data).objects,
         resultEl = $('.result');
 
     if(result.length) {
@@ -124,47 +127,42 @@ $(document).ready(function() {
       $('.success').text("Ami ajouté");
   });
 
-  $("#add-group").submit(function() {
+  /*$("#add-group").submit(function(evt) {
+    evt.preventDefault();
+    console.log("ok");
     var members = new Array();
 
     var checked = $("input[type=checkbox]:checked");
     for (var i = 0, length = checked.length ; i < length ; ++i)
       members.push(checked[i].id);
     
-    var data = JSON.stringify({
-      "owner": userID,
-      "title": $('input[name=title]').val(),
-      "members": members
-    });
+    if($('input[name=title]').val() && members.length > 0) {
+      var data = JSON.stringify({
+        "owner": userID,
+        "title": $('input[name=title]').val(),
+        "members": members
+      });
 
-    postData('group/createGroup/', data);
-    $('.success').text('Votre groupe d\'amis a bien été créé!');
+      postData('group/createGroup/', data);
+      //location.reload();
+    }
+    else
+      $('.error').text('Vous n\'avez pas indiqué toutes les informations nécessaires.');
 
     return false;
-  });
+  });*/
 
 });
 
 function login(email, pass) {
-  $.ajax({
-    //url: 'http://localhost:8000/api/core/user/?email=' + email,
-    url: 'http://ssh.alwaysdata.com:11390/api/core/user/?email=' + email,
-
-    contentType: 'application/json',
-    dataType: 'jsonp',
-    cache: false,
-    processData: false,
-    async: false,
-    type: 'GET',
-    success: function(data, textStatus, jqXHR) {
-      if (data.objects && data.objects[0] && data.objects[0] && pass == data.objects[0].password){
+  getData({path: 'user/?email=' + email}, function(opt, data){
+    if (data.objects && data.objects[0] && data.objects[0] && pass == data.objects[0].password){
         console.log(data.objects[0].id);
-        localStorage.setItem('user', 1);
-        //localStorage.setItem('user', data.objects[0].id);
+        //localStorage.setItem('user', 1);
+        localStorage.setItem('user', data.objects[0].id);
       }
       else
         console.log("pas connecté!");
-    }
   });
 }
 

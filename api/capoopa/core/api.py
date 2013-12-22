@@ -71,7 +71,7 @@ class UserResource(ModelResource):
     self.method_check(request, allowed=['get'])
     userID = request.GET['userID']
     user = User.objects.get(id=userID)
-    sqsGroup = Group.objects.filter(owner=user)
+    sqsGroup = Group.objects.filter(owner=user).order_by('title');
     if sqsGroup:
       return self.create_response(request, {
         'success': True,
@@ -149,7 +149,7 @@ class GroupResource(ModelResource):
     self.method_check(request, allowed=['get'])
     groupID = request.GET['groupID']
     group = Group.objects.get(id=groupID)
-    sqsChallenge = Challenge.objects.filter(group=group)
+    sqsChallenge = Challenge.objects.filter(group=group).order_by('-beginning', '-duration')
     if sqsChallenge:
       return self.create_response(request, {
         'success': True,
@@ -250,6 +250,7 @@ class ChallengeResource(ModelResource):
 
     else:
       sqsChallenge = Challenge.objects.all()
+      challenges = [challenge.__dict__ for challenge in sqsChallenge]
       if sqsChallenge:
         return self.create_response(request, {
           'success': True,
@@ -272,6 +273,7 @@ class AnswerResource(ModelResource):
     serializer = Serializer(formats=['json'])
     authorization= Authorization()
     always_return_data = True
+    ordering = ['beginning']
     filtering = {
       'userID': ALL
     }

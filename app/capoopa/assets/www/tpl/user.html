@@ -2,12 +2,12 @@
 <div class="top-content">
 
   <div class="profile">
-    <div class="right edit edit-profile">éditer</div>
+    <button class="right secondary-button edit-profile">éditer</button>
     <div class="avatar">
       {{#if avatar}}
       <img src="img/user/{{ avatar }}.jpg" alt="" / >
       {{else}}
-      <img src="img/user/null.jpg" alt="" / >
+      <img src="img/user/radcliffe.jpg" alt="" / >
       {{/if}}
     </div>
     <div class="name">{{ nickname }}</div>
@@ -49,8 +49,8 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    var userID = getUserID();
-
+    userID = localStorage.getItem('user');
+    
     $('.edit-profile').click( function(){
        editItem(userID, 'user');
     });

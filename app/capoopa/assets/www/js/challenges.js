@@ -72,7 +72,7 @@ Handlebars.registerHelper('isPasted', function(start, duration) {
   if (start - current < 0 && end - current > 0)
     return 'open-right';
   else if (end - current < 0)
-      return 'over';
+      return 'closed';
 
   return '';
 });
