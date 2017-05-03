@@ -8,7 +8,7 @@ const ChallengesNav = StackNavigator({
     screen: ChallengesScreen,
     path: '/',
     navigationOptions: {
-      title: 'Challenges',
+      title: 'Défis',
     },
   },
   Challenge: {

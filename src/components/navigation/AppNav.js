@@ -3,6 +3,8 @@ import { TabNavigator } from 'react-navigation';
 import ChallengesNav from './../navigation/ChallengesNav';
 import FriendsScreen from './../screens/FriendsScreen';
 import ProfileScreen from './../screens/ProfileScreen';
+//
+import Colors from './../../static/style/Colors';
 
 const AppNav = TabNavigator({
   Challenges: {
@@ -27,9 +29,25 @@ const AppNav = TabNavigator({
     },
   },
 }, {
-  tabBarPosition: 'top',
+  tabBarPosition: 'bottom',
   animationEnabled: false,
   swipeEnabled: false,
+  tabBarOptions: {
+    activeTintColor: Colors.brand,
+    inactiveTintColor: '#333333',
+    labelStyle: {
+      fontSize: 12,
+    },
+    indicatorStyle: {
+      borderBottomColor: Colors.brand,
+      borderBottomWidth: 1,
+    },
+    style: {
+      backgroundColor: '#FFFFFF',
+      borderTopColor: Colors.silver,
+      borderTopWidth: 1,
+    },
+  },
 });
 
 export default AppNav;
