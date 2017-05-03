@@ -1,12 +1,7 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
 //
-import ChallengesScreen from './src/components/screens/ChallengesScreen';
-import ChallengeScreen from './src/components/screens/ChallengeScreen';
+import AppNav from './src/components/navigation/AppNav';
 
-const App = StackNavigator({
-  Main: {screen: ChallengesScreen},
-  Challenge: {screen: ChallengeScreen},
-});
+const App = AppNav;
 
 export default App;
