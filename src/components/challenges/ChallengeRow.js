@@ -5,23 +5,26 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+//
 import Colors from '../../static/style/Colors';
+import Layout from '../../static/style/Layout';
+import Typography from '../../static/style/Typography';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    padding: Layout.gapSmall,
     borderTopColor: Colors.alto,
     borderTopWidth: 1,
   },
   title: {
-    fontSize: 17,
+    fontSize: Typography.medium,
     fontWeight: 'bold',
   },
   subtitle: {
-    fontSize: 11,
+    fontSize: Typography.small,
     color: Colors.dustyGray,
   },
 });
