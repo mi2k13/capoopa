@@ -26,6 +26,33 @@ export const CHALLENGES = [
     title: 'Dance dance dance !',
     summary: 'Crée la meilleure pose digne de Fauve Hautot avec ton chat. Ou celui de la voisine.',
   },
+  {
+    id: 4,
+    authorId: 2,
+    type: 1,
+    dateStart: '11/04/2017',
+    dateEnd: '21/09/2017',
+    title: 'Georges',
+    summary: 'Balance toi sur une liane et fonce dans un tronc (attention à ne pas te faire mal ;))',
+  },
+  {
+    id: 5,
+    authorId: 3,
+    type: 1,
+    dateStart: '05/04/2017',
+    dateEnd: '01/01/2018',
+    title: 'Say my name',
+    summary: 'Deviens le meilleur Walter White',
+  },
+  {
+    id: 6,
+    authorId: 2,
+    type: 2,
+    dateStart: '01/02/2017',
+    dateEnd: '01/03/2017',
+    title: 'Banana',
+    summary: 'Crée la meilleure équipe de Minions',
+  },
 ];
 
 export const USERS = [
