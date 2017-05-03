@@ -1,3 +1,4 @@
 /node_modules
 .expo
 .gitattributes
+.DS_Store
