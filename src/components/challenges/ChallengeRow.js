@@ -1,5 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import Colors from '../../static/style/Colors';
 
 const styles = StyleSheet.create({
@@ -21,27 +26,30 @@ const styles = StyleSheet.create({
   },
 });
 
-const ChallengeRow = ({ data }) => (
-  <View style={styles.container}>
-    <View style={{
-      backgroundColor: data.type === 1 ? 'red' : 'blue',
-      marginRight: 10,
-      height: 30,
-      width: 30,
-    }} />
-    <View>
-      <Text numberOfLines={2} style={styles.title}>
-        {data.title}
-      </Text>
-      <Text style={styles.subtitle}>
-        Du {data.dateStart} au {data.dateEnd}
-      </Text>
+const ChallengeRow = ({ data, navigation }) => (
+  <TouchableHighlight onPress={() => navigation.navigate('Challenge', { data: data }) }>
+    <View style={styles.container}>
+      <View style={{
+        backgroundColor: data.type === 1 ? 'red' : 'blue',
+        marginRight: 10,
+        height: 30,
+        width: 30,
+      }} />
+      <View>
+        <Text numberOfLines={2} style={styles.title}>
+          {data.title}
+        </Text>
+        <Text style={styles.subtitle}>
+          Du {data.dateStart} au {data.dateEnd}
+        </Text>
+      </View>
     </View>
-  </View>
+  </TouchableHighlight>
 );
 
 ChallengeRow.propTypes = {
   data: React.PropTypes.object,
+  navigation: React.PropTypes.object,
 };
 
 export default ChallengeRow;

@@ -1,10 +1,12 @@
 import React from 'react';
-import ChallengesScene from './src/components/scenes/ChallengesScene';
+import { StackNavigator } from 'react-navigation';
+//
+import ChallengesScreen from './src/components/screens/ChallengesScreen';
+import ChallengeScreen from './src/components/screens/ChallengeScreen';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <ChallengesScene />
-    );
-  }
-}
+const App = StackNavigator({
+  Main: {screen: ChallengesScreen},
+  Challenge: {screen: ChallengeScreen},
+});
+
+export default App;
