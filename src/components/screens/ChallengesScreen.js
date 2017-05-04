@@ -7,6 +7,8 @@ import {
 //
 import { CHALLENGES, USERS } from '../../fakeData';
 //
+import { isNotOver } from './../../utils/date';
+//
 import ChallengeRow from '../challenges/ChallengeRow';
 
 
@@ -26,7 +28,7 @@ class ChallengesScreen extends React.Component {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(CHALLENGES),
+      dataSource: ds.cloneWithRows(CHALLENGES.filter(challenge => isNotOver(challenge.dateEnd))),
     };
   }
 

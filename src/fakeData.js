@@ -103,7 +103,7 @@ export const CHALLENGES = [
     authorId: 2,
     type: 2,
     dateStart: '01/02/2017',
-    dateEnd: '01/03/2017',
+    dateEnd: '01/03/2019',
     title: 'Citrons et pommes de pin',
     summary: 'Crée la meilleure équipe de Minions',
   },
