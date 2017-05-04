@@ -2,6 +2,9 @@ import { StackNavigator } from 'react-navigation';
 //
 import ChallengeScreen from './../screens/ChallengeScreen';
 import ChallengesScreen from './../screens/ChallengesScreen';
+//
+import { HEADER_STYLE, HEADER_TITLE_STYLE } from './../../static/style/header';
+
 
 const ChallengesNav = StackNavigator({
   Home: {
@@ -9,6 +12,8 @@ const ChallengesNav = StackNavigator({
     path: '/',
     navigationOptions: {
       title: 'Défis',
+      headerStyle: HEADER_STYLE,
+      headerTitleStyle: HEADER_TITLE_STYLE,
     },
   },
   Challenge: {
