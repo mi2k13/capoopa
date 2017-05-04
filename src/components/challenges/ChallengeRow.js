@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 //
+import Icon from '../UI/Icon';
+//
 import Colors from '../../static/style/Colors';
 import Layout from '../../static/style/Layout';
 import Typography from '../../static/style/Typography';
@@ -32,12 +34,22 @@ const styles = StyleSheet.create({
 const ChallengeRow = ({ data, navigation }) => (
   <TouchableHighlight onPress={() => navigation.navigate('Challenge', { data: data }) }>
     <View style={styles.container}>
-      <View style={{
-        backgroundColor: data.type === 1 ? 'red' : 'blue',
-        marginRight: 10,
-        height: 30,
-        width: 30,
-      }} />
+      {data.type === 1 ?
+        <Icon
+          name="medal"
+          height={32}
+          viewBox="0 0 24 24"
+          width={32}
+          style={{ marginRight: Layout.gapSmall }}
+        /> :
+        <Icon
+          name="timer"
+          width={32}
+          height={32}
+          viewBox="0 0 24 24"
+          style={{ marginRight: Layout.gapSmall }}
+        />
+      }
       <View>
         <Text numberOfLines={2} style={styles.title}>
           {data.title}
