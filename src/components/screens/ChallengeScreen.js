@@ -5,6 +5,8 @@ import {
   View,
 } from 'react-native';
 //
+import { renderRemainingDays } from './../../utils/date';
+//
 import Colors from '../../static/style/Colors';
 import Layout from '../../static/style/Layout';
 import Typography from '../../static/style/Typography';
@@ -40,25 +42,6 @@ class ChallengeScreen extends React.Component {
     }
   }
 
-  parseDate(date) {
-    var mdy = date.split('/');
-    return new Date(mdy[2], mdy[1], mdy[0]-1);
-  }
-
-  renderRemainingDays(end) {
-    var now = '03/05/2017';
-    var oneDay = 1000*60*60*24;
-    var remainingDays = Math.round((this.parseDate(end) - this.parseDate(now)) / oneDay);
-
-    if (remainingDays <= 0) {
-      return 'Défi terminé';
-    } else if (remainingDays === 1) {
-      return '1 jour restant';
-    }
-    return `${remainingDays} jours restants`;
-  }
-
-
   render() {
     const { data } = this.props.navigation.state.params;
     return (
@@ -67,7 +50,7 @@ class ChallengeScreen extends React.Component {
           {data.summary}
         </Text>
         <Text style={styles.subtitle}>
-          {this.renderType(data.type)} · {this.renderRemainingDays(data.dateEnd)}
+          {this.renderType(data.type)} · {renderRemainingDays(data.dateEnd)}
         </Text>
       </View>
     );

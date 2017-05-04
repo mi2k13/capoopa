@@ -109,30 +109,30 @@ export const CHALLENGES = [
   },
 ];
 
-export const USERS = [
-  {
+export const USERS = {
+  1: {
     id: 1,
     username: 'missimac',
     score: 14,
   },
-  {
+  2: {
     id: 2,
     username: 'Teapot',
     score: 350,
   },
-  {
+  3: {
     id: 3,
     username: 'Hector',
     score: 4,
   },
-  {
+  4: {
     id: 4,
     username: 'frisette',
     score: 41,
   },
-  {
+  5: {
     id: 5,
     username: 'Schlomo',
     score: 1,
   },
-];
+};

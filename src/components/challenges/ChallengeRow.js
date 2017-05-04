@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 //
+import { renderRemainingDays } from './../../utils/date';
+//
 import Icon from '../UI/Icon';
 //
 import Colors from '../../static/style/Colors';
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ChallengeRow = ({ data, navigation }) => (
+const ChallengeRow = ({ author, data, navigation }) => (
   <TouchableHighlight onPress={() => navigation.navigate('Challenge', { data: data }) }>
     <View style={styles.container}>
       {data.type === 1 ?
@@ -55,7 +57,7 @@ const ChallengeRow = ({ data, navigation }) => (
           {data.title}
         </Text>
         <Text style={styles.subtitle}>
-          Du {data.dateStart} au {data.dateEnd}
+          Par {author.username} · {renderRemainingDays(data.dateEnd)}
         </Text>
       </View>
     </View>
@@ -63,6 +65,7 @@ const ChallengeRow = ({ data, navigation }) => (
 );
 
 ChallengeRow.propTypes = {
+  author: React.PropTypes.object,
   data: React.PropTypes.object,
   navigation: React.PropTypes.object,
 };

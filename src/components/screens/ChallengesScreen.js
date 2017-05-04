@@ -5,7 +5,7 @@ import {
   View,
 } from 'react-native';
 //
-import { CHALLENGES } from '../../fakeData';
+import { CHALLENGES, USERS } from '../../fakeData';
 //
 import ChallengeRow from '../challenges/ChallengeRow';
 
@@ -36,7 +36,13 @@ class ChallengesScreen extends React.Component {
       <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <ChallengeRow data={rowData} navigation={navigation}/>}
+          renderRow={(rowData) => (
+            <ChallengeRow
+              author={USERS[rowData.authorId]}
+              data={rowData}
+              navigation={navigation}
+            />
+          )}
         />
       </View>
     );
